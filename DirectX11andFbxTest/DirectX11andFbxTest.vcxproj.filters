@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{8d995a70-a087-4d84-b25a-169546902f4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Fbx">
+      <UniqueIdentifier>{ce08ea00-fc55-4397-aae0-7509be66641e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{23c80d7d-d984-457d-a897-1afcab1da6da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\ShaderSrc">
+      <UniqueIdentifier>{34017541-883a-49fe-ac6c-ebdc38c9da36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Block">
+      <UniqueIdentifier>{55e3e8b7-aece-4047-b957-a2cc325e1f88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Collision">
+      <UniqueIdentifier>{acacb1af-5ddf-4957-ac4e-56455c72f91b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\System\DirectGraphics.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\System\Window.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\System\Fbx\FbxMeshFile.h">
+      <Filter>System\Fbx</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Utility\Utility.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\System\WICTextureLoader.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\System\DirectInput.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Camera.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Player.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Utility\Calculation.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\System\Fbx\FbxController.h">
+      <Filter>System\Fbx</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Floor.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\ObjectBase.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\System\ShaderSrc\PixelShader.h">
+      <Filter>System\ShaderSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\System\ShaderSrc\ShaderBase.h">
+      <Filter>System\ShaderSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\System\ShaderSrc\ShaderManager.h">
+      <Filter>System\ShaderSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\SkyDome.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Block\BlockController.h">
+      <Filter>Object\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Block\RectBlock.h">
+      <Filter>Object\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Block\CircleBlock.h">
+      <Filter>Object\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Utility\Collision\Collision.h">
+      <Filter>Utility\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Utility\Collision\ObjectCollision.h">
+      <Filter>Utility\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\System\ShaderSrc\VertexShader.h">
+      <Filter>System\ShaderSrc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\Main.cpp" />
+    <ClCompile Include="Src\System\Window.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\System\Fbx\FbxMeshFile.cpp">
+      <Filter>System\Fbx</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Utility\Utility.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\System\WICTextureLoader.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\System\DirectInput.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Camera.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Player.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Utility\Calculation.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\System\Fbx\FbxController.cpp">
+      <Filter>System\Fbx</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Floor.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\System\DirectGraphics.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\System\ShaderSrc\PixelShader.cpp">
+      <Filter>System\ShaderSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\System\ShaderSrc\ShaderBase.cpp">
+      <Filter>System\ShaderSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\System\ShaderSrc\VertexShader.cpp">
+      <Filter>System\ShaderSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\System\ShaderSrc\ShaderManager.cpp">
+      <Filter>System\ShaderSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\SkyDome.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Block\BlockController.cpp">
+      <Filter>Object\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Block\CircleBlock.cpp">
+      <Filter>Object\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Block\RectBlock.cpp">
+      <Filter>Object\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Utility\Collision\ObjectCollision.cpp">
+      <Filter>Utility\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Utility\Collision\Collision.cpp">
+      <Filter>Utility\Collision</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Src\Shader\SkinVertexShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\TexPixelShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\StaticVertexShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\ShadowStaticVertexShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\ShadowSkinVertexShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\ShadowPixelShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
