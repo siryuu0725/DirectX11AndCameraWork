@@ -106,7 +106,7 @@ bool Inputter::CreateInputInterface()
 bool Inputter::CreateMouseDevice()
 {
 	//マウス用にデバイスオブジェクトを作成
-	if (FAILED(Ip_interface->CreateDevice(GUID_SysMouse, &m_mouse_device, NULL)))
+	if (FAILED(Ip_interface->CreateDevice(GUID_SysMouse, &m_mouse_device, nullptr)))
 	{
 		//デバイスの作成に失敗
 		return false;

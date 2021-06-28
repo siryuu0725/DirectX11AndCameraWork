@@ -69,7 +69,7 @@ bool DirectGraphics::Init()
 	ZeroMemory(&rasterizerDesc, sizeof(D3D11_RASTERIZER_DESC));
 	rasterizerDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
 	rasterizerDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
-	rasterizerDesc.FrontCounterClockwise = TRUE;
+	rasterizerDesc.FrontCounterClockwise = true;
 	if (FAILED(m_Device->CreateRasterizerState(&rasterizerDesc, &state)))
 	{
 		return false;
@@ -116,7 +116,7 @@ bool DirectGraphics::CreateRenderTargetView()
 	}
 
 	// BufferからRenderTargetViewの作成
-	if (FAILED(m_Device->CreateRenderTargetView(back_buffer, NULL, &m_RenderTargetView)))
+	if (FAILED(m_Device->CreateRenderTargetView(back_buffer, nullptr, &m_RenderTargetView)))
 	{
 		return false;
 	}
@@ -147,7 +147,7 @@ bool DirectGraphics::CreateShadowView()
 	renderTextureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
 	renderTextureDesc.CPUAccessFlags = 0;
 
-	if (FAILED(m_Device->CreateTexture2D(&renderTextureDesc, NULL, &m_ShadowTexture)))
+	if (FAILED(m_Device->CreateTexture2D(&renderTextureDesc, nullptr, &m_ShadowTexture)))
 	{
 		return false;
 	}
@@ -177,12 +177,12 @@ bool DirectGraphics::CreateShadowView()
 	renderTextureDesc.Format = DXGI_FORMAT_D32_FLOAT;
 	renderTextureDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 
-	if (FAILED(m_Device->CreateTexture2D(&renderTextureDesc, NULL, &m_ShadowDepthStencilTexture)))
+	if (FAILED(m_Device->CreateTexture2D(&renderTextureDesc, nullptr, &m_ShadowDepthStencilTexture)))
 	{
 		return false;
 	}
 
-	if (FAILED(m_Device->CreateDepthStencilView(m_ShadowDepthStencilTexture, NULL, &m_ShadowDepthStencilView)))
+	if (FAILED(m_Device->CreateDepthStencilView(m_ShadowDepthStencilTexture, nullptr, &m_ShadowDepthStencilView)))
 	{
 		return false;
 	}
@@ -247,7 +247,7 @@ bool DirectGraphics::CreateDepthAndStencilView()
 	texture_desc.MiscFlags = 0;
 
 	// texture_descの情報でテクスチャを作成
-	if (FAILED(m_Device->CreateTexture2D(&texture_desc, NULL, &m_DepthStencilTexture)))
+	if (FAILED(m_Device->CreateTexture2D(&texture_desc, nullptr, &m_DepthStencilTexture)))
 	{
 		return false;
 	}
@@ -331,11 +331,11 @@ bool DirectGraphics::CreateConstantBuffer()
 //RenderTargetBlend設定関数
 void DirectGraphics::SetUpRenderState()
 {
-	ID3D11BlendState* pBlendState = NULL;
+	ID3D11BlendState* pBlendState = nullptr;
 	ZeroMemory(&BlendDesc, sizeof(BlendDesc));
-	BlendDesc.AlphaToCoverageEnable = FALSE;
-	BlendDesc.IndependentBlendEnable = FALSE;
-	BlendDesc.RenderTarget[0].BlendEnable = TRUE;
+	BlendDesc.AlphaToCoverageEnable = false;
+	BlendDesc.IndependentBlendEnable = false;
+	BlendDesc.RenderTarget[0].BlendEnable = true;
 	BlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
 	BlendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 	BlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;

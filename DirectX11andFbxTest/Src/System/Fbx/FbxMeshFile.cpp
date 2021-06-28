@@ -320,7 +320,7 @@ void FbxMeshFile::Render(DirectX::XMMATRIX world_matrix_, DrawType draw_type_)
 		SetMaterialColor(DirectGraphics::Instance(), m_Materials[mesh.m_MaterialName]);
 
 		// コンスタントバッファ更新
-		DirectGraphics::Instance()->GetContext()->UpdateSubresource(DirectGraphics::Instance()->GetConstantBuffer(), 0, NULL, DirectGraphics::Instance()->GetConstantBufferData(), 0, 0);
+		DirectGraphics::Instance()->GetContext()->UpdateSubresource(DirectGraphics::Instance()->GetConstantBuffer(), 0, nullptr, DirectGraphics::Instance()->GetConstantBufferData(), 0, 0);
 
 		ID3D11Buffer* constant_buffer = DirectGraphics::Instance()->GetConstantBuffer();
 		// コンテキストにコンスタントバッファを設定

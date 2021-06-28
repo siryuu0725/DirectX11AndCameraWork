@@ -28,8 +28,8 @@ bool Window::MakeWindow(const char* title_, unsigned int width_, unsigned int he
 		0,								//補助メモリ
 		0,								//補助メモリ
 		GetModuleHandle(nullptr),		//このプログラムのインスタンスハンドル
-		LoadIcon(NULL, IDI_APPLICATION),//アイコン画像
-		LoadCursor(NULL, IDC_ARROW),	//カーソル画像
+		LoadIcon(nullptr, IDI_APPLICATION),//アイコン画像
+		LoadCursor(nullptr, IDC_ARROW),	//カーソル画像
 		nullptr,						//背景ブラシ(背景色)
 		nullptr,						//メニュー名
 		Window::ClassName,				//クラス名									
