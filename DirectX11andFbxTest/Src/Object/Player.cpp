@@ -104,7 +104,7 @@ void Player::Move()
 		RoteDirection(m_right_vec);
 	}
 
-	if (player_info.m_speed > 0.0f)
+	if (player_info.m_speed > StopSpeed)
 	{
 		//動かしたいAnimationのキー設定
 		FbxController::Instance()->SetAnimationName(player_info.m_key, "Run");
@@ -155,21 +155,21 @@ Vector3 Player::SphericalInterpolation(Vector3 start_, Vector3 end_, float t_)
 	{
 		return end_;
 	}
-	else if (Degree(angle) == 180.0f)
+	else if (Degree(angle) == MaxAngle)
 	{
-		angle -= 0.01f;
+		angle -= AddRoteAngle;
 
 		std::random_device rnd;
 
 		if (rnd() % 2 == 0)
 		{
-			e.x += 0.01f;
-			e.z += 0.01f;
+			e.x += AddRoteAngle;
+			e.z += AddRoteAngle;
 		}
 		else
 		{
-			e.x -= 0.01f;
-			e.z -= 0.01f;
+			e.x -= AddRoteAngle;
+			e.z -= AddRoteAngle;
 		}
 	}
 

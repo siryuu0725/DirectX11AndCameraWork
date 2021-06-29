@@ -12,6 +12,10 @@
 #include "../Utility/Utility.h"
 #include "ShaderSrc/ShaderManager.h"
 
+constexpr float LightViewWight = 300.0f;  //ライトから見た時のViewの横幅
+constexpr float LightViewHeight = 300.0f; //ライトから見た時のViewの縦幅
+
+
 struct ConstantBuffer
 {
 	DirectX::XMFLOAT4X4 World;

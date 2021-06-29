@@ -9,6 +9,9 @@
 #include "Camera.h"
 
 constexpr float PlayerRoteTime = 0.3f; //球面線形補間に使う媒介変数
+constexpr float MaxAngle = 180.0; //球面線形補間で使用する最大角
+constexpr float AddRoteAngle = 0.01f; //球面線形補間で使用する
+constexpr float StopSpeed = 0.0f; //停止時の速度
 
 class Player :public ObjectBase
 {

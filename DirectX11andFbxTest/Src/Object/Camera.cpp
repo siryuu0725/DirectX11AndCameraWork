@@ -326,14 +326,14 @@ void Camera::RotEyePos()
 
 		Calculation::ThreeNormalization(m_camerainfo.m_zik_vec);
 
-		if (m_camerainfo.m_rote_angle <= 80.0f)
+		if (m_camerainfo.m_rote_angle <= MaxCameraRote_Y)
 		{
 			//座標回転
 			m_camerainfo.m_pos = Calculation::RodriguesRotation(m_camerainfo.m_pos, m_camerainfo.m_player_pos, m_camerainfo.m_zik_vec, Radian(m_camerainfo.m_yaw));
 		}
 		else
 		{
-			m_camerainfo.m_rote_angle = 80.0f;
+			m_camerainfo.m_rote_angle = MaxCameraRote_Y;
 		}
 	}
 	//下回転
@@ -347,18 +347,18 @@ void Camera::RotEyePos()
 		Calculation::ThreeNormalization(m_camerainfo.m_zik_vec);
 
 		//座標回転
-		if (m_camerainfo.m_rote_angle >= -80.0f)
+		if (m_camerainfo.m_rote_angle >= -MaxCameraRote_Y)
 		{
 			m_camerainfo.m_pos = Calculation::RodriguesRotation(m_camerainfo.m_pos, m_camerainfo.m_player_pos, m_camerainfo.m_zik_vec, Radian(m_camerainfo.m_yaw));
 		}
 		else
 		{
-			m_camerainfo.m_rote_angle = -80.0f;
+			m_camerainfo.m_rote_angle = -MaxCameraRote_Y;
 		}
 	}
 
 	//地面に埋まっているとき
-	if (m_camerainfo.m_pos.y < 0.0f)
+	if (m_camerainfo.m_pos.y < MinCameraPos_Y)
 	{
 		Difference();
 	}
@@ -375,7 +375,7 @@ void Camera::Difference()
 
 	//交点算出
 	out.x = m_camerainfo.m_forward.x + (Vec.x * hiritu);
-	out.y = m_camerainfo.m_forward.y + (Vec.y * hiritu) + 1.0f;
+	out.y = m_camerainfo.m_forward.y + (Vec.y * hiritu) + CameraUpPos;
 	out.z = m_camerainfo.m_forward.z + (Vec.z * hiritu);
 
 	//最終押し出す量

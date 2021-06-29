@@ -416,7 +416,7 @@ void DirectGraphics::SetLight()
 	float    nearZ = 0.1f;
 	float    farZ = 2000.0f;
 	//DirectX::XMMATRIX proj_matrix = DirectX::XMMatrixPerspectiveFovLH(fov, aspect, nearZ, farZ);
-	DirectX::XMMATRIX proj_matrix = DirectX::XMMatrixOrthographicLH(300.0f, 300.0f, nearZ, farZ);
+	DirectX::XMMATRIX proj_matrix = DirectX::XMMatrixOrthographicLH(LightViewWight, LightViewHeight, nearZ, farZ);
 
 	// コンスタントバッファの設定
 	DirectX::XMStoreFloat4x4(&DirectGraphics::Instance()->GetConstantBufferData()->LightProjection, XMMatrixTranspose(proj_matrix));

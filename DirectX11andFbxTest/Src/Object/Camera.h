@@ -14,6 +14,9 @@ constexpr float Near = 1.1f;
 constexpr float Far = 20000000.0f;
 constexpr unsigned __int8 CameraSensitivity = 50;  //!カメラ感度
 constexpr float CameraRoteTime = 0.2f; //球面線形補間に使う媒介変数
+constexpr float MaxCameraRote_Y = 80.0f; //縦回転の限界値
+constexpr float MinCameraPos_Y = 0.0f;   //カメラが地面から押し出される位置
+constexpr float CameraUpPos = 1.0f;   //地面の裏側が見えないように余分に押し出す値
 
 class Camera :public ObjectBase
 {
