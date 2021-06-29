@@ -4,6 +4,7 @@ const char* Window::ClassName = "DX11PracticeWindow";
 Vector2 window_size;
 Vector2 GetWindowSize() { return window_size; }
 
+//ウィンドウプロシージャ
 LRESULT CALLBACK Window::WindowProc(HWND window_handle, UINT message_id, WPARAM wparam, LPARAM lparam)
 {
 	switch (message_id)
@@ -19,6 +20,7 @@ LRESULT CALLBACK Window::WindowProc(HWND window_handle, UINT message_id, WPARAM 
 	return 0;
 }
 
+//ウィンドウ生成関数
 bool Window::MakeWindow(const char* title_, unsigned int width_, unsigned int height_)
 {
 	WNDCLASSEX window_class = {

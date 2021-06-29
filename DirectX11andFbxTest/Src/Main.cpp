@@ -87,16 +87,19 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 			//入力クラス更新
 			Inputter::Instance()->UpdateInput();
 
+			//オブジェクト更新
 			player->Update();
 			block->Update();
 			camera->Update();
 
+			//影描画開始
 			DirectGraphics::Instance()->ShadowStartRendering();
 			DirectGraphics::Instance()->SetUpShadowRnderTaget();
 
 			block->ShadowDraw();
 			player->ShadowDraw();
 
+			//メイン描画開始
 			DirectGraphics::Instance()->StartRendering();
 			DirectGraphics::Instance()->SetUpRnderTaget();
 
@@ -106,6 +109,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 			player->Draw();
 
+			//描画終了
 			DirectGraphics::Instance()->FinishRendering();
 
 			if (Inputter::Instance()->GetKeyDown(Inputter::ESCKey))

@@ -18,10 +18,11 @@ public:
 		//!初期化
 		PlayerInfo() :
 			m_old_pos(Vector3(0.0f, 0.0f, 0.0f)),
+			m_camera_dir(Vector3(0.0f, 0.0f, 0.0f)),
 			m_speed(0.0f)
 		{}
 
-		Vector3 m_camera_dir;   //!方向ベクトル
+		Vector3 m_camera_dir;   //!カメラ方向ベクトル
 	
 		Vector3 m_old_pos; //!更新前座標
 		float m_speed;     //!移動スピード

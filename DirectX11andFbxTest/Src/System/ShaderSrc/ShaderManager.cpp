@@ -10,6 +10,7 @@ ShaderManager* ShaderManager::Instance()
 	return mp_instance;
 }
 
+//シェーダ作成関数
 bool ShaderManager::CreateShader()
 {
 	for (__int8 i = 0; i < (__int8)VertexShaderType::VertexMaxNum; i++)
@@ -64,6 +65,7 @@ bool ShaderManager::CreateShader()
 	return true;
 }
 
+//シェーダセット関数
 void ShaderManager::SetUpShader(VertexShaderType type_, PixelShaderType pixel_type_)
 {
 	//VerteXShader、PixelShaderを設定
@@ -71,6 +73,7 @@ void ShaderManager::SetUpShader(VertexShaderType type_, PixelShaderType pixel_ty
 	DirectGraphics::Instance()->GetContext()->PSSetShader(m_PixelShader[(__int8)pixel_type_]->GetShaderInterface(), nullptr, 0);
 }
 
+//シェーダ解放関数
 void ShaderManager::Release()
 {
 	/*for (auto itr = m_VertexShader.begin(); itr != m_VertexShader.end(); ++itr)

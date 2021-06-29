@@ -25,7 +25,19 @@ public:
 			m_eye_vec(DirectX::XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f)),
 			m_camera_up_vec(DirectX::XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f)),
 			m_forward_vec(DirectX::XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f)),
-			mat_view(DirectX::XMMatrixIdentity())
+			mat_view(DirectX::XMMatrixIdentity()),
+			m_camera_up(Vector3(0.0f, 0.0f, 0.0f)),
+			m_forward(Vector3(0.0f, 0.0f, 0.0f)),
+			m_move_vec(Vector3(0.0f, 0.0f, 0.0f)),
+			m_player_pos(Vector3(0.0f, 0.0f, 0.0f)),
+			m_zik_vec(Vector3(0.0f, 0.0f, 0.0f)),
+			m_intersection(Vector3(0.0f, 0.0f, 0.0f)),
+			m_p1(Vector3(0.0f, 0.0f, 0.0f)),
+			m_p2(Vector3(0.0f, 0.0f, 0.0f)),
+			leap_vec(Vector3(0.0f, 0.0f, 0.0f)),
+			m_yaw(0.0f),
+			m_rote_speed(0.0f),
+			m_rote_angle(0.0f)
 		{
 		}
 		DirectX::XMMATRIX world_matrix;  //!ワールド行列

@@ -57,6 +57,7 @@ void ObjectCollision::ResetObjectInfo()
 	m_circleblock_copy.clear();
 }
 
+//Instance解放関数(Debug用)
 void ObjectCollision::ReleaseInstance()
 {
 	delete mp_instance;

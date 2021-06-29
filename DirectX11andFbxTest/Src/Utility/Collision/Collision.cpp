@@ -12,23 +12,29 @@ bool Collision::RectAndSphere(Vector3 rect_pos_, Vector3 sphere_pos_, Vector3 bo
 	//衝突時、対象の回転角度分座標をずらす
 	//rot_pos = Calculation::Rotate(sphere_pos_, rect_pos_, rad_);
 
+	//各軸を配列の要素としている [0]=x,[1]=y,[2]=z
 	float sphere_pos[3];
 	float rect_pos[3];
 	float box_size[3];
 
+	//球
 	sphere_pos[0] = sphere_pos_.x;
 	sphere_pos[1] = sphere_pos_.y;
 	sphere_pos[2] = sphere_pos_.z;
 
+	//立方体
 	rect_pos[0] = rect_pos_.x;
 	rect_pos[1] = rect_pos_.y;
 	rect_pos[2] = rect_pos_.z;
 
+	//立方体のサイズ
 	box_size[0] = box_size_.x;
 	box_size[1] = box_size_.y;
 	box_size[2] = box_size_.z;
 
 	float vec_length = 0.0f;
+
+	//各軸から当たっているか見る
 	for (int i = 0; i < 3; i++)
 	{
 		float point = sphere_pos[i];
@@ -52,6 +58,7 @@ bool Collision::RectAndSphere(Vector3 rect_pos_, Vector3 sphere_pos_, Vector3 bo
 	{
 		return true;
 	}
+	//距離の二乗が球の半径より小さい
 	else if (vec_length <= radius_)
 	{
 		return true;
@@ -88,6 +95,8 @@ bool Collision::RectAndSphere(Vector3 rect_pos_, Vector3 sphere_pos_, Vector3 bo
 bool Collision::BoundingSphereAndPoint(Vector3 rect_pos, Vector3 point_pos_, Vector3 box_size_)
 {
 	Vector3 boxsize = box_size_ / 2;
+
+	//立方体をぴったり包む程のサイズ
 	float b_sphere_radius = Calculation::Length(boxsize);
 
 	float vec_length = Calculation::Length(point_pos_ - rect_pos);
