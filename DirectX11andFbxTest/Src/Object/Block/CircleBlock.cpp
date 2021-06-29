@@ -32,8 +32,8 @@ void CircleBlock::ShadowDraw()
 	FbxController::Instance()->DrawFbx(m_circleblock_info.m_key, m_circleblock_info.world_matrix, DrawType::ShadowDraw);
 }
 
-////FBXモデル解放関数
-//void CircleBlock::ReleaseModel()
-//{
-//	FbxController::Instance()->ReleaseFbxMesh(m_circleblock_info.m_key);
-//}
+//FBXモデル解放関数
+void CircleBlock::ReleaseModel()
+{
+	FbxController::Instance()->ReleaseModel(m_circleblock_info.m_key);
+}

@@ -13,6 +13,9 @@
 
 #pragma comment(lib, "winmm.lib")
 
+constexpr __int16 ObjectNum = 4;   //!使用しているオブジェクトの数
+
+
 int APIENTRY WinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
 	LPSTR     lpCmpLine,
@@ -45,11 +48,14 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	Floor* floor = new Floor;
 	SkyDome* skydome = new SkyDome;
 
-	player->Init();
-	camera->Init();
-	floor->Init();
-	skydome->Init();
-	block->Init();
+	//各オブジェクトを配列でまとめる
+	ObjectBase* obj[ObjectNum] =
+	{ camera ,player ,floor,skydome };
+
+	for (int i = 0; i < ObjectNum; i++)
+	{
+		obj[i]->Init();
+	}
 
 	timeBeginPeriod(1);
 
@@ -120,10 +126,12 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	timeEndPeriod(1);
 
-	delete camera;
-	delete player;
-	delete floor;
-	delete skydome;
+	//オブジェクト解放
+	for (int i = 0; i < ObjectNum; i++)
+	{
+		obj[i]->ReleaseModel();
+		delete obj[i];
+	}
 
 	DirectGraphics::Instance()->Release();
 

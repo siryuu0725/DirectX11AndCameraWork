@@ -81,7 +81,7 @@ public:
 	/**
 	 * @brief   FBXモデル解放関数
 	 */
-	//virtual void ReleaseModel() {}
+	virtual void ReleaseModel() {}
 };
 
 #endif

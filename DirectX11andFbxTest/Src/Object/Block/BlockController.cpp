@@ -73,20 +73,20 @@ void BlockController::ShadowDraw()
 }
 
 //FBXモデル解放関数
-//void BlockController::ReleaseModel()
-//{
-//	//円形ブロック
-//	for (__int8 i = 0; i < m_circleblocks.size(); i++)
-//	{
-//		m_circleblocks[i]->ReleaseModel();
-//	}
-//
-//	//矩形ブロック
-//	for (__int8 i = 0; i < m_rectblocks.size(); i++)
-//	{
-//		m_rectblocks[i]->ReleaseModel();
-//	}
-//}
+void BlockController::ReleaseModel()
+{
+	//円形ブロック
+	for (__int8 i = 0; i < m_circleblocks.size(); i++)
+	{
+		m_circleblocks[i]->ReleaseModel();
+	}
+
+	//矩形ブロック
+	for (__int8 i = 0; i < m_rectblocks.size(); i++)
+	{
+		m_rectblocks[i]->ReleaseModel();
+	}
+}
 
 void BlockController::SetCollisionInfo()
 {

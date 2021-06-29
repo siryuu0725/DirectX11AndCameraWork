@@ -30,8 +30,8 @@ void RectBlock::ShadowDraw()
 	FbxController::Instance()->DrawFbx(m_rectblock_info.m_key, m_rectblock_info.world_matrix, DrawType::ShadowDraw);
 }
 
-////FBXモデル解放関数
-//void RectBlock::ReleaseModel()
-//{
-//	FbxController::Instance()->ReleaseFbxMesh(m_rectblock_info.m_key);
-//}
+//FBXモデル解放関数
+void RectBlock::ReleaseModel()
+{
+	FbxController::Instance()->ReleaseModel(m_rectblock_info.m_key);
+}

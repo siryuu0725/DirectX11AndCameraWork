@@ -42,7 +42,7 @@ public:
 	/**
 	* @brief   FBXモデル解放関数
 	*/
-	//virtual void ReleaseModel()override;
+	virtual void ReleaseModel()override;
 
 	/**
  　 * @brief 当たり判定用情報Set関数

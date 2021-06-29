@@ -54,6 +54,11 @@ public:
 	 virtual void Draw()override;
 
 	 /**
+  * @brief   FBXモデル解放関数
+  */
+	 virtual void ReleaseModel() {}
+
+	 /**
  　　* @brief  移動関数
  　　* @details プレイヤーの移動処理行う
  　　*/
