@@ -54,9 +54,9 @@ public:
 	 virtual void Draw()override;
 
 	 /**
-  * @brief   FBXモデル解放関数
-  */
-	 virtual void ReleaseModel() {}
+     * @brief   FBXモデル解放関数
+     */
+	 virtual void ReleaseModel()override;
 
 	 /**
  　　* @brief  移動関数

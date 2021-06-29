@@ -44,6 +44,7 @@ void Player::Draw()
 	FbxController::Instance()->DrawFbx(player_info.m_key, player_info.world_matrix, DrawType::MainDraw);
 }
 
+//FBXモデル解放関数
 void Player::ReleaseModel()
 {
 	FbxController::Instance()->ReleaseModel(player_info.m_key);

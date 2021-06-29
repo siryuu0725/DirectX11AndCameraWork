@@ -39,7 +39,7 @@ public:
 	/**
 	* @brief   FBXモデル解放関数
 	*/
-	//virtual void ReleaseModel()override;
+	virtual void ReleaseModel()override;
 
 private:
 	//!矩形型ブロック情報(頂点情報)

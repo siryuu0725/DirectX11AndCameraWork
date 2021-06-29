@@ -20,3 +20,9 @@ void SkyDome::Draw()
 {
 	FbxController::Instance()->DrawFbx(skydome_info.m_key, skydome_info.world_matrix, DrawType::MainDraw);
 }
+
+//FBXモデル解放関数
+void SkyDome::ReleaseModel()
+{
+	FbxController::Instance()->ReleaseModel(skydome_info.m_key);
+}

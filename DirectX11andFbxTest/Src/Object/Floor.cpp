@@ -26,3 +26,9 @@ void Floor::ShadowDraw()
 {
 	FbxController::Instance()->DrawFbx(floor_info.m_key, floor_info.world_matrix, DrawType::ShadowDraw);
 }
+
+//FBXモデル解放関数
+void Floor::ReleaseModel()
+{
+	FbxController::Instance()->ReleaseModel(floor_info.m_key);
+}

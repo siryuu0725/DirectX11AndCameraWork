@@ -37,7 +37,7 @@ public:
 	/**
     * @brief   FBXモデル解放関数
     */
-	//virtual void ReleaseModel()override;
+	virtual void ReleaseModel()override;
 
 	/**
  　 * @brief  オブジェクト情報Getter

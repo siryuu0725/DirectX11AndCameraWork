@@ -31,6 +31,11 @@ public:
 	*/
 	virtual void ShadowDraw()override;
 
+	/**
+	 * @brief   FBXモデル解放関数
+	 */
+	virtual void ReleaseModel()override;
+
 private:
 	ObjectInfo floor_info;
 };
