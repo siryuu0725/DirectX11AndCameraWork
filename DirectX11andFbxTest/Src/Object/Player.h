@@ -9,8 +9,6 @@
 #include "Camera.h"
 
 constexpr float PlayerRoteTime = 0.2f; //球面線形補間に使う媒介変数
-constexpr float MaxAngle = 180.0; //球面線形補間で使用する最大角
-constexpr float AddRoteAngle = 0.01f; //球面線形補間で使用する
 constexpr float StopSpeed = 0.0f; //停止時の速度
 
 class Player :public ObjectBase
@@ -73,12 +71,6 @@ public:
  　　* @details プレイヤーの移動処理行う
  　　*/
 	 void RoteDirection(Vector3 m_end_vec_);
-
-	 /**
- 　　* @brief  移動関数
- 　　* @details プレイヤーの移動処理行う
- 　　*/
-	 Vector3 SphericalInterpolation(Vector3 start_, Vector3 end_, float t_);
 
 	 /**
 　　 * @brief  アニメーション関数

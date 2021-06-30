@@ -78,15 +78,6 @@ public:
 	static Vector3 RodriguesRotation(Vector3 target_pos_, Vector3 target2_pos_,Vector3 zik_vec_, float radian_);
 
 	/**
- 　　* @brief  線形補間関数
-	 * @param[in] target_pos_  回転させるベクトル
-	 * @param[in] target2_pos_  回転させる中心点(軸)
-	 * @param[in] radian_  回転角度
-	 * @return 引数1のから引数2までのベクトルを引数3度分回転させる
- 　　*/
-	static Vector3 Lerp(Vector3 start_vec_, Vector3 end_vec_, float time_);
-
-	/**
  　　* @brief なす角計算関数
 	 * @param[in] vec_ 対象1のベクトル
 	 * @param[in] vec2_ 対象2のベクトル
@@ -112,6 +103,24 @@ public:
 
 
 	static void Clamp(float& value_, float min_, float max_);
+
+	/**
+　　* @brief  線形補間関数
+	* @param[in] start_vec_  回転させるベクトル
+	* @param[in] end_vec_  回転後のベクトル
+	* @param[in] time_  回転速度
+	* @return start_vec_のからend_vec_までtime_速度で線形補間する
+　　*/
+	static Vector3 Lerp(Vector3 start_vec_, Vector3 end_vec_, float time_);
+
+	/**
+　　* @brief  球面線形補間関数
+	* @param[in] start_vec_  回転させるベクトル
+	* @param[in] end_vec_  回転後のベクトル
+	* @param[in] time_  回転速度
+	* @return start_vec_のからend_vec_までtime_速度で球面線形補間する
+　　*/
+	static Vector3 SphericalInterpolation(Vector3 start_, Vector3 end_, float time_);
 };
 
 

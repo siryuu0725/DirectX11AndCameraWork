@@ -2,6 +2,8 @@
 #include <math.h>
 #include <sstream>
 #include <iomanip>
+#include <random>
+
 
 //ワールド座標計算関数
 DirectX::XMMATRIX Calculation::Matrix(Vector3 pos_, Vector3 scale_, Vector3 angle_)
@@ -24,18 +26,6 @@ DirectX::XMMATRIX Calculation::Matrix(Vector3 pos_, Vector3 scale_, Vector3 angl
 	return world;
 }
 
-//線形補間関数
-Vector3 Calculation::Lerp(Vector3 start_vec_, Vector3 end_vec_, float time_)
-{
-	Vector3 vec = Vector3(0.0f, 0.0f, 0.0f);
-
-	vec.x = start_vec_.x + time_ * (end_vec_.x - start_vec_.x);
-	vec.y = start_vec_.y + time_ * (end_vec_.y - start_vec_.y);
-	vec.z = start_vec_.z + time_ * (end_vec_.z - start_vec_.z);
-
-	return vec;
-}
-
 //なす角計算関数
 float Calculation::EggplantAngle(Vector3 direction_, Vector3 vec_)
 {
@@ -50,14 +40,12 @@ float Calculation::EggplantAngle(Vector3 direction_, Vector3 vec_)
 //内積計算関数
 float Calculation::Dot(Vector3 vec_, Vector3 vec2_)
 {
-	//Calculation::ThreeNormalization(vec2_);
 	return (vec_.x * vec2_.x) + (vec_.y * vec2_.y) + (vec_.z * vec2_.z);
 }
 
 //外積計算関数
 float Calculation::SecondCross(Vector3 vec_, Vector3 vec2_)
 {
-	//Calculation::ThreeNormalization(vec2_);
 	return (vec_.x * vec2_.z) - (vec2_.x * vec_.z);
 }
 
@@ -116,5 +104,69 @@ Vector3 Calculation::RodriguesRotation(Vector3 target_pos_, Vector3 target2_pos_
 	target_pos_ += target2_pos_;
 
 	return target_pos_;
+}
+
+//線形補間関数
+Vector3 Calculation::Lerp(Vector3 start_vec_, Vector3 end_vec_, float time_)
+{
+	Vector3 vec = Vector3(0.0f, 0.0f, 0.0f);
+
+	vec.x = start_vec_.x + time_ * (end_vec_.x - start_vec_.x);
+	vec.y = start_vec_.y + time_ * (end_vec_.y - start_vec_.y);
+	vec.z = start_vec_.z + time_ * (end_vec_.z - start_vec_.z);
+
+	return vec;
+}
+
+//球面線形補間関数
+Vector3 Calculation::SphericalInterpolation(Vector3 start_, Vector3 end_, float time_)
+{
+	Vector3 s, e, out;
+	s = start_;
+	e = end_;
+
+	const float max_angle = 180.0; //球面線形補間で使用する最大角
+
+	// 2ベクトル間の角度（鋭角側）
+	float angle = EggplantAngle(s, e);
+
+	//補間する必要が無い時
+	if (Degree(angle) == 0.0f)
+	{
+		return end_;
+	}
+	//180度補間させる場合
+	else if (Degree(angle) == max_angle)
+	{
+
+		std::random_device rnd;
+		const float add_rote_angle = 0.01f; //少し傾ける角度
+
+		//左右のどちらに回転するかを決める
+		if (rnd() % 2 == 0)
+		{
+			e.x += add_rote_angle;
+			e.z += add_rote_angle;
+		}
+		else
+		{
+			e.x -= add_rote_angle;
+			e.z -= add_rote_angle;
+		}
+	}
+
+	// sinθ
+	float SinTh = sin(angle);
+
+	// 補間係数
+	float Ps = sin(angle * (1 - time_));
+	float Pe = sin(angle * time_);
+
+	out = (s * Ps + e * Pe) / SinTh;
+
+	// 一応正規化して球面線形補間に
+	Calculation::ThreeNormalization(out);
+
+	return out;
 }
 

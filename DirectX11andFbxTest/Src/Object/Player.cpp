@@ -1,8 +1,6 @@
 ﻿#include "Player.h"
 #include "../Utility/Calculation.h"
 #include "../System/DirectInput.h"
-#include <cmath>
-#include <random>
 
 //初期化関数
 void Player::Init()
@@ -133,62 +131,13 @@ void Player::Move()
 void Player::RoteDirection(Vector3 m_end_vec_)
 {
 	//球面線形補間
-	player_info.m_direction = SphericalInterpolation(player_info.m_direction, m_end_vec_, PlayerRoteTime);
+	player_info.m_direction = Calculation::SphericalInterpolation(player_info.m_direction, m_end_vec_, PlayerRoteTime);
 
 	//移動スピード設定
 	player_info.m_speed = 1.5f;
 
 	//モデル回転角度
 	player_info.m_degree.y = Degree(atan2f(player_info.m_direction.x, player_info.m_direction.z));
-}
-
-//球面線形補間関数
-Vector3 Player::SphericalInterpolation(Vector3 start_, Vector3 end_, float t_)
-{
-	Vector3 s, e, out;
-	s = start_; 
-	e = end_;
-
-	// 2ベクトル間の角度（鋭角側）
-	float angle = Calculation::EggplantAngle(s,e);
-
-	//補間する必要が無い時
-	if (Degree(angle) == 0.0f)
-	{
-		return end_;
-	}
-	//180度補間させる場合
-	else if (Degree(angle) == MaxAngle)
-	{
-
-		std::random_device rnd;
-
-		//左右のどちらに回転するかを決める
-		if (rnd() % 2 == 0)
-		{
-			e.x += AddRoteAngle;
-			e.z += AddRoteAngle;
-		}
-		else
-		{
-			e.x -= AddRoteAngle;
-			e.z -= AddRoteAngle;
-		}
-	}
-
-	// sinθ
-	float SinTh = sin(angle);
-
-	// 補間係数
-	float Ps = sin(angle * (1 - t_));
-	float Pe = sin(angle * t_);
-
-	out = (s * Ps + e* Pe) / SinTh;
-
-	// 一応正規化して球面線形補間に
-	Calculation::ThreeNormalization(out);
-
-	return out;
 }
 
 //アニメーション関数
