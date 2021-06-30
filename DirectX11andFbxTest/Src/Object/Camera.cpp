@@ -31,8 +31,8 @@ void Camera::Init()
 	m_camerainfo.leap_vec = m_camerainfo.m_pos;       //線形補間ベクトル
 
 	m_camerainfo.m_collision_pos = m_camerainfo.m_pos; //当たり判定用座標
-	m_camerainfo.m_p1 = Vector3(0.0f, 0.0f, 0.0f);
-	m_camerainfo.m_p2 = Vector3(0.0f, 0.0f, 0.0f);
+	m_camerainfo.m_intersection1 = Vector3(0.0f, 0.0f, 0.0f);
+	m_camerainfo.m_intersection2 = Vector3(0.0f, 0.0f, 0.0f);
 
 	m_camerainfo.m_direction = m_camerainfo.m_forward - m_camerainfo.m_pos; //方法ベクトル
 	Calculation::ThreeNormalization(m_camerainfo.m_direction);
@@ -95,6 +95,7 @@ void Camera::Update()
 //移動関数
 void Camera::Move()
 {
+#pragma region Debug用
 	//左移動
 	//if (Inputter::Instance()->GetKey(Inputter::AKey))
 	//{
@@ -119,6 +120,9 @@ void Camera::Move()
 	//	m_camerainfo.m_eye_pos.z += 3.0f;
 	//	m_camerainfo.m_forward.z += 3.0f;
 	//}
+#pragma endregion
+
+	//プレイヤーの移動量を加算
 	m_camerainfo.m_pos += m_camerainfo.m_move_vec;
 	m_camerainfo.m_forward += m_camerainfo.m_move_vec;
 }
@@ -154,8 +158,10 @@ void Camera::HitRectBlock()
 		Vector3 start_vec;
 		Vector3 end_vec;
 
+		const __int8 cueb_surface = 6;
+
 		//どの面にベクトルが貫通しているか探す
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < cueb_surface; i++)
 		{
 			start_vec = m_camerainfo.m_collision_pos - vertex_pos[i];   //カメラから中点ベクトル
 			end_vec = m_camerainfo.m_forward - vertex_pos[i]; //カメラの注視点から中点ベクトル
@@ -188,6 +194,7 @@ void Camera::HitRectBlock()
 			}
 		}
 		
+		//面を貫通している時
 		if (vertex_no.size() > 0)
 		{
 			//貫通している面からカメラまでの距離
@@ -241,12 +248,12 @@ void Camera::HitCircleBlock()
 		Calculation::ThreeNormalization(m_camerainfo.m_direction);
 
 		// 各種内積値
-		float Dvv = m_camerainfo.m_direction.x * m_camerainfo.m_direction.x + m_camerainfo.m_direction.y * m_camerainfo.m_direction.y + m_camerainfo.m_direction.z * m_camerainfo.m_direction.z; //レイの方向ベクトルの内積
-		float Dsv = s.x * m_camerainfo.m_direction.x + s.y * m_camerainfo.m_direction.y + s.z * m_camerainfo.m_direction.z; //レイの方向ベクトルと円柱軸の内積
-		float Dpv = p.x * m_camerainfo.m_direction.x + p.y * m_camerainfo.m_direction.y + p.z * m_camerainfo.m_direction.z; //レイの始点から円柱軸の1点までのベクトルの内積
-		float Dss = s.x * s.x + s.y * s.y + s.z * s.z; //円柱軸の内積
-		float Dps = p.x * s.x + p.y * s.y + p.z * s.z; //レイの始点から円柱軸のもう1点までのベクトルと円柱軸の内積
-		float Dpp = p.x * p.x + p.y * p.y + p.z * p.z; //レイの始点から円柱軸の1点までのベクトルの内積
+		float Dvv = m_camerainfo.m_direction.x * m_camerainfo.m_direction.x + m_camerainfo.m_direction.y * m_camerainfo.m_direction.y + m_camerainfo.m_direction.z * m_camerainfo.m_direction.z;
+		float Dsv = s.x * m_camerainfo.m_direction.x + s.y * m_camerainfo.m_direction.y + s.z * m_camerainfo.m_direction.z; 
+		float Dpv = p.x * m_camerainfo.m_direction.x + p.y * m_camerainfo.m_direction.y + p.z * m_camerainfo.m_direction.z; 
+		float Dss = s.x * s.x + s.y * s.y + s.z * s.z; 
+		float Dps = p.x * s.x + p.y * s.y + p.z * s.z; 
+		float Dpp = p.x * p.x + p.y * p.y + p.z * p.z; 
 		float rr = circleblock_info.m_radius * circleblock_info.m_radius;
 
 		// 円柱が定義されない
@@ -267,22 +274,22 @@ void Camera::HitCircleBlock()
 					float a1 = (B - s_) / A;
 					float a2 = (B + s_) / A;
 
-					m_camerainfo.m_p1 = m_camerainfo.m_collision_pos + (m_camerainfo.m_direction * a1);
-					m_camerainfo.m_p2 = m_camerainfo.m_collision_pos + (m_camerainfo.m_direction * a2);
+					m_camerainfo.m_intersection1 = m_camerainfo.m_collision_pos + (m_camerainfo.m_direction * a1);
+					m_camerainfo.m_intersection2 = m_camerainfo.m_collision_pos + (m_camerainfo.m_direction * a2);
 
-					float vec_length = Calculation::Length(m_camerainfo.m_forward - m_camerainfo.m_p1);
-					float vec_length2 = Calculation::Length(m_camerainfo.m_forward - m_camerainfo.m_p2);
+					float vec_length = Calculation::Length(m_camerainfo.m_forward - m_camerainfo.m_intersection1);
+					float vec_length2 = Calculation::Length(m_camerainfo.m_forward - m_camerainfo.m_intersection2);
 
 					//注視点により近い面の要素番号を使うためもう一つを削除
 					if (vec_length <= vec_length2)
 					{
 						//最終的な移動量算出
-						m_camerainfo.m_intersection += m_camerainfo.m_p1 - m_camerainfo.m_collision_pos;
+						m_camerainfo.m_intersection += m_camerainfo.m_intersection1 - m_camerainfo.m_collision_pos;
 					}
 					else
 					{
 						//最終的な移動量算出
-						m_camerainfo.m_intersection += m_camerainfo.m_p2 - m_camerainfo.m_collision_pos;
+						m_camerainfo.m_intersection += m_camerainfo.m_intersection2 - m_camerainfo.m_collision_pos;
 					}
 				}
 			}

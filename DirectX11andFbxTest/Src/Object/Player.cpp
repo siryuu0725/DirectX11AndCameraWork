@@ -13,11 +13,11 @@ void Player::Init()
 
 	player_info.world_matrix = Calculation::Matrix(player_info.m_pos, player_info.m_scale, player_info.m_degree);
 
-	player_info.m_key = "Player"; //描画用キー
+	player_info.m_key = "Player";  //描画用キー
 
 	player_info.m_direction = Vector3(0.0f, 0.0f, 1.0f); //方向ベクトル
-	player_info.m_old_pos = player_info.m_pos; //1フレーム前座標
-	player_info.m_speed = 1.5f; //移動スピード
+	player_info.m_old_pos = player_info.m_pos;           //1フレーム前座標
+	player_info.m_speed = 1.5f;                          //移動スピード
 
 	//Meshファイル読み込み
 	FbxController::Instance()->LoadFbxMesh(player_info.m_key, "Res/FBX/unitychan_ch_change.fbx",VertexShaderType::SkinVertex);
@@ -104,6 +104,7 @@ void Player::Move()
 		RoteDirection(m_right_vec);
 	}
 
+	//動いているとき
 	if (player_info.m_speed > StopSpeed)
 	{
 		//動かしたいAnimationのキー設定
@@ -116,10 +117,13 @@ void Player::Move()
 
 	Calculation::ThreeNormalization(player_info.m_direction);
 	
+	//移動
 	player_info.m_pos += player_info.m_direction * player_info.m_speed;
 
+	//アニメーション
 	Animation();
 
+	//カメラに移動量送信
 	mp_camera->SetMoveVec(player_info.m_pos - player_info.m_old_pos);
 	mp_camera->SetPlayerPos(player_info.m_pos);
 
@@ -128,9 +132,6 @@ void Player::Move()
 //移動関数
 void Player::RoteDirection(Vector3 m_end_vec_)
 {
-	//線形補間
-	//player_info.m_direction = Calculation::Lerp(player_info.m_direction, m_end_vec_, 0.2f);
-
 	//球面線形補間
 	player_info.m_direction = SphericalInterpolation(player_info.m_direction, m_end_vec_, PlayerRoteTime);
 
@@ -151,16 +152,18 @@ Vector3 Player::SphericalInterpolation(Vector3 start_, Vector3 end_, float t_)
 	// 2ベクトル間の角度（鋭角側）
 	float angle = Calculation::EggplantAngle(s,e);
 
+	//補間する必要が無い時
 	if (Degree(angle) == 0.0f)
 	{
 		return end_;
 	}
+	//180度補間させる場合
 	else if (Degree(angle) == MaxAngle)
 	{
-		angle -= AddRoteAngle;
 
 		std::random_device rnd;
 
+		//左右のどちらに回転するかを決める
 		if (rnd() % 2 == 0)
 		{
 			e.x += AddRoteAngle;

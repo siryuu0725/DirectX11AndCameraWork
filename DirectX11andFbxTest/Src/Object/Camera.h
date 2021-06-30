@@ -35,8 +35,8 @@ public:
 			m_player_pos(Vector3(0.0f, 0.0f, 0.0f)),
 			m_zik_vec(Vector3(0.0f, 0.0f, 0.0f)),
 			m_intersection(Vector3(0.0f, 0.0f, 0.0f)),
-			m_p1(Vector3(0.0f, 0.0f, 0.0f)),
-			m_p2(Vector3(0.0f, 0.0f, 0.0f)),
+			m_intersection1(Vector3(0.0f, 0.0f, 0.0f)),
+			m_intersection2(Vector3(0.0f, 0.0f, 0.0f)),
 			leap_vec(Vector3(0.0f, 0.0f, 0.0f)),
 			m_yaw(0.0f),
 			m_rote_speed(0.0f),
@@ -59,8 +59,8 @@ public:
 		Vector3 m_zik_vec; //!プレイヤー座標(カメラの回転の軸にする)
 		Vector3 m_intersection; //!地面とカメラベクトルの交点
 
-		Vector3 m_p1; //円柱との交点
-		Vector3 m_p2; //円柱との交点2
+		Vector3 m_intersection1; //円柱との交点
+		Vector3 m_intersection2; //円柱との交点2
 
 		Vector3 leap_vec; //!線形補間ベクトル
 

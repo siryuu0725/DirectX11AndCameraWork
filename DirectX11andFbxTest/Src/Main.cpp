@@ -13,7 +13,7 @@
 
 #pragma comment(lib, "winmm.lib")
 
-constexpr __int16 ObjectNum = 4;   //!使用しているオブジェクトの数
+constexpr __int16 ObjectNum = 5;   //!使用しているオブジェクトの数
 
 
 int APIENTRY WinMain(HINSTANCE hInstance,
@@ -50,7 +50,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	//各オブジェクトを配列でまとめる
 	ObjectBase* obj[ObjectNum] =
-	{ camera ,player ,floor,skydome };
+	{ block,camera ,player ,floor,skydome };
 
 	for (int i = 0; i < ObjectNum; i++)
 	{

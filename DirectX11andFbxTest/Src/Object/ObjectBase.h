@@ -42,8 +42,8 @@ public:
 
 		std::string m_key;  //!描画用キー
 
-		Vector3 m_direction;   //!方向ベクトル
-		Vector3 m_size;        //各軸のでのサイズ(縦幅、横幅、深さ)
+		Vector3 m_direction;     //!方向ベクトル
+		Vector3 m_size;          //各軸のでのサイズ(縦幅、横幅、深さ)
 		Vector3 m_collision_pos; //当たり判定用座標
 
 		float m_width;    //!横幅
