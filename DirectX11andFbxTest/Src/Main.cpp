@@ -10,6 +10,7 @@
 #include "Object/Floor.h"
 #include "Object/SkyDome.h"
 #include "Object/Block/BlockController.h"
+#include "Scene/SceneController.h"
 
 #pragma comment(lib, "winmm.lib")
 
@@ -42,20 +43,20 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	}
 
 	//FbxMeshFile* model;
-	BlockController* block = new BlockController;
-	Camera* camera = new Camera(block);
-	Player* player = new Player(camera);
-	Floor* floor = new Floor;
-	SkyDome* skydome = new SkyDome;
+	//BlockController* block = new BlockController;
+	//Camera* camera = new Camera(block);
+	//Player* player = new Player(camera);
+	//Floor* floor = new Floor;
+	//SkyDome* skydome = new SkyDome;
 
-	//各オブジェクトを配列でまとめる
-	ObjectBase* obj[ObjectNum] =
-	{ block,camera ,player ,floor,skydome };
+	////各オブジェクトを配列でまとめる
+	//ObjectBase* obj[ObjectNum] =
+	//{ block,camera ,player ,floor,skydome };
 
-	for (int i = 0; i < ObjectNum; i++)
-	{
-		obj[i]->Init();
-	}
+	//for (int i = 0; i < ObjectNum; i++)
+	//{
+	//	obj[i]->Init();
+	//}
 
 	timeBeginPeriod(1);
 
@@ -84,33 +85,38 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		}
 		else
 		{
-			//入力クラス更新
-			Inputter::Instance()->UpdateInput();
+			////入力クラス更新
+			//Inputter::Instance()->UpdateInput();
 
-			//オブジェクト更新
-			player->Update();
-			block->Update();
-			camera->Update();
+			////オブジェクト更新
+			//player->Update();
+			//camera->Update();
 
-			//影描画開始
-			DirectGraphics::Instance()->ShadowStartRendering();
-			DirectGraphics::Instance()->SetUpShadowRnderTaget();
+			////影描画開始
+			//DirectGraphics::Instance()->ShadowStartRendering();
+			//DirectGraphics::Instance()->SetUpShadowRnderTaget();
 
-			block->ShadowDraw();
-			player->ShadowDraw();
+			//block->ShadowDraw();
+			//player->ShadowDraw();
 
-			//メイン描画開始
-			DirectGraphics::Instance()->StartRendering();
-			DirectGraphics::Instance()->SetUpRnderTaget();
+			////メイン描画開始
+			//DirectGraphics::Instance()->StartRendering();
+			//DirectGraphics::Instance()->SetUpRnderTaget();
 
-			floor->Draw();
-			skydome->Draw();
-			block->Draw();
+			//floor->Draw();
+			//skydome->Draw();
+			//block->Draw();
 
-			player->Draw();
+			//player->Draw();
 
-			//描画終了
-			DirectGraphics::Instance()->FinishRendering();
+			////描画終了
+			//DirectGraphics::Instance()->FinishRendering();
+
+			//更新処理
+			SceneController::Instance()->Update();
+
+			//描画
+			SceneController::Instance()->Draw();
 
 			if (Inputter::Instance()->GetKeyDown(Inputter::ESCKey))
 			{
@@ -130,15 +136,17 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	timeEndPeriod(1);
 
-	//オブジェクト解放
-	for (int i = 0; i < ObjectNum; i++)
-	{
-		obj[i]->ReleaseModel();
-		delete obj[i];
-	}
+	////オブジェクト解放
+	//for (int i = 0; i < ObjectNum; i++)
+	//{
+	//	obj[i]->ReleaseModel();
+	//	delete obj[i];
+	//}
 
 	DirectGraphics::Instance()->Release();
 
+	//入力情報解放
+	Inputter::Instance()->EndInput();
 	return 0;
 
 

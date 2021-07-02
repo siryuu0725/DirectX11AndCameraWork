@@ -75,7 +75,7 @@ float4 Phong(float4 world_pos, float normal_dot_light, float4 vertex_normal)
 	float3 Reflect = normalize((2 * NL * Normal) + LightDir);
 	float specular = pow(saturate(dot(Reflect, -ViewDir)), 10);
 
-	return MaterialSpecular * specular * LightColor;
+	return specular * LightColor;
 }
 
 float4 main(PS_IN input) : SV_Target

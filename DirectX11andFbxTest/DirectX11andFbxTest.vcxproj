@@ -169,6 +169,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Src\Scene\GameScene.h" />
+    <ClInclude Include="Src\Scene\ResultScene.h" />
+    <ClInclude Include="Src\Scene\SceneBase.h" />
+    <ClInclude Include="Src\Scene\SceneController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Src\Scene\TitleScene.h" />
     <ClInclude Include="Src\System\DirectGraphics.h">
       <SubType>
       </SubType>
@@ -235,6 +243,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Src\Scene\GameScene.cpp" />
+    <ClCompile Include="Src\Scene\ResultScene.cpp" />
+    <ClCompile Include="Src\Scene\SceneBase.cpp" />
+    <ClCompile Include="Src\Scene\SceneController.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Src\Scene\TitleScene.cpp" />
     <ClCompile Include="Src\System\DirectGraphics.cpp">
       <SubType>
       </SubType>
