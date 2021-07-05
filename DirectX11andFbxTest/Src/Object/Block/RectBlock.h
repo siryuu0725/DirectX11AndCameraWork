@@ -36,11 +36,6 @@ public:
 	*/
 	virtual void ShadowDraw()override;
 
-	/**
-	* @brief   FBXモデル解放関数
-	*/
-	virtual void ReleaseModel()override;
-
 private:
 	//!矩形型ブロック情報(頂点情報)
 	ObjectInfo m_rectblock_info;

@@ -18,13 +18,13 @@ void Player::Init()
 	player_info.m_speed = 1.5f;                          //移動スピード
 
 	//Meshファイル読み込み
-	FbxController::Instance()->LoadFbxMesh(player_info.m_key, "Res/FBX/unitychan_ch_change.fbx",VertexShaderType::SkinVertex);
+	//FbxController::Instance()->LoadFbxMesh(player_info.m_key, "Res/FBX/unitychan_ch_change.fbx",VertexShaderType::SkinVertex);
 
 	//Animation読み込み
-	FbxController::Instance()->LoadAnimation(player_info.m_key,"Run", "Res/FBX/unitychan_RUN00_F.FBX");
-	FbxController::Instance()->LoadAnimation(player_info.m_key,"Stay", "Res/FBX/unitychan_WAIT00.FBX");
+	//FbxController::Instance()->LoadAnimation(player_info.m_key,"Run", "Res/FBX/unitychan_RUN00_F.FBX");
+	//FbxController::Instance()->LoadAnimation(player_info.m_key,"Stay", "Res/FBX/unitychan_WAIT00.FBX");
 	//動かしたいAnimationのキー設定
-	FbxController::Instance()->SetAnimationName(player_info.m_key, "Run");
+	//FbxController::Instance()->SetAnimationName(player_info.m_key, "Run");
 }
 
 //更新関数
@@ -40,12 +40,6 @@ void Player::Update()
 void Player::Draw()
 {
 	FbxController::Instance()->DrawFbx(player_info.m_key, player_info.world_matrix, DrawType::MainDraw);
-}
-
-//FBXモデル解放関数
-void Player::ReleaseModel()
-{
-	FbxController::Instance()->ReleaseModel(player_info.m_key);
 }
 
 //影描関数

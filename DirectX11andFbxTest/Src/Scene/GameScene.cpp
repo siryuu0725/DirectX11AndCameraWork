@@ -17,6 +17,21 @@ GameScene::GameScene() :
 //描画情報送信まとめ関数
 void GameScene::Draw()
 {
+	//ロード画面描画
+	if (WaitForSingleObject(thread_h, 0) != WAIT_OBJECT_0)
+	{
+		//メイン描画開始
+		DirectGraphics::Instance()->StartRendering();
+		DirectGraphics::Instance()->SetUpRnderTaget();
+
+		//texture.Draw({0.0f, 0.0f,0.0f });
+		TextureManager::Instance()->Draw(SceneTextureType::GameScene, "NowLoading", { 1100.0f, 900.0f,0.0f });
+
+		//描画終了
+		DirectGraphics::Instance()->FinishRendering();
+		return;
+	}
+
 	//オブジェクト
 	DrawObject();
 }
@@ -43,6 +58,10 @@ void GameScene::InitStep()
 	//オブジェクト初期化
 	InitObject();
 
+	/*FbxController::Instance()->LoadFbx();
+	FbxController::Instance()->LoadAnimation();*/
+
+
 	//スレッドステップへ
 	m_cur_step = SceneStep::ThreadStep;
 }
@@ -64,9 +83,6 @@ void GameScene::UpdateThreadStep()
 //更新ステップ関数
 void GameScene::MainStep()
 {
-	//入力クラス更新
-	Inputter::Instance()->UpdateInput();
-
 	//オブジェクト更新
 	mp_player->Update();
 	mp_block->Update();
@@ -74,7 +90,7 @@ void GameScene::MainStep()
 
 	
 	//ポーズ画面切り替え
-	if(Inputter::Instance()->GetKeyDown(Inputter::ReturnKey))
+	if (Inputter::Instance()->GetKeyDown(Inputter::ReturnKey))
 	{
 		m_cur_step = SceneStep::EndStep;
 	}
@@ -124,21 +140,6 @@ void GameScene::UpdateObject()
 //オブジェクト描画情報送信関数
 void GameScene::DrawObject()
 {
-	//ロード画面描画
-	if (WaitForSingleObject(thread_h, 0) != WAIT_OBJECT_0)
-	{
-		//メイン描画開始
-		DirectGraphics::Instance()->StartRendering();
-		DirectGraphics::Instance()->SetUpRnderTaget();
-
-		//texture.Draw({0.0f, 0.0f,0.0f });
-		TextureManager::Instance()->Draw(SceneTextureType::GameScene, "NowLoading", { 1300.0f, 800.0f,0.0f });
-
-		//描画終了
-		DirectGraphics::Instance()->FinishRendering();
-		return;
-	}
-
 	//影描画開始
 	DirectGraphics::Instance()->ShadowStartRendering();
 	DirectGraphics::Instance()->SetUpShadowRnderTaget();
@@ -169,7 +170,6 @@ void GameScene::DeleteObject()
 
 	for (int i = 0; i < ObjectNum; i++)
 	{
-		obj[i]->ReleaseModel();
 		delete obj[i];
 	}
 	
@@ -178,6 +178,8 @@ void GameScene::DeleteObject()
 	mp_player = nullptr; //プレイヤー	
 	mp_sky_dome = nullptr;//背景	
 	mp_floor = nullptr; //ステージ床
+
+	FbxController::Instance()->ReleaseModel();
 }
 
 //インスタンス返還関数
@@ -188,7 +190,9 @@ SceneBase* GameScene::Instance()
 
 DWORD WINAPI GameScene::LoadResorse(LPVOID lpparm)
 {
-
+	//読み込み関連
+	FbxController::Instance()->LoadFbx();
+	FbxController::Instance()->LoadAnimation();
 
 	return 0;
 }

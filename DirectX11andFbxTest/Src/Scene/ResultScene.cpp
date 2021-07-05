@@ -7,6 +7,8 @@
 ResultScene::ResultScene()
 	/*mp_ui(nullptr)*/
 {
+	m_is_change_scene = false;
+
 	m_cur_step = SceneStep::InitStep;	
 }
 
@@ -18,7 +20,7 @@ void ResultScene::Draw()
 	DirectGraphics::Instance()->SetUpRnderTaget();
 
 	//texture.Draw({0.0f, 0.0f,0.0f });
-	TextureManager::Instance()->Draw(SceneTextureType::TitleScene, "BG", { 0.0f, 0.0f,0.0f });
+	TextureManager::Instance()->Draw(SceneTextureType::EndScene, "BG", { 0.0f, 0.0f,0.0f });
 
 	//描画終了
 	DirectGraphics::Instance()->FinishRendering();

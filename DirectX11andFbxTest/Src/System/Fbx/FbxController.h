@@ -20,12 +20,10 @@ public:
 	~FbxController() {}
 
 	/**
-	* @brief  Meshデータセット関数
-	* @param[in] key_ オブジェクトのキー
-	* @param[in] pFilename_ 読み込むFbxファイルのパス
-	* @details 引数のキーのメッシュデータに引数のパスのFbxデータを代入する
-	*/
-	void LoadFbxMesh(std::string key_, const char* pFilename_, VertexShaderType type_);
+	 * @brief  メッシュデータ読み込みまとめ関数
+	 * @details 各オブジェクトのLoadFbxMesh関数をまとめたもの
+	 */
+	void LoadFbx();
 
 	/**
 	* @brief  Fbfファイル描画関数
@@ -38,11 +36,9 @@ public:
 
 	/**
 	* @brief  アニメーションファイル読み込み関数
-	* @param[in] key_ オブジェクトのキー
-	* @param[in] anim_name_ アニメーションの名前
-	* @details 指定したキーにアニメーションを読み込み
+	* @details アニメーションを読み込み
 	*/
-	void LoadAnimation(std::string key_, std::string anim_name_, const char* fail_name_);
+	void LoadAnimation();
 
 	/**
 	* @brief  アニメーション指定関数
@@ -64,13 +60,30 @@ public:
 	* @param[in] key_ オブジェクトのキー
 	* @details 指定したモデルを解放する
 	*/
-	void ReleaseModel(std::string key_);
+	void ReleaseModel();
 
 	/**
     * @brief Instance解放関数(Debug用)
     * @details 手動でインスタンスを解放する
     */
 	void ReleaseInstance();
+
+public:
+	/**
+	* @brief  Meshデータセット関数
+	* @param[in] key_ オブジェクトのキー
+	* @param[in] pFilename_ 読み込むFbxファイルのパス
+	* @details 引数のキーのメッシュデータに引数のパスのFbxデータを代入する
+	*/
+	void LoadFbxMesh(std::string key_, const char* pFilename_, VertexShaderType type_);
+
+	/**
+	* @brief  アニメーションファイル読み込み関数
+	* @param[in] key_ オブジェクトのキー
+	* @param[in] anim_name_ アニメーションの名前
+	* @details 指定したキーにアニメーションを読み込み
+	*/
+	void LoadAnimation(std::string key_, std::string anim_name_, const char* fail_name_);
 
 private:
 	static FbxController* mp_instance;

@@ -12,7 +12,7 @@ void Floor::Init()
 
 	floor_info.m_key = "Floor"; //描画用キー
 
-	FbxController::Instance()->LoadFbxMesh(floor_info.m_key, "Res/FBX/SkyFloor.fbx", VertexShaderType::StaticVertex);
+	//FbxController::Instance()->LoadFbxMesh(floor_info.m_key, "Res/FBX/SkyFloor.fbx", VertexShaderType::StaticVertex);
 }
 
 //描画関数
@@ -25,10 +25,4 @@ void Floor::Draw()
 void Floor::ShadowDraw()
 {
 	FbxController::Instance()->DrawFbx(floor_info.m_key, floor_info.world_matrix, DrawType::ShadowDraw);
-}
-
-//FBXモデル解放関数
-void Floor::ReleaseModel()
-{
-	FbxController::Instance()->ReleaseModel(floor_info.m_key);
 }

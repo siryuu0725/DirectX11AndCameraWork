@@ -482,7 +482,7 @@ void DirectGraphics::SetUpDxgiSwapChainDesc(DXGI_SWAP_CHAIN_DESC* dxgi)
 
 void DirectGraphics::StartRendering()
 {
-	float clear_color[4] = { 1.0f, 0.5f, 0.5f, 1.0f };	// RenderTarget塗りつぶしカラー(RGBA)
+	float clear_color[4] = { 1.0f, 1.0f, 1.0f, 1.0f };	// RenderTarget塗りつぶしカラー(RGBA)
 
 	// DirecX9ではRenderTargetとDepth、Stencilバッファのクリアは別々にする
 	m_Context->ClearRenderTargetView(

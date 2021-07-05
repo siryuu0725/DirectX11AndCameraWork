@@ -77,11 +77,6 @@ public:
      * @brief   影描画関数
      */
 	virtual void ShadowDraw() {}
-
-	/**
-	 * @brief   FBXモデル解放関数
-	 */
-	virtual void ReleaseModel() {}
 };
 
 #endif

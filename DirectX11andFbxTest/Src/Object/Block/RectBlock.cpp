@@ -15,7 +15,7 @@ RectBlock::RectBlock(Vector3 pos_, Vector3 scale_, Vector3 angle_, Vector3 size_
 	//ワールド座標
 	m_rectblock_info.world_matrix = Calculation::Matrix(m_rectblock_info.m_pos, m_rectblock_info.m_scale, m_rectblock_info.m_degree);
 
-	FbxController::Instance()->LoadFbxMesh(m_rectblock_info.m_key, "Res/FBX/RectBlock.fbx", VertexShaderType::StaticVertex);
+	//FbxController::Instance()->LoadFbxMesh(m_rectblock_info.m_key, "Res/FBX/RectBlock.fbx", VertexShaderType::StaticVertex);
 }
 
 //描画関数
@@ -28,10 +28,4 @@ void RectBlock::Draw()
 void RectBlock::ShadowDraw()
 {
 	FbxController::Instance()->DrawFbx(m_rectblock_info.m_key, m_rectblock_info.world_matrix, DrawType::ShadowDraw);
-}
-
-//FBXモデル解放関数
-void RectBlock::ReleaseModel()
-{
-	FbxController::Instance()->ReleaseModel(m_rectblock_info.m_key);
 }

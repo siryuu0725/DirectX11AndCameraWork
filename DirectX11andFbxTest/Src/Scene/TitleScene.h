@@ -16,7 +16,7 @@
 class TitleScene :public SceneBase
 {
 public:
-	TitleScene() /*:mp_ui(nullptr) */{}
+	TitleScene();
 	~TitleScene() {}
 
 

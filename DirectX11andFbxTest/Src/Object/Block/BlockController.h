@@ -40,11 +40,6 @@ public:
 	virtual void ShadowDraw()override;
 
 	/**
-	* @brief   FBXモデル解放関数
-	*/
-	virtual void ReleaseModel()override;
-
-	/**
  　 * @brief 当たり判定用情報Set関数
 	* @details ObjectCollisionで使用するオブジェクトコピー情報にオリジナルの情報を渡す
  　 */

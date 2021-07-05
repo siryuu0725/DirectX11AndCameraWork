@@ -3,6 +3,12 @@
 #include "../System/DirectInput.h"
 #include "../System/Texture/TextureManager.h"
 
+TitleScene::TitleScene()
+{
+	m_is_change_scene = false;
+	m_cur_step = SceneStep::InitStep;
+}
+
 //初期化ステップ関数
 void TitleScene::InitStep()
 {

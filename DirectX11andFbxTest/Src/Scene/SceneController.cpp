@@ -31,13 +31,16 @@ void SceneController::Update()
 //描画関数
 void SceneController::Draw()
 {
-	//描画情報送信関数
-	mp_scene->Draw();
-	//各シーンで更新もしくはロードステップ中のみ描画
-	/*if (mp_scene->NowStep() == SceneStep::MainStep)
+	if (mp_scene->GetIsChangeScene() == false)
 	{
-		
-	}*/
+		//描画情報送信関数
+		mp_scene->Draw();
+		//各シーンで更新もしくはロードステップ中のみ描画
+		/*if (mp_scene->NowStep() == SceneStep::MainStep)
+		{
+
+		}*/
+	}
 }
 
 //現在シーンSetter
