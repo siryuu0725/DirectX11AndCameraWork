@@ -27,14 +27,16 @@ enum class VertexShaderType
 	SkinVertex,
 	ShadowStaticVertex,
 	ShadowSkinVertex,
+	TexVertex,
 	VertexMaxNum
 };
 
 //ピクセルシェーダ種類
 enum class PixelShaderType
 {
-	TexPixel,
+	NomalPixel,
 	ShadowTexPixel,
+	TexPixel,
 	PixelMaxNum
 };
 

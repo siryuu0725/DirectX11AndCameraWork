@@ -34,6 +34,9 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{e205216b-e072-454c-8673-5077f03b0416}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System\Texture">
+      <UniqueIdentifier>{894de658-dedc-4bb1-a292-eded7f130d5a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\System\DirectGraphics.h">
@@ -117,6 +120,12 @@
     <ClInclude Include="Src\Scene\SceneBase.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Src\System\Texture\Texture.h">
+      <Filter>System\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\System\Texture\TextureManager.h">
+      <Filter>System\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Main.cpp" />
@@ -198,12 +207,15 @@
     <ClCompile Include="Src\Scene\TitleScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Src\System\Texture\Texture.cpp">
+      <Filter>System\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\System\Texture\TextureManager.cpp">
+      <Filter>System\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\SkinVertexShader.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Src\Shader\TexPixelShader.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Src\Shader\StaticVertexShader.hlsl">
@@ -216,6 +228,15 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Src\Shader\ShadowPixelShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\PixelShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\TexVertexShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\TexPixelShader.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

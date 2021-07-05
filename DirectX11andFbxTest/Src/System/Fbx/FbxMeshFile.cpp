@@ -274,7 +274,7 @@ void FbxMeshFile::Render(DirectX::XMMATRIX world_matrix_, DrawType draw_type_)
 				switch (draw_type_)
 				{
 				case DrawType::MainDraw:  //メイン
-					ShaderManager::Instance()->SetUpShader(VertexShaderType::SkinVertex, PixelShaderType::TexPixel);
+					ShaderManager::Instance()->SetUpShader(VertexShaderType::SkinVertex, PixelShaderType::NomalPixel);
 					break;
 				case DrawType::ShadowDraw: //影
 					ShaderManager::Instance()->SetUpShader(VertexShaderType::ShadowSkinVertex, PixelShaderType::ShadowTexPixel);
@@ -289,7 +289,7 @@ void FbxMeshFile::Render(DirectX::XMMATRIX world_matrix_, DrawType draw_type_)
 				switch (draw_type_)
 				{
 				case DrawType::MainDraw:  //メイン
-					ShaderManager::Instance()->SetUpShader(VertexShaderType::StaticVertex, PixelShaderType::TexPixel);
+					ShaderManager::Instance()->SetUpShader(VertexShaderType::StaticVertex, PixelShaderType::NomalPixel);
 					break;
 				case DrawType::ShadowDraw: //影
 					ShaderManager::Instance()->SetUpShader(VertexShaderType::ShadowStaticVertex, PixelShaderType::ShadowTexPixel);
@@ -306,7 +306,7 @@ void FbxMeshFile::Render(DirectX::XMMATRIX world_matrix_, DrawType draw_type_)
 			switch (draw_type_)
 			{
 			case DrawType::MainDraw:  //メイン
-				ShaderManager::Instance()->SetUpShader(VertexShaderType::StaticVertex, PixelShaderType::TexPixel);
+				ShaderManager::Instance()->SetUpShader(VertexShaderType::StaticVertex, PixelShaderType::NomalPixel);
 				break;
 			case DrawType::ShadowDraw: //影
 				ShaderManager::Instance()->SetUpShader(VertexShaderType::ShadowStaticVertex, PixelShaderType::ShadowTexPixel);

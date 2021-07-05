@@ -1,12 +1,13 @@
 ﻿#include "TitleScene.h"
 #include "SceneController.h"
+#include "../System/DirectInput.h"
+#include "../System/Texture/TextureManager.h"
 
 //初期化ステップ関数
 void TitleScene::InitStep()
 {
-	//if (mp_ui == nullptr) { mp_ui = new TitleUI; }
+	TextureManager::Instance()->Load();
 
-	//mp_ui->Init(); //UI初期化
 
 	m_cur_step = SceneStep::MainStep;
 }
@@ -14,23 +15,16 @@ void TitleScene::InitStep()
 //更新ステップ関数
 void TitleScene::MainStep()
 {
-	//TitleUI::TitleUIInfo ui_info;
 
-	////UI更新
-	//mp_ui->Update();
-
-	m_cur_step = SceneStep::EndStep;
-
+	if (Inputter::Instance()->GetKeyDown(Inputter::ReturnKey))
+	{
+		m_cur_step = SceneStep::EndStep;
+	}
 }
 
 //終了ステップ関数
 void TitleScene::EndStep()
 {
-	//UI解放
-	/*mp_ui->ReleaseTex();
-	delete mp_ui;
-	mp_ui = nullptr;*/
-
 	//初期化ステップに変更
 	m_cur_step = SceneStep::InitStep;
 
@@ -41,10 +35,15 @@ void TitleScene::EndStep()
 //描画情報送信まとめ関数
 void TitleScene::Draw()
 {
-	//if (mp_ui != nullptr)
-	//{
-	//	mp_ui->Draw();
-	//}
+	//メイン描画開始
+	DirectGraphics::Instance()->StartRendering();
+	DirectGraphics::Instance()->SetUpRnderTaget();
+
+	//texture.Draw({0.0f, 0.0f,0.0f });
+	TextureManager::Instance()->Draw(SceneTextureType::TitleScene, "BG", { 0.0f, 0.0f,0.0f });
+
+	//描画終了
+	DirectGraphics::Instance()->FinishRendering();
 }
 
 //インスタンス返還関数

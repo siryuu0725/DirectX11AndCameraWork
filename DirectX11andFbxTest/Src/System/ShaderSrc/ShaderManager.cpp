@@ -24,7 +24,7 @@ bool ShaderManager::CreateShader()
 	}
 	//m_VertexShader[VertexShaderType::StaticVertex] = new VertexShader();
 	//m_VertexShader[VertexShaderType::SkinVertex] = new VertexShader();
-	//m_PixelShader[PixelShaderType::TexPixel] = new PixelShader();
+	//m_PixelShader[PixelShaderType::NomalPixel] = new PixelShader();
 
 	if (m_VertexShader[(__int8)VertexShaderType::StaticVertex]->Create(DirectGraphics::Instance()->GetDevice(),
 		"Res/Shader/StaticVertexShader.cso") == false)
@@ -38,8 +38,8 @@ bool ShaderManager::CreateShader()
 	}
 
 
-	if (m_PixelShader[(__int8)PixelShaderType::TexPixel]->Create(DirectGraphics::Instance()->GetDevice(),
-		"Res/Shader/TexPixelShader.cso") == false)
+	if (m_PixelShader[(__int8)PixelShaderType::NomalPixel]->Create(DirectGraphics::Instance()->GetDevice(),
+		"Res/Shader/PixelShader.cso") == false)
 	{
 		return false;
 	}
@@ -58,6 +58,18 @@ bool ShaderManager::CreateShader()
 
 	if (m_PixelShader[(__int8)PixelShaderType::ShadowTexPixel]->Create(DirectGraphics::Instance()->GetDevice(),
 		"Res/Shader/ShadowPixelShader.cso") == false)
+	{
+		return false;
+	}
+
+	//2DTexture用
+	if (m_VertexShader[(__int8)VertexShaderType::TexVertex]->Create(DirectGraphics::Instance()->GetDevice(),
+		"Res/Shader/TexVertexShader.cso") == false)
+	{
+		return false;
+	}
+	if (m_PixelShader[(__int8)PixelShaderType::TexPixel]->Create(DirectGraphics::Instance()->GetDevice(),
+		"Res/Shader/TexPixelShader.cso") == false)
 	{
 		return false;
 	}

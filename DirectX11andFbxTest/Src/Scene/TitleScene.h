@@ -6,7 +6,8 @@
 #ifndef TITLESCENE_H_
 #define TITLESCENE_H_
 #include"SceneBase.h"
-//#include "../UI/TitleUI/TitleUI.h"
+#include "../System/Texture/Texture.h"
+
 
 /**
 * タイトルシーンクラス
@@ -54,6 +55,8 @@ public:
 	static SceneBase* Instance();
 
 private:
+	Texture texture;
+
 	//TitleUI* mp_ui; //!タイトル用UI
 };
 

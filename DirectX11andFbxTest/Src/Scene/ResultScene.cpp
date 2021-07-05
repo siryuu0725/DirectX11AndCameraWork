@@ -1,6 +1,7 @@
 ﻿#include "ResultScene.h"
-#include"../System/DirectInput.h"
 #include "SceneController.h"
+#include "../System/DirectInput.h"
+#include "../System/Texture/TextureManager.h"
 
 //コンストラクタ
 ResultScene::ResultScene()
@@ -12,18 +13,20 @@ ResultScene::ResultScene()
 //描画情報送信まとめ関数
 void ResultScene::Draw()
 {
-	//mp_ui->Draw();
+	//メイン描画開始
+	DirectGraphics::Instance()->StartRendering();
+	DirectGraphics::Instance()->SetUpRnderTaget();
+
+	//texture.Draw({0.0f, 0.0f,0.0f });
+	TextureManager::Instance()->Draw(SceneTextureType::TitleScene, "BG", { 0.0f, 0.0f,0.0f });
+
+	//描画終了
+	DirectGraphics::Instance()->FinishRendering();
 }
 
 //初期化ステップ関数
 void ResultScene::InitStep()
 {
-	////UIインスタンス化
-	//if (mp_ui == nullptr) { mp_ui = new ResultUI(); }
-
-	////UI初期化
-	//mp_ui->Init();
-
 	//次のステップへ
 	m_cur_step = SceneStep::MainStep;
 }
@@ -31,9 +34,8 @@ void ResultScene::InitStep()
 //更新ステップ関数
 void ResultScene::MainStep()
 {
-	if (Inputter::Instance()->OnMouseDown(Inputter::Left))
+	if (Inputter::Instance()->GetKeyDown(Inputter::ReturnKey))
 	{
-		//次のステップへ
 		m_cur_step = SceneStep::EndStep;
 	}
 }

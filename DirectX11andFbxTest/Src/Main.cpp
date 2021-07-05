@@ -5,6 +5,7 @@
 #include "System/DirectGraphics.h"
 #include "System/DirectInput.h"
 #include "System/Fbx/FbxMeshFile.h"
+#include "System/Texture/TextureManager.h"
 #include "Object/Camera.h"
 #include "Object/Player.h"
 #include "Object/Floor.h"
@@ -147,6 +148,9 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	//入力情報解放
 	Inputter::Instance()->EndInput();
+
+	TextureManager::Instance()->Release();
+
 	return 0;
 
 

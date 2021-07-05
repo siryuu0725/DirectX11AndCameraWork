@@ -32,6 +32,13 @@ struct ConstantBuffer
 	DirectX::XMFLOAT4	MaterialSpecular;
 };
 
+//Texture用
+struct TexConstantBuffer
+{
+	DirectX::XMFLOAT4X4 World;
+	DirectX::XMFLOAT4X4 Projection;
+};
+
 struct CustomVertex
 {
 	Vector3 Position;		// 座標(x, y, z)
@@ -175,14 +182,29 @@ public:
 		return m_ConstantBuffer;
 	}
 
+	ID3D11Buffer* GetTexConstantBuffer()
+	{
+		return m_TexConstantBuffer;
+	}
+
 	ConstantBuffer* GetConstantBufferData()
 	{
 		return &m_ConstantBufferData;
 	}
 
+	TexConstantBuffer* GetTexConstantBufferData()
+	{
+		return &m_TexConstantBufferData;
+	}
+
 	ID3D11DeviceContext* GetContext()
 	{
 		return m_Context;
+	}
+
+	ID3D11SamplerState* GetSamplerState()
+	{
+		return m_SamplerState;
 	}
 
 	/**
@@ -274,6 +296,9 @@ private:
 	ID3D11SamplerState* m_SamplerState;									//!Textureサンプラー
 	ID3D11Buffer* m_ConstantBuffer;										//!定数バッファ
 	ConstantBuffer m_ConstantBufferData;								//!ConstantBufferデータ
+
+	ID3D11Buffer* m_TexConstantBuffer;									//!Texture用定数バッファ
+	TexConstantBuffer m_TexConstantBufferData;                          //!Texture用ConstantBufferデータ
 
 	ID3D11RenderTargetView* m_ShadowRenderTargetView;					//!ShadowRenderTargetViewのInterface
 	ID3D11Texture2D* m_ShadowTexture;

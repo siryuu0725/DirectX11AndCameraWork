@@ -305,13 +305,6 @@ bool DirectGraphics::CreateTextureSampler()
 //ConstantBuffer作成関数
 bool DirectGraphics::CreateConstantBuffer()
 {
-	/*
-		Constantバッファー作成
-			コンスタントバッファーはCPU側のデータを
-			まとめてGPU側に送信するためのバッファー
-
-			バッファーには座標変換行列などを設定する
-	*/
 	D3D11_BUFFER_DESC buffer_desc;
 	buffer_desc.ByteWidth = sizeof(ConstantBuffer);
 	buffer_desc.Usage = D3D11_USAGE_DEFAULT;
@@ -321,6 +314,14 @@ bool DirectGraphics::CreateConstantBuffer()
 	buffer_desc.StructureByteStride = 0;
 
 	if (FAILED(m_Device->CreateBuffer(&buffer_desc, nullptr, &m_ConstantBuffer)))
+	{
+		return false;
+	}
+
+	//Texture用ConstantBuffer作成
+	buffer_desc.ByteWidth = sizeof(TexConstantBuffer);
+
+	if (FAILED(m_Device->CreateBuffer(&buffer_desc, nullptr, &m_TexConstantBuffer)))
 	{
 		return false;
 	}

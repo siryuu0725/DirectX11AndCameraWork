@@ -1,6 +1,7 @@
 ﻿#include "GameScene.h"
 #include "../Utility/Collision/ObjectCollision.h"
 #include "../System/DirectInput.h"
+#include "../System/Texture/TextureManager.h"
 
 //コンストラクタ
 GameScene::GameScene() :
@@ -73,7 +74,7 @@ void GameScene::MainStep()
 
 	
 	//ポーズ画面切り替え
-	if(Inputter::Instance()->GetKeyDown(Inputter::ESCKey))
+	if(Inputter::Instance()->GetKeyDown(Inputter::ReturnKey))
 	{
 		m_cur_step = SceneStep::EndStep;
 	}
@@ -88,12 +89,10 @@ void GameScene::EndStep()
 	//当たり判定用情報リセット
 	ObjectCollision::Instance()->ResetObjectInfo();
 
-	//タイトルに戻る場合
-	if (Inputter::Instance()->GetKeyDown(Inputter::ReturnKey))
-	{
-		m_cur_step = SceneStep::EndStep;
-	}
-	
+	m_cur_step = SceneStep::InitStep;
+
+	SceneController::Instance()->SetSceneId(SceneId::Result);
+
 	m_is_change_scene = true;
 
 #ifdef _DEBUG
@@ -125,6 +124,21 @@ void GameScene::UpdateObject()
 //オブジェクト描画情報送信関数
 void GameScene::DrawObject()
 {
+	//ロード画面描画
+	if (WaitForSingleObject(thread_h, 0) != WAIT_OBJECT_0)
+	{
+		//メイン描画開始
+		DirectGraphics::Instance()->StartRendering();
+		DirectGraphics::Instance()->SetUpRnderTaget();
+
+		//texture.Draw({0.0f, 0.0f,0.0f });
+		TextureManager::Instance()->Draw(SceneTextureType::GameScene, "NowLoading", { 1300.0f, 800.0f,0.0f });
+
+		//描画終了
+		DirectGraphics::Instance()->FinishRendering();
+		return;
+	}
+
 	//影描画開始
 	DirectGraphics::Instance()->ShadowStartRendering();
 	DirectGraphics::Instance()->SetUpShadowRnderTaget();
