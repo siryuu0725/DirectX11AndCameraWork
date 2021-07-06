@@ -21,11 +21,23 @@ bool ObjectCollision::HitRectBlock()
 	//個数分回す
 	for (__int8 i = 0; i < m_rectblock_copy.size(); i++)
 	{
-		if (Collision::BoundingSphereAndPoint(m_rectblock_copy[i].m_pos, m_camera_copy.m_collision_pos, m_rectblock_copy[i].m_size) == true)
+		//ブロックオブジェクトを上から見たときに囲っている円(BaundingCircle)と
+		//カメラからのレイとの当たり判定を取る方法
+		if (Collision::VectorAndCircle(m_camera_copy.m_collision_pos,
+			m_camera_copy.m_direction + m_camera_copy.m_pos,
+			m_rectblock_copy[i].m_pos,
+			Calculation::Length(m_rectblock_copy[i].m_size / 2)) == true)
+		{
+			m_hit_circleblock_id = i;
+			return true;
+		}
+
+		//BaundingSphereとカメラ座標で当たり判定を取る方法
+		/*if (Collision::BoundingSphereAndPoint(m_rectblock_copy[i].m_pos, m_camera_copy.m_collision_pos, m_rectblock_copy[i].m_size) == true)
 		{
 			m_hit_rectblock_id = i;
 			return true;
-		}
+		}*/
 	}
 
 	return false;
