@@ -190,9 +190,14 @@ SceneBase* GameScene::Instance()
 
 DWORD WINAPI GameScene::LoadResorse(LPVOID lpparm)
 {
+	//新しいスレッドに対応するために定義
+	CoInitialize(nullptr);
+
 	//読み込み関連
 	FbxController::Instance()->LoadFbx();
 	FbxController::Instance()->LoadAnimation();
+
+	CoUninitialize();
 
 	return 0;
 }
