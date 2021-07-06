@@ -14,27 +14,7 @@ GameScene::GameScene() :
 	m_cur_step = SceneStep::InitStep;
 }
 
-//描画情報送信まとめ関数
-void GameScene::Draw()
-{
-	//ロード画面描画
-	if (WaitForSingleObject(thread_h, 0) != WAIT_OBJECT_0)
-	{
-		//メイン描画開始
-		DirectGraphics::Instance()->StartRendering();
-		DirectGraphics::Instance()->SetUpRnderTaget();
 
-		//texture.Draw({0.0f, 0.0f,0.0f });
-		TextureManager::Instance()->Draw(SceneTextureType::GameScene, "NowLoading", { 1100.0f, 900.0f,0.0f });
-
-		//描画終了
-		DirectGraphics::Instance()->FinishRendering();
-		return;
-	}
-
-	//オブジェクト
-	DrawObject();
-}
 
 //初期化ステップ関数
 void GameScene::InitStep()
@@ -55,12 +35,12 @@ void GameScene::InitStep()
 	if (mp_camera == nullptr) { mp_camera = new Camera(mp_block); }
 	if (mp_player == nullptr) { mp_player = new Player(mp_camera); }
 
+	if (mp_ui == nullptr) { mp_ui = new LoadUI; }
+
+	mp_ui->Init(); //UI初期化
+
 	//オブジェクト初期化
 	InitObject();
-
-	/*FbxController::Instance()->LoadFbx();
-	FbxController::Instance()->LoadAnimation();*/
-
 
 	//スレッドステップへ
 	m_cur_step = SceneStep::ThreadStep;
@@ -72,7 +52,7 @@ void GameScene::UpdateThreadStep()
 	//ロード画面演出用
 	if (WaitForSingleObject(thread_h, 0) != WAIT_OBJECT_0)
 	{
-		//mp_load_ui->Update();
+		mp_ui->Update();
 		return;
 	}
 
@@ -99,6 +79,9 @@ void GameScene::MainStep()
 //終了ステップ関数
 void GameScene::EndStep()
 {
+	delete mp_ui;
+	mp_ui = nullptr;
+
 	//各オブジェクト解放
 	DeleteObject();
 
@@ -116,6 +99,31 @@ void GameScene::EndStep()
 	FbxController::Instance()->ReleaseInstance();
 #endif
 }
+
+//描画情報送信まとめ関数
+void GameScene::Draw()
+{
+	//ロード画面描画
+	if (WaitForSingleObject(thread_h, 0) != WAIT_OBJECT_0)
+	{
+		//メイン描画開始
+		DirectGraphics::Instance()->StartRendering();
+		DirectGraphics::Instance()->SetUpRnderTaget();
+
+		if (mp_ui != nullptr)
+		{
+			mp_ui->Draw();
+		}
+
+		//描画終了
+		DirectGraphics::Instance()->FinishRendering();
+		return;
+	}
+
+	//オブジェクト
+	DrawObject();
+}
+
 
 //オブジェクト初期化関数
 void GameScene::InitObject()

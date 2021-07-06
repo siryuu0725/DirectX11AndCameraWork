@@ -16,6 +16,9 @@
 #include "../Object/Floor.h"
 #include "../Object/SkyDome.h"
 
+#include "../UI/LoadUI.h"
+
+
 #include <Windows.h>
 
 constexpr __int16 ObjectNum = 5;   //!使用しているオブジェクトの数
@@ -105,6 +108,7 @@ private:
 	SkyDome* mp_sky_dome;                 //!背景オブジェクト
 	Floor* mp_floor;                      //!ステージ床オブジェクト
 
+	LoadUI* mp_ui; //!タイトル用UI
 
 	HANDLE thread_h;
 	DWORD thread_id;

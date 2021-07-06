@@ -216,6 +216,13 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Src\UI\LoadUI.h" />
+    <ClInclude Include="Src\UI\ResultUI.h" />
+    <ClInclude Include="Src\UI\TitleUI.h" />
+    <ClInclude Include="Src\UI\UICategory.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Src\Utility\Calculation.h">
       <SubType>
       </SubType>
@@ -298,6 +305,9 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Src\UI\LoadUI.cpp" />
+    <ClCompile Include="Src\UI\ResultUI.cpp" />
+    <ClCompile Include="Src\UI\TitleUI.cpp" />
     <ClCompile Include="Src\Utility\Calculation.cpp">
       <SubType>
       </SubType>

@@ -11,6 +11,13 @@
 #ifndef TEXTURE_H_
 #define TEXTURE_H_
 
+enum TexOriginPoint
+{
+	LeftTop,
+	Center,
+	TypeNum
+};
+
 class Texture
 {
 public:
@@ -31,13 +38,13 @@ public :
 	* @details 入力レイアウト、VertexBuffer、IndexBufferの作成も行う
 	* @return 読み込みの成否 成功(true)
 	*/
-	bool LoadTexture(const char* file_name_);
+	bool LoadTexture(const char* file_name_, TexOriginPoint point_type_);
 
 	/**
 	* @brief テクスチャ描画関数
 	* @param[in] pos_ 描画座標
 	*/
-	void Draw(Vector3 pos_);
+	void Draw(Vector3 pos_, Vector3 scale_, Vector3 angle_);
 
 private:
 	/**
@@ -72,8 +79,8 @@ private:
 	ID3D11Buffer* m_vertex_buffer;
 	ID3D11Buffer* m_index_buffer;
 
-	UINT m_tex_width;
-	UINT m_tex_height;
+	float m_tex_width;
+	float m_tex_height;
 };
 
 

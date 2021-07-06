@@ -19,8 +19,10 @@ void ResultScene::Draw()
 	DirectGraphics::Instance()->StartRendering();
 	DirectGraphics::Instance()->SetUpRnderTaget();
 
-	//texture.Draw({0.0f, 0.0f,0.0f });
-	TextureManager::Instance()->Draw(SceneTextureType::EndScene, "BG", { 0.0f, 0.0f,0.0f });
+	if (mp_ui != nullptr)
+	{
+		mp_ui->Draw();
+	}
 
 	//描画終了
 	DirectGraphics::Instance()->FinishRendering();
@@ -29,6 +31,10 @@ void ResultScene::Draw()
 //初期化ステップ関数
 void ResultScene::InitStep()
 {
+	if (mp_ui == nullptr) { mp_ui = new ResultUI; }
+
+	mp_ui->Init(); //UI初期化
+
 	//次のステップへ
 	m_cur_step = SceneStep::MainStep;
 }
@@ -46,9 +52,8 @@ void ResultScene::MainStep()
 void ResultScene::EndStep()
 {
 	//UI解放
-	/*mp_ui->ReleaseTex();
 	delete mp_ui;
-	mp_ui = nullptr;*/
+	mp_ui = nullptr;
 
 	SceneController::Instance()->SetSceneId(SceneId::Title);
 

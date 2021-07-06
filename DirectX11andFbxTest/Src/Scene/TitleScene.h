@@ -7,7 +7,7 @@
 #define TITLESCENE_H_
 #include"SceneBase.h"
 #include "../System/Texture/Texture.h"
-
+#include "../UI/TitleUI.h"
 
 /**
 * タイトルシーンクラス
@@ -55,9 +55,7 @@ public:
 	static SceneBase* Instance();
 
 private:
-	Texture texture;
-
-	//TitleUI* mp_ui; //!タイトル用UI
+	TitleUI* mp_ui; //!タイトル用UI
 };
 
 #endif

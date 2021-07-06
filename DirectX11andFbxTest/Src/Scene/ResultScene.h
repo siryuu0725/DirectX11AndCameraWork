@@ -8,7 +8,7 @@
 #define RESULTSCENE_H_
 #include"SceneBase.h"
 #include "../Scene/SceneController.h"
-//#include "../UI/ResultUI/ResultUI.h"
+#include "../UI/ResultUI.h"
 
 
 /**
@@ -54,7 +54,7 @@ public:
 	static SceneBase* Instance();
 
 private:
-	//ResultUI* mp_ui; //!リザルト画面用UI
+	ResultUI* mp_ui; //!リザルト画面用UI
 };
 
 #endif

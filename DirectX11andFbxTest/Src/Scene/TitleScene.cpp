@@ -12,8 +12,11 @@ TitleScene::TitleScene()
 //初期化ステップ関数
 void TitleScene::InitStep()
 {
-	TextureManager::Instance()->Load();
+	if (mp_ui == nullptr) { mp_ui = new TitleUI; }
 
+	mp_ui->Init(); //UI初期化
+
+	TextureManager::Instance()->Load();
 
 	m_cur_step = SceneStep::MainStep;
 }
@@ -31,6 +34,9 @@ void TitleScene::MainStep()
 //終了ステップ関数
 void TitleScene::EndStep()
 {
+	delete mp_ui;
+	mp_ui = nullptr;
+
 	//初期化ステップに変更
 	m_cur_step = SceneStep::InitStep;
 
@@ -45,8 +51,10 @@ void TitleScene::Draw()
 	DirectGraphics::Instance()->StartRendering();
 	DirectGraphics::Instance()->SetUpRnderTaget();
 
-	//texture.Draw({0.0f, 0.0f,0.0f });
-	TextureManager::Instance()->Draw(SceneTextureType::TitleScene, "BG", { 0.0f, 0.0f,0.0f });
+	if (mp_ui != nullptr)
+	{
+		mp_ui->Draw();
+	}
 
 	//描画終了
 	DirectGraphics::Instance()->FinishRendering();

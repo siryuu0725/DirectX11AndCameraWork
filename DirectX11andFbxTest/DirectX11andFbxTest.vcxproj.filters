@@ -22,9 +22,6 @@
     <Filter Include="Object">
       <UniqueIdentifier>{23c80d7d-d984-457d-a897-1afcab1da6da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\ShaderSrc">
-      <UniqueIdentifier>{34017541-883a-49fe-ac6c-ebdc38c9da36}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\Block">
       <UniqueIdentifier>{55e3e8b7-aece-4047-b957-a2cc325e1f88}</UniqueIdentifier>
     </Filter>
@@ -36,6 +33,12 @@
     </Filter>
     <Filter Include="System\Texture">
       <UniqueIdentifier>{894de658-dedc-4bb1-a292-eded7f130d5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\ShaderSrc">
+      <UniqueIdentifier>{34017541-883a-49fe-ac6c-ebdc38c9da36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{6a8debc4-f70b-40a8-bfde-48a79f7699a2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +129,18 @@
     <ClInclude Include="Src\System\Texture\TextureManager.h">
       <Filter>System\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="Src\UI\UICategory.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UI\LoadUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UI\ResultUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UI\TitleUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Main.cpp" />
@@ -212,6 +227,15 @@
     </ClCompile>
     <ClCompile Include="Src\System\Texture\TextureManager.cpp">
       <Filter>System\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UI\ResultUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UI\LoadUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UI\TitleUI.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@
 #include "../../Utility/Calculation.h"
 
 //テクスチャ読み込み関数
-bool Texture::LoadTexture(const char* file_name_)
+bool Texture::LoadTexture(const char* file_name_, TexOriginPoint point_type_)
 {
 	std::string file_name = file_name_;
 	std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> cv;
@@ -32,8 +32,8 @@ bool Texture::LoadTexture(const char* file_name_)
 		return false;
 	}
 
-	m_tex_width = metadata.width;
-	m_tex_height = metadata.height;
+	m_tex_width = (float)metadata.width;
+	m_tex_height = (float)metadata.height;
 
 	/*float top = 1.0f - (0.0f / (GetWindowSize().y / 2));
 	float bottom = 1.0f - ((0.0f + m_tex_height) / (GetWindowSize().y / 2));
@@ -49,13 +49,43 @@ bool Texture::LoadTexture(const char* file_name_)
 		{ {left,bottom,0.0f},{0.0f,1.0f} }
 	};*/
 
+	float top = (m_tex_height / 2);
+	float bottom = (m_tex_height / 2);
+	float left = (m_tex_width / 2);
+	float right = (m_tex_width / 2);
+
+	switch (point_type_)
+	{
+	case TexOriginPoint::LeftTop:
+		/*vertices[4]=
+		{
+			{ {0.0f,0.0f,0.0f},{0.0f,0.0f} },
+			{ {m_tex_width,0.0f,0.0f},{1.0f,0.0f} },
+			{ {m_tex_width,m_tex_height,0.0f},{1.0f,1.0f} },
+			{ {0.0f,m_tex_height,0.0f},{0.0f,1.0f} }
+		};*/
+		top = 0.0f;
+		bottom = m_tex_height;
+
+		left = 0.0f;
+		right = m_tex_width;
+		break;
+	case TexOriginPoint::Center:
+		top = -top;
+
+		left = -left;
+		break;
+	default:
+		break;
+	}
+
 	TexCustomVertex vertices[4]
 	{
-		{ {0.0f,0.0f,0.0f},{0.0f,0.0f} },
-		{ {m_tex_width,0.0f,0.0f},{1.0f,0.0f} },
-		{ {m_tex_width,m_tex_height,0.0f},{1.0f,1.0f} },
-		{ {0.0f,m_tex_height,0.0f},{0.0f,1.0f} }
-	}; 
+		{ {left,top,0.0f},{0.0f,0.0f} },
+		{ {right,top,0.0f},{1.0f,0.0f} },
+		{ {right,bottom,0.0f},{1.0f,1.0f} },
+		{ {left,bottom,0.0f},{0.0f,1.0f} }
+	};
 
 	WORD indices[6]
 	{
@@ -100,7 +130,7 @@ bool Texture::CreateInputLayout(ID3D11Device* device)
 }
 
 //テクスチャ描画関数
-void Texture::Draw(Vector3 pos_)
+void Texture::Draw(Vector3 pos_, Vector3 scale_, Vector3 angle_)
 {
 
 	ID3D11DeviceContext* context = DirectGraphics::Instance()->GetContext();
@@ -111,7 +141,8 @@ void Texture::Draw(Vector3 pos_)
 	ShaderManager::Instance()->SetUpShader(VertexShaderType::TexVertex, PixelShaderType::TexPixel);
 
 	//各行列作成
-	DirectX::XMMATRIX world_matrix = DirectX::XMMatrixTranslation(pos_.x, pos_.y, pos_.z);
+	DirectX::XMMATRIX world_matrix = Calculation::Matrix(pos_, scale_, angle_);
+	//DirectX::XMMATRIX world_matrix = DirectX::XMMatrixTranslation(pos_.x, pos_.y, pos_.z);
 	//DirectX::XMMATRIX world_matrix = Calculation::Matrix(Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f), Vector3(0.0f, 0.0f, 0.0f));
 	float width = GetWindowSize().x;
 	float height = GetWindowSize().y;
