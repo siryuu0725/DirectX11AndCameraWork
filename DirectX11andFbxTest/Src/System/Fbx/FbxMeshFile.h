@@ -6,7 +6,7 @@
 #ifndef FBX_MESH_FILE_H_
 #define FBX_MESH_FILE_H_
 #include <fbxsdk.h>
-#include <map>
+#include <unordered_map>
 #include <vector>
 #include "../DirectGraphics.h"
 
@@ -248,12 +248,12 @@ private:
 	FbxScene* fbx_scene;	   
 
 	std::vector<MeshData> m_MeshList;                                  //!メッシュデータ
-	std::map<std::string, ObjMaterial> m_Materials;                    //!マテリアル保存
+	std::unordered_map<std::string, ObjMaterial> m_Materials;                    //!マテリアル保存
 	ID3D11InputLayout* m_InputLayout;								   //!入力レイアウト
-	std::map<std::string, ID3D11ShaderResourceView*> m_Textures;       //!テクスチャ情報保存
-	std::map<std::string, ID3D11ShaderResourceView*> m_MaterialLinks;  //!テクスチャとマテリアルの関係
+	std::unordered_map<std::string, ID3D11ShaderResourceView*> m_Textures;       //!テクスチャ情報保存
+	std::unordered_map<std::string, ID3D11ShaderResourceView*> m_MaterialLinks;  //!テクスチャとマテリアルの関係
 
-	std::map<std::string, Motion>	 m_Motion; //モーション保存
+	std::unordered_map<std::string, Motion>	 m_Motion; //モーション保存
 	Bone m_Bone[BONE_MAX];     //ボーン保存
 	std::string m_PlayMotion;  //モーション名
 	UINT m_BoneNum;            //ボーン数

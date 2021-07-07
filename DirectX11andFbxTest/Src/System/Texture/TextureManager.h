@@ -48,7 +48,7 @@ private:
 private:
 	static TextureManager* mp_instance;
 
-	std::map<std::string, Texture*> m_texture;
+	std::unordered_map<std::string, Texture*> m_texture;
 
 };
 

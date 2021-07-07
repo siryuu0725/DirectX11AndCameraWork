@@ -88,7 +88,7 @@ public:
 private:
 	static FbxController* mp_instance;
 
-	std::map<std::string, FbxMeshFile*> m_MeshData;
+	std::unordered_map<std::string, FbxMeshFile*> m_MeshData;
 
 };
 
