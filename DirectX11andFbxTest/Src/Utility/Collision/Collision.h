@@ -3,6 +3,7 @@
  * @brief 当たり判定を行う
  * @details 中身：当たり判定クラス
 **/
+
 #ifndef COLLISION_H_
 #define COLLISION_H_
 #include "../Utility.h"

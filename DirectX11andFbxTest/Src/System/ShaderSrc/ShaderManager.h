@@ -8,7 +8,6 @@
 #define SHADER_MANAGER_H_
 #include "PixelShader.h"
 #include "VertexShader.h"
-#include <map>
 #include <string>
 #include <vector>
 

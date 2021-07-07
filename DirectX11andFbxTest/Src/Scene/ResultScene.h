@@ -23,7 +23,7 @@ public:
 #pragma region 各ステップ処理
 	/**
  　　* @brief  初期化ステップ関数
- 　　* @details UI、サウンドの初期化を行う
+ 　　* @details UIの初期化を行う
  　　*/
 	virtual void InitStep()override;
 
@@ -35,15 +35,15 @@ public:
 
 	/**
  　　* @brief  終了ステップ関数
- 　　* @details 次のシーン移行前のUIやサウンドの解放を行う
+ 　　* @details 次のシーン移行前のUIの解放を行う
  　　*/
 	virtual void EndStep()override;
 
 #pragma endregion
 
 	/**
-	 * @brief  描画情報送信まとめ関数
-	 * @details UIの描画情報送信処理を行う
+	 * @brief  描画まとめ関数
+	 * @details UIの描画処理を行う
 	 */
 	virtual void Draw()override;
 

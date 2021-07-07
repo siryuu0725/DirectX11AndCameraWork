@@ -5,18 +5,14 @@
 **/
 #ifndef CAMERA_H_
 #define CAMERA_H_
-#include "../System/DirectGraphics.h"
 #include "ObjectBase.h"
 #include "Block/BlockController.h"
+#include "../System/DirectGraphics.h"
 
-constexpr __int8 AngleofView = 60;       //!画角
-constexpr float Near = 1.1f;
-constexpr float Far = 20000000.0f;
-constexpr unsigned __int8 CameraSensitivity = 50;  //!カメラ感度
-constexpr float CameraRoteTime = 0.2f; //球面線形補間に使う媒介変数
+constexpr float CameraRoteTime = 0.2f;   //球面線形補間に使う媒介変数
 constexpr float MaxCameraRote_Y = 80.0f; //縦回転の限界値
 constexpr float MinCameraPos_Y = 0.0f;   //カメラが地面から押し出される位置
-constexpr float CameraUpPos = 1.0f;   //地面の裏側が見えないように余分に押し出す値
+constexpr float CameraUpPos = 1.0f;      //地面の裏側が見えないように余分に押し出す値
 
 class Camera :public ObjectBase
 {
@@ -34,10 +30,10 @@ public:
 			m_move_vec(Vector3(0.0f, 0.0f, 0.0f)),
 			m_player_pos(Vector3(0.0f, 0.0f, 0.0f)),
 			m_zik_vec(Vector3(0.0f, 0.0f, 0.0f)),
-			m_intersection(Vector3(0.0f, 0.0f, 0.0f)),
+			m_floor_intersection(Vector3(0.0f, 0.0f, 0.0f)),
 			m_intersection1(Vector3(0.0f, 0.0f, 0.0f)),
 			m_intersection2(Vector3(0.0f, 0.0f, 0.0f)),
-			leap_vec(Vector3(0.0f, 0.0f, 0.0f)),
+			m_leap_vec(Vector3(0.0f, 0.0f, 0.0f)),
 			m_yaw(0.0f),
 			m_rote_speed(0.0f),
 			m_rote_angle(0.0f)
@@ -54,15 +50,15 @@ public:
 		Vector3 m_camera_up; //!カメラの上向きのベクトル
 		Vector3 m_forward;   //!カメラの前向きのベクトル
 
-		Vector3 m_move_vec;   //!移動量
-		Vector3 m_player_pos; //!プレイヤー座標(カメラの回転の軸にする)
-		Vector3 m_zik_vec; //!プレイヤー座標(カメラの回転の軸にする)
-		Vector3 m_intersection; //!地面とカメラベクトルの交点
+		Vector3 m_move_vec;     //!移動量
+		Vector3 m_player_pos;   //!プレイヤー座標(カメラの回転の軸にする)
+		Vector3 m_zik_vec;      //!任意の軸ベクトル
+		Vector3 m_floor_intersection; //!地面とカメラベクトルの交点
 
 		Vector3 m_intersection1; //円柱との交点
 		Vector3 m_intersection2; //円柱との交点2
 
-		Vector3 leap_vec; //!線形補間ベクトル
+		Vector3 m_leap_vec; //!線形補間ベクトル
 
 		float m_yaw;        //!X軸回転
 		float m_rote_speed; //回転スピード
@@ -75,7 +71,7 @@ private:
 	CameraInfo m_camerainfo;
 
 public:
-	Camera(BlockController* block_) :m_block(block_) {}
+	Camera(BlockController* block_) :mp_block(block_) {}
 	~Camera() {}
 
 	/**
@@ -149,7 +145,7 @@ public:
 	const void GetCameraInfo(CameraInfo& copy_info_) { copy_info_ = m_camerainfo; }
 
 private:
-	BlockController* m_block;
+	BlockController* mp_block;
 };
 
 #endif

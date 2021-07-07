@@ -7,7 +7,6 @@
 #ifndef FLOOR_H_
 #define FLOOR_H_
 #include "ObjectBase.h"
-#include <DirectXTex.h>
 
 class Floor :public ObjectBase
 {
@@ -30,8 +29,9 @@ public:
 	* @brief   影描画関数
 	*/
 	virtual void ShadowDraw()override;
+
 private:
-	ObjectInfo floor_info;
+	ObjectInfo floor_info; //!床情報
 };
 
 #endif

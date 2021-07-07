@@ -18,7 +18,6 @@
 
 #include "../UI/LoadUI.h"
 
-
 #include <Windows.h>
 
 constexpr __int16 ObjectNum = 5;   //!使用しているオブジェクトの数
@@ -33,8 +32,8 @@ public:
 	~GameScene() {}
 
 	/**
-	 * @brief  描画情報送信まとめ関数
-	 * @details 各オブジェクト、エフェクトなどの描画情報送信処理を行う
+	 * @brief  描画まとめ関数
+	 * @details 各オブジェクト、UIなどの描画処理を行う
 	 */
 	virtual void Draw()override;
 
@@ -42,7 +41,7 @@ public:
 
 	/**
  　　* @brief  初期化ステップ関数
- 　　* @details 各オブジェクト、エフェクトやサウンドの初期化を行う
+ 　　* @details 各オブジェクト、UIの初期化を行う
  　　*/
 	virtual void InitStep()override;
 
@@ -54,7 +53,7 @@ public:
 
 	/**
  　　* @brief  終了ステップ関数
- 　　* @details 次のシーン移行前のオブジェクトやUI、サウンドの解放を行う
+ 　　* @details 次のシーン移行前のオブジェクトやUIの解放を行う
  　　*/
 	virtual void EndStep()override;
 
@@ -99,14 +98,17 @@ public:
      */
 	static SceneBase* Instance();
 
-
+	/**
+	 * @brief  読み込み用スレッド関数
+	 * @details 各Fbxオブジェクトの読み込みを行う
+	 */
 	static DWORD WINAPI LoadResorse(LPVOID lpparm_);
 private:
-	Camera* mp_camera;                    //!カメラオブジェクト
-	BlockController* mp_block; //!ブロック管理オブジェクト
-	Player* mp_player;                    //!プレイヤーオブジェクト
-	SkyDome* mp_sky_dome;                 //!背景オブジェクト
-	Floor* mp_floor;                      //!ステージ床オブジェクト
+	Camera* mp_camera;          //!カメラオブジェクト
+	BlockController* mp_block;  //!ブロック管理オブジェクト
+	Player* mp_player;          //!プレイヤーオブジェクト
+	SkyDome* mp_sky_dome;       //!背景オブジェクト
+	Floor* mp_floor;            //!ステージ床オブジェクト
 
 	LoadUI* mp_ui; //!タイトル用UI
 

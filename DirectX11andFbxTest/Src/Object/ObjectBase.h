@@ -10,7 +10,6 @@
 #include "../Utility/Utility.h"
 #include <vector>
 #include <string>
-#include <DirectXTex.h>
 
 /**
 *@class   オブジェクトベースクラス
@@ -57,7 +56,6 @@ public:
 
 	/**
 	 * @brief  初期化関数
-	 * @param[in] stage_str_ 選択ステージ名(例"Stage1")
 	 * @details オブジェクト情報初期化
 	 */
 	virtual void Init() {}

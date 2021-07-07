@@ -12,7 +12,6 @@ void SkyDome::Init()
 	
 	skydome_info.m_key = "SkyDome"; //描画用キー
 
-	//FbxController::Instance()->LoadFbxMesh(skydome_info.m_key, "Res/FBX/sky_dome.fbx", VertexShaderType::StaticVertex);
 }
 
 //描画関数

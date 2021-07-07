@@ -33,6 +33,7 @@ public:
     * @brief   影描画関数
     */
 	virtual void ShadowDraw()override;
+
 	/**
  　 * @brief  オブジェクト情報Getter
     * @param[out] copy_info_ 保存用オブジェクト構造体

@@ -3,18 +3,16 @@
  * @brief 床オブジェクト
  * @details　中身：床クラス
 **/
-
-#include <map>
-#include <string>
 #include "../DirectGraphics.h"
 
 #ifndef TEXTURE_H_
 #define TEXTURE_H_
 
+//テクスチャ原点タイプ
 enum TexOriginPoint
 {
-	LeftTop,
-	Center,
+	LeftTop,  //!左上
+	Center,	  //!中心
 	TypeNum
 };
 
@@ -73,14 +71,14 @@ private:
 	bool CreateIndexBuffer(WORD* indices_ ,ID3D11Buffer** outindex_buffer_);
 	
 private:
-	ID3D11ShaderResourceView* m_Textures;       //!テクスチャ情報保存
-	ID3D11InputLayout* m_InputLayout;			//!入力レイアウト
+	ID3D11ShaderResourceView* m_Textures;  //!テクスチャ情報保存
+	ID3D11InputLayout* m_InputLayout;	   //!入力レイアウト
 
-	ID3D11Buffer* m_vertex_buffer;
-	ID3D11Buffer* m_index_buffer;
+	ID3D11Buffer* m_vertex_buffer;   //!VertexBuffer          
+	ID3D11Buffer* m_index_buffer;	 //!IndexBuffer    
 
-	float m_tex_width;
-	float m_tex_height;
+	float m_tex_width;   //!Textureの横幅
+	float m_tex_height;	 //!Textureの縦幅
 };
 
 

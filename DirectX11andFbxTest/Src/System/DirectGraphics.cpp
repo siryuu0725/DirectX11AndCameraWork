@@ -79,6 +79,7 @@ bool DirectGraphics::Init()
 	return true;
 }
 
+//DeviceとSwapChainの作成関数
 bool DirectGraphics::CreateDeviceAndSwapChain()
 {
 	DXGI_SWAP_CHAIN_DESC dxgi;
@@ -106,6 +107,7 @@ bool DirectGraphics::CreateDeviceAndSwapChain()
 	return true;
 }
 
+//RenderTargetViewの作成関数
 bool DirectGraphics::CreateRenderTargetView()
 {
 	// RenderTargetViewの対象となるBufferの取得
@@ -430,6 +432,7 @@ void DirectGraphics::SetLight()
 	XMStoreFloat4(&m_ConstantBufferData.LightVector, light_vec);
 }
 
+//RnderTaget設定関数
 void DirectGraphics::SetUpRnderTaget()
 {
 	// プリミティブの形状を指定
@@ -442,8 +445,7 @@ void DirectGraphics::SetUpRnderTaget()
 		m_DepthStencilView);		// 使用するDepthStencilView
 }
 
-
-
+//影描画用RnderTaget設定関数
 void DirectGraphics::SetUpShadowRnderTaget()
 {
 	// プリミティブの形状を指定
@@ -456,6 +458,7 @@ void DirectGraphics::SetUpShadowRnderTaget()
 		m_ShadowDepthStencilView);		// 使用するDepthStencilView
 }
 
+//DXGI_SWAP_CHAIN_DESCの設定関数
 void DirectGraphics::SetUpDxgiSwapChainDesc(DXGI_SWAP_CHAIN_DESC* dxgi)
 {
 	HWND window_handle = FindWindow(Window::ClassName, nullptr);
@@ -480,6 +483,7 @@ void DirectGraphics::SetUpDxgiSwapChainDesc(DXGI_SWAP_CHAIN_DESC* dxgi)
 	dxgi->Windowed = true;									// ウィンドウモード指定
 }
 
+//描画開始関数
 void DirectGraphics::StartRendering()
 {
 	float clear_color[4] = { 1.0f, 1.0f, 1.0f, 1.0f };	// RenderTarget塗りつぶしカラー(RGBA)
@@ -500,26 +504,28 @@ void DirectGraphics::StartRendering()
 		&m_ViewPort[0]);		// 設定するビューポート情報のポインタ
 }
 
+//影描画開始関数
 void DirectGraphics::ShadowStartRendering()
 {
 	float clear_color[4] = { 1.0f, 1.0f, 1.0f, 1.0f };	// RenderTarget塗りつぶしカラー(RGBA)
 
 	// DirecX9ではRenderTargetとDepth、Stencilバッファのクリアは別々にする
 	m_Context->ClearRenderTargetView(
-		m_ShadowRenderTargetView,					// クリア対象のView
-		clear_color);								// クリアカラー
+		m_ShadowRenderTargetView,					//クリア対象のView
+		clear_color);								//クリアカラー
 
 	m_Context->ClearDepthStencilView(
-		m_ShadowDepthStencilView,					// クリア対象のView	
-		D3D11_CLEAR_DEPTH ,	                        // クリアフラグ(今回はDepth、Stencilともにクリア)
-		1.0f,										// 深度クリア値
-		0);										    // ステンシルクリア値
+		m_ShadowDepthStencilView,					//クリア対象のView	
+		D3D11_CLEAR_DEPTH ,	                        //クリアフラグ(今回はDepth、Stencilともにクリア)
+		1.0f,										//深度クリア値
+		0);										    //ステンシルクリア値
 
 	m_Context->RSSetViewports(
-		1,					// 設定するビューポートの数
-		&m_ViewPort[1]);		// 設定するビューポート情報のポインタ
+		1,					//設定するビューポートの数
+		&m_ViewPort[1]);    //設定するビューポート情報のポインタ
 }
 
+//描画終了関数
 void DirectGraphics::FinishRendering()
 {
 	// 描画コマンドを送信する
@@ -539,6 +545,7 @@ void DirectGraphics::FinishRendering()
 		0);	// 出力オプション
 }
 
+//TextureSet関数
 void DirectGraphics::SetTexture(ID3D11ShaderResourceView* texture)
 {
 	// Samplerの設定
@@ -560,6 +567,7 @@ void DirectGraphics::SetTexture(ID3D11ShaderResourceView* texture)
 
 }
 
+//DirectX11の解放関数
 void DirectGraphics::Release()
 {
 	ShaderManager::Instance()->Release();

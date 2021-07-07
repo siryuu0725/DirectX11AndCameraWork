@@ -101,7 +101,13 @@ public:
  　　*/
 	static float SecondCross(Vector3 vec_, Vector3 vec2_);
 
-
+	/**
+　　* @brief 範囲指定関数
+	* @param[out] value_  変更値
+	* @param[in] min_ 最少範囲
+	* @param[in] max_ 最大範囲
+	* @return 変更値が最大、最少を超えないように抑える
+　　*/
 	static void Clamp(float& value_, float min_, float max_);
 
 	/**

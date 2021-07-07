@@ -164,12 +164,19 @@ public:
 
 	/**
 	* @brief RnderTaget設定関数
-	* @details めいんびょうがにしようｓ
 	*/
 	void SetUpRnderTaget();
 
+	/**
+	* @brief 影描画開始関数
+	* @details 描画処理を行う場合、必ずこの関数の後に実行する
+	* @details 実行しないと描画されない
+	*/
 	void ShadowStartRendering();
 
+	/**
+	* @brief  影描画用RnderTaget設定関数
+	*/
 	void SetUpShadowRnderTaget();
 
 	ID3D11Device* GetDevice()

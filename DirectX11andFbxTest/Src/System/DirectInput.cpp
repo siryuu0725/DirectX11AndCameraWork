@@ -272,6 +272,7 @@ bool Inputter::OnMouseDown(MouseButton button_type_)
 	return false;
 }
 
+//Instance解放関数(Debug用)
 void Inputter::ReleaseInstance()
 {
 	delete mp_instance;

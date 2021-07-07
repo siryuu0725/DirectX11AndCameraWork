@@ -43,22 +43,6 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		return 0;
 	}
 
-	//FbxMeshFile* model;
-	//BlockController* block = new BlockController;
-	//Camera* camera = new Camera(block);
-	//Player* player = new Player(camera);
-	//Floor* floor = new Floor;
-	//SkyDome* skydome = new SkyDome;
-
-	////各オブジェクトを配列でまとめる
-	//ObjectBase* obj[ObjectNum] =
-	//{ block,camera ,player ,floor,skydome };
-
-	//for (int i = 0; i < ObjectNum; i++)
-	//{
-	//	obj[i]->Init();
-	//}
-
 	timeBeginPeriod(1);
 
 	DWORD current = timeGetTime();
@@ -86,33 +70,6 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		}
 		else
 		{
-			////入力クラス更新
-			//Inputter::Instance()->UpdateInput();
-
-			////オブジェクト更新
-			//player->Update();
-			//camera->Update();
-
-			////影描画開始
-			//DirectGraphics::Instance()->ShadowStartRendering();
-			//DirectGraphics::Instance()->SetUpShadowRnderTaget();
-
-			//block->ShadowDraw();
-			//player->ShadowDraw();
-
-			////メイン描画開始
-			//DirectGraphics::Instance()->StartRendering();
-			//DirectGraphics::Instance()->SetUpRnderTaget();
-
-			//floor->Draw();
-			//skydome->Draw();
-			//block->Draw();
-
-			//player->Draw();
-
-			////描画終了
-			//DirectGraphics::Instance()->FinishRendering();
-
 			//更新処理
 			SceneController::Instance()->Update();
 
@@ -137,18 +94,13 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	timeEndPeriod(1);
 
-	////オブジェクト解放
-	//for (int i = 0; i < ObjectNum; i++)
-	//{
-	//	obj[i]->ReleaseModel();
-	//	delete obj[i];
-	//}
-
+	//DirectX11の解放関数
 	DirectGraphics::Instance()->Release();
 
 	//入力情報解放
 	Inputter::Instance()->EndInput();
 
+	//テクスチャ解放関数
 	TextureManager::Instance()->Release();
 
 	return 0;

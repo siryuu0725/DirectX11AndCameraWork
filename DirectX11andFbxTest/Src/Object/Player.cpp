@@ -16,15 +16,6 @@ void Player::Init()
 	player_info.m_direction = Vector3(0.0f, 0.0f, 1.0f); //方向ベクトル
 	player_info.m_old_pos = player_info.m_pos;           //1フレーム前座標
 	player_info.m_speed = 1.5f;                          //移動スピード
-
-	//Meshファイル読み込み
-	//FbxController::Instance()->LoadFbxMesh(player_info.m_key, "Res/FBX/unitychan_ch_change.fbx",VertexShaderType::SkinVertex);
-
-	//Animation読み込み
-	//FbxController::Instance()->LoadAnimation(player_info.m_key,"Run", "Res/FBX/unitychan_RUN00_F.FBX");
-	//FbxController::Instance()->LoadAnimation(player_info.m_key,"Stay", "Res/FBX/unitychan_WAIT00.FBX");
-	//動かしたいAnimationのキー設定
-	//FbxController::Instance()->SetAnimationName(player_info.m_key, "Run");
 }
 
 //更新関数

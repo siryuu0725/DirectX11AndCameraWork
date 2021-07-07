@@ -9,8 +9,10 @@ GameScene::GameScene() :
 	mp_block(nullptr), 
 	mp_player(nullptr), 
 	mp_sky_dome(nullptr),
-	mp_floor(nullptr)
+	mp_floor(nullptr),
+	mp_ui(nullptr)
 {
+	m_is_change_scene = false;
 	m_cur_step = SceneStep::InitStep;
 }
 
@@ -69,7 +71,7 @@ void GameScene::MainStep()
 	mp_camera->Update();
 
 	
-	//ポーズ画面切り替え
+	//Enterキーが押されたら次のステップへ
 	if (Inputter::Instance()->GetKeyDown(Inputter::ReturnKey))
 	{
 		m_cur_step = SceneStep::EndStep;
@@ -88,8 +90,10 @@ void GameScene::EndStep()
 	//当たり判定用情報リセット
 	ObjectCollision::Instance()->ResetObjectInfo();
 
+	//初期化ステップに変更
 	m_cur_step = SceneStep::InitStep;
 
+	//リザルトシーンへ変更
 	SceneController::Instance()->SetSceneId(SceneId::Result);
 
 	m_is_change_scene = true;

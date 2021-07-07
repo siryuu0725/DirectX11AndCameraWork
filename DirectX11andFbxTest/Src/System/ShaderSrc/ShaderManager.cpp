@@ -13,66 +13,75 @@ ShaderManager* ShaderManager::Instance()
 //シェーダ作成関数
 bool ShaderManager::CreateShader()
 {
+	//頂点シェーダー追加
 	for (__int8 i = 0; i < (__int8)VertexShaderType::VertexMaxNum; i++)
 	{
 		m_VertexShader.push_back(new VertexShader);
 	}
 
+	//ピクセルシェーダー追加
 	for (__int8 i = 0; i < (__int8)PixelShaderType::PixelMaxNum; i++)
 	{
 		m_PixelShader.push_back(new PixelShader);
 	}
-	//m_VertexShader[VertexShaderType::StaticVertex] = new VertexShader();
-	//m_VertexShader[VertexShaderType::SkinVertex] = new VertexShader();
-	//m_PixelShader[PixelShaderType::NomalPixel] = new PixelShader();
 
+#pragma region オブジェクト描画用
+	//静的オブジェクト用頂点シェーダー
 	if (m_VertexShader[(__int8)VertexShaderType::StaticVertex]->Create(DirectGraphics::Instance()->GetDevice(),
 		"Res/Shader/StaticVertexShader.cso") == false)
 	{
 		return false;
 	}
+	//スキンありオブジェクト用頂点シェーダー
 	if (m_VertexShader[(__int8)VertexShaderType::SkinVertex]->Create(DirectGraphics::Instance()->GetDevice(),
 		"Res/Shader/SkinVertexShader.cso") == false)
 	{
 		return false;
 	}
 
-
+	//オブジェクト用ピクセルシェーダー
 	if (m_PixelShader[(__int8)PixelShaderType::NomalPixel]->Create(DirectGraphics::Instance()->GetDevice(),
 		"Res/Shader/PixelShader.cso") == false)
 	{
 		return false;
 	}
+#pragma endregion
 
-
+#pragma region 影描画用
+	//影描画用頂点シェーダー(静的オブジェクト)
 	if (m_VertexShader[(__int8)VertexShaderType::ShadowStaticVertex]->Create(DirectGraphics::Instance()->GetDevice(),
 		"Res/Shader/ShadowStaticVertexShader.cso") == false)
 	{
 		return false;
 	}
+	//影描画用頂点シェーダー(スキンありオブジェクト)
 	if (m_VertexShader[(__int8)VertexShaderType::ShadowSkinVertex]->Create(DirectGraphics::Instance()->GetDevice(),
 		"Res/Shader/ShadowSkinVertexShader.cso") == false)
 	{
 		return false;
 	}
-
+	//影描画用ピクセルシェーダー
 	if (m_PixelShader[(__int8)PixelShaderType::ShadowTexPixel]->Create(DirectGraphics::Instance()->GetDevice(),
 		"Res/Shader/ShadowPixelShader.cso") == false)
 	{
 		return false;
 	}
+#pragma endregion
 
-	//2DTexture用
+#pragma region 2DTexture描画用
+	//2DTexture用頂点シェーダー
 	if (m_VertexShader[(__int8)VertexShaderType::TexVertex]->Create(DirectGraphics::Instance()->GetDevice(),
 		"Res/Shader/TexVertexShader.cso") == false)
 	{
 		return false;
 	}
+	//2DTexture用ピクセルシェーダー
 	if (m_PixelShader[(__int8)PixelShaderType::TexPixel]->Create(DirectGraphics::Instance()->GetDevice(),
 		"Res/Shader/TexPixelShader.cso") == false)
 	{
 		return false;
 	}
+#pragma endregion
 
 	return true;
 }
@@ -88,15 +97,6 @@ void ShaderManager::SetUpShader(VertexShaderType type_, PixelShaderType pixel_ty
 //シェーダ解放関数
 void ShaderManager::Release()
 {
-	/*for (auto itr = m_VertexShader.begin(); itr != m_VertexShader.end(); ++itr)
-	{
-		if (m_VertexShader[itr] != nullptr)
-		{
-			delete m_VertexShader;
-			m_VertexShader = nullptr;
-		}
-	}*/
-
 	for (__int8 i = 0; i < (__int8)VertexShaderType::VertexMaxNum; i++)
 	{
 		if (m_VertexShader[i] != nullptr)

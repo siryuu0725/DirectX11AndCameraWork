@@ -79,11 +79,10 @@ private:
 	{
 		ID3D11Buffer* m_VertexBuffer;			//!頂点バッファ(Shader送信用)
 		ID3D11Buffer* m_IndexBuffer;			//!インデックスバッファ(Shader送信用)
-		std::vector<CustomVertex> m_Vertices;
-		std::vector<UINT> m_Indices;
-		std::string m_MaterialName;
-		std::string m_UVSetName;
-		__int16 m_ParentBoneId;
+		std::vector<CustomVertex> m_Vertices;   //!頂点情報
+		std::vector<UINT> m_Indices;            //!インデックス情報
+		std::string m_MaterialName;             //!マテリアル名
+		__int16 m_ParentBoneId;                 //!親子関係ID
 	};
 
 private:
@@ -134,7 +133,7 @@ private:
 	* @param[in] non_skin_list スキンが無いリスト保存用
 	* @details ノード探索法でメッシュデータを作成する
 	*/
-	void ProbeNode(FbxNode* node_, std::map<int, std::string>& non_skin_list_);
+	void ProbeNode(FbxNode* node_, std::unordered_map<int, std::string>& non_skin_list_);
 
 	/**
 	* @brief メッシュデータ作成関数
@@ -142,7 +141,7 @@ private:
 	* @param[in] non_skin_list スキンが無いリスト保存用
 	* @details メッシュデータを作成する
 	*/
-	void CreateMesh(FbxMesh* mesh, std::map<int, std::string>& non_skin_list);
+	void CreateMesh(FbxMesh* mesh, std::unordered_map<int, std::string>& non_skin_list);
 
 
 	/**
@@ -243,23 +242,19 @@ private:
 	void LoadKeyFrame(std::string keyword_, int bone, FbxNode* boneNode_);
 
 private:
-	FbxManager* fbx_manager;     
-	FbxImporter* fbx_importer; 
-	FbxScene* fbx_scene;	   
-
 	std::vector<MeshData> m_MeshList;                                  //!メッシュデータ
-	std::unordered_map<std::string, ObjMaterial> m_Materials;                    //!マテリアル保存
+	std::unordered_map<std::string, ObjMaterial> m_Materials;          //!マテリアル保存
 	ID3D11InputLayout* m_InputLayout;								   //!入力レイアウト
 	std::unordered_map<std::string, ID3D11ShaderResourceView*> m_Textures;       //!テクスチャ情報保存
 	std::unordered_map<std::string, ID3D11ShaderResourceView*> m_MaterialLinks;  //!テクスチャとマテリアルの関係
 
-	std::unordered_map<std::string, Motion>	 m_Motion; //モーション保存
-	Bone m_Bone[BONE_MAX];     //ボーン保存
-	std::string m_PlayMotion;  //モーション名
-	UINT m_BoneNum;            //ボーン数
+	std::unordered_map<std::string, Motion>	 m_Motion; //!モーション保存
+	Bone m_Bone[BONE_MAX];        //!ボーン保存
+	std::string m_PlayMotion;     //!モーション名
+	UINT m_BoneNum;   //!ボーン数
 
-	int m_StartFrame; //初期フレーム
-	float m_Frame;	  //現在のフレーム
+	float m_StartFrame; //!初期フレーム
+	float m_Frame;	    //!現在のフレーム
 };
 
 #endif

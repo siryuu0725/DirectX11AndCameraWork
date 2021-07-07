@@ -32,10 +32,13 @@ public:
 	*/
 	virtual bool Create(ID3D11Device* device, const char* file_name);
 
-	/** ShaderInterfaceのゲッター */
+	/**
+	* @brief ShaderInterfaceのゲッター
+	*/
 	inline ID3D11VertexShader* GetShaderInterface() { return m_Interface; }
+
 private:
-	ID3D11VertexShader* m_Interface;		//!< @brief VertexShaderInterface
+	ID3D11VertexShader* m_Interface;		//!VertexShaderInterface
 };
 
 #endif

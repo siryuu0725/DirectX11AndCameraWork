@@ -24,18 +24,6 @@ public:
 		}
 	}
 
-	/** Shaderデータ(バイナリ)のゲッター */
-	inline const char* GetData()
-	{
-		return m_Data;
-	}
-
-	/** Shaderのデータサイズのゲッター */
-	inline long GetSize()
-	{
-		return m_Size;
-	}
-
 	/**
 	* @brief シェーダ作成関数
 	* @param[in] device ID3D11Device
@@ -45,6 +33,22 @@ public:
 	* @return 作成結果 成功(true)
 	*/
 	virtual bool Create(ID3D11Device* device, const char* file_name) = 0;
+
+	/**
+	* @brief Shaderデータ(バイナリ)のゲッター
+	*/
+	const char* GetData()
+	{
+		return m_Data;
+	}
+
+	/**
+	* @brief Shaderのデータサイズのゲッター
+	*/
+	long GetSize()
+	{
+		return m_Size;
+	}
 protected:
 
 	/**
@@ -57,8 +61,8 @@ protected:
 	bool Load(const char* file_name);
 
 protected:
-	char* m_Data;	//!< @brief シェーダデータ(バイナリ)
-	long m_Size;	//!< @brief データのサイズ
+	char* m_Data;	//!シェーダデータ(バイナリ)
+	long m_Size;	//!データのサイズ
 };
 
 #endif

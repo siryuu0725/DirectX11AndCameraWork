@@ -9,10 +9,6 @@
 #include "RectBlock.h"
 #include <vector>
 
-//!ステージに置ける最大ブロック数 
-constexpr unsigned __int8 RectBlockMaxNum = 15;
-constexpr unsigned __int8 CircleBlockMaxNum = 15;
-
 /**
  * ブロック管理クラス
  */
@@ -64,9 +60,6 @@ public:
 private:
 	std::vector<CircleBlock*> m_circleblocks;  //!円形ブロック
 	std::vector<RectBlock*> m_rectblocks;	   //!矩形ブロック
-
-	int m_rectblock_num;    //!矩形ブロックデータ数
-	int m_circleblock_num;  //!円形ブロックデータ数
 };
 
 

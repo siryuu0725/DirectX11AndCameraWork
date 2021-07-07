@@ -4,10 +4,10 @@
  * @details　中身：床クラス
 **/
 
-#include <map>
-#include <string>
-#include "../DirectGraphics.h"
 #include "Texture.h"
+#include <string>
+#include <unordered_map>
+
 
 #ifndef TEXTURE_MANAGER_H_
 #define TEXTURE_MANAGER_H_

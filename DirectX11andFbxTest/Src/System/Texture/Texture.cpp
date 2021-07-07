@@ -35,50 +35,22 @@ bool Texture::LoadTexture(const char* file_name_, TexOriginPoint point_type_)
 	m_tex_width = (float)metadata.width;
 	m_tex_height = (float)metadata.height;
 
-	/*float top = 1.0f - (0.0f / (GetWindowSize().y / 2));
-	float bottom = 1.0f - ((0.0f + m_tex_height) / (GetWindowSize().y / 2));
+	//左上原点で初期化
+	float top = 0.0f;
+	float bottom = m_tex_height;
+	float left = 0.0f;
+	float right = m_tex_width;
 
-	float left = (0.0f / (GetWindowSize().x / 2)) - 1.0f;
-	float right = ((0.0f + m_tex_width) / (GetWindowSize().x / 2)) - 1.0f;
-
-	TexCustomVertex vertices[4]
+	//中心原点に変更
+	if (point_type_ == TexOriginPoint::Center)
 	{
-		{ {left,top,0.0f},{0.0f,0.0f} },
-		{ {right,top,0.0f},{1.0f,0.0f} },
-		{ {right,bottom,0.0f},{1.0f,1.0f} },
-		{ {left,bottom,0.0f},{0.0f,1.0f} }
-	};*/
-
-	float top = (m_tex_height / 2);
-	float bottom = (m_tex_height / 2);
-	float left = (m_tex_width / 2);
-	float right = (m_tex_width / 2);
-
-	switch (point_type_)
-	{
-	case TexOriginPoint::LeftTop:
-		/*vertices[4]=
-		{
-			{ {0.0f,0.0f,0.0f},{0.0f,0.0f} },
-			{ {m_tex_width,0.0f,0.0f},{1.0f,0.0f} },
-			{ {m_tex_width,m_tex_height,0.0f},{1.0f,1.0f} },
-			{ {0.0f,m_tex_height,0.0f},{0.0f,1.0f} }
-		};*/
-		top = 0.0f;
-		bottom = m_tex_height;
-
-		left = 0.0f;
-		right = m_tex_width;
-		break;
-	case TexOriginPoint::Center:
-		top = -top;
-
-		left = -left;
-		break;
-	default:
-		break;
+		top = -(m_tex_height / 2);
+		bottom = (m_tex_height / 2);
+		left = -(m_tex_width / 2);
+		right = (m_tex_width / 2);
 	}
 
+	//頂点形成
 	TexCustomVertex vertices[4]
 	{
 		{ {left,top,0.0f},{0.0f,0.0f} },
@@ -99,6 +71,7 @@ bool Texture::LoadTexture(const char* file_name_, TexOriginPoint point_type_)
 	//インデックスバッファ作成
 	CreateIndexBuffer(indices, &m_index_buffer);
 
+	//入力レイアウト作成
 	if (CreateInputLayout(DirectGraphics::Instance()->GetDevice()) == false)
 	{
 		return false;
@@ -142,8 +115,6 @@ void Texture::Draw(Vector3 pos_, Vector3 scale_, Vector3 angle_)
 
 	//各行列作成
 	DirectX::XMMATRIX world_matrix = Calculation::Matrix(pos_, scale_, angle_);
-	//DirectX::XMMATRIX world_matrix = DirectX::XMMatrixTranslation(pos_.x, pos_.y, pos_.z);
-	//DirectX::XMMATRIX world_matrix = Calculation::Matrix(Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f), Vector3(0.0f, 0.0f, 0.0f));
 	float width = GetWindowSize().x;
 	float height = GetWindowSize().y;
 	DirectX::XMMATRIX proj_matrix = DirectX::XMMatrixOrthographicOffCenterLH(0.0f, GetWindowSize().x, GetWindowSize().y, 0.0f, 0.0f, 1.0f);
@@ -179,17 +150,12 @@ void Texture::Draw(Vector3 pos_, Vector3 scale_, Vector3 angle_)
 		DXGI_FORMAT_R16_UINT,
 		0);
 
-
-
 	context->PSSetShaderResources(0, 1, &m_Textures);
-
 
 	ID3D11SamplerState* sampler = DirectGraphics::Instance()->GetSamplerState();
 	context->PSSetSamplers(0, 1, &sampler);
 
-	context->DrawIndexed(6, 0, 0);
-
-	
+	context->DrawIndexed(6, 0, 0);	
 }
 
 //VertexBuffer作成関数

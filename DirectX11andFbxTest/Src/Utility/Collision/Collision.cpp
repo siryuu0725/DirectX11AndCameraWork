@@ -10,7 +10,7 @@ bool Collision::RectAndSphere(Vector3 rect_pos_, Vector3 sphere_pos_, Vector3 bo
 	Vector3 vec(0.0f, 0.0f, 0.0f); //矩形の頂点と円とのベクトル
 
 	//衝突時、対象の回転角度分座標をずらす
-	//rot_pos = Calculation::Rotate(sphere_pos_, rect_pos_, rad_);
+	rot_pos = Calculation::Rotate(sphere_pos_, rect_pos_, rad_);
 
 	//各軸を配列の要素としている [0]=x,[1]=y,[2]=z
 	float sphere_pos[3];
@@ -65,30 +65,6 @@ bool Collision::RectAndSphere(Vector3 rect_pos_, Vector3 sphere_pos_, Vector3 bo
 	}
 
 	return false;
-
-	//if (rot_pos.x > rect_pos_.x - (width_ / 2) &&
-	//	rot_pos.x < rect_pos_.x + (width_ / 2) &&
-	//	rot_pos.z + radius_ > rect_pos_.z - (height_ / 2) &&
-	//	rot_pos.z - radius_ < rect_pos_.z + (height_ / 2))
-	//{
-	//	return true;
-	//}
-	//else
-	//	return false;
-
-	////ベクトル算出
-	//vec.x = ver_pos.x - rot_pos.x;
-	//vec.z = ver_pos.z - rot_pos.z;
-
-	////円の半径と矩形の幅の距離
-	//float c = sqrtf(vec.x * vec.x + vec.z * vec.z);
-
-	//if (c <= radius_)
-	//{
-	//	return true;
-	//}
-	//
-	//return false;
 }
 
 //球(BoundingSphere)と点の当たり判定

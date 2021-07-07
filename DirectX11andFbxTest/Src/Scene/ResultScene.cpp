@@ -4,8 +4,8 @@
 #include "../System/Texture/TextureManager.h"
 
 //コンストラクタ
-ResultScene::ResultScene()
-	/*mp_ui(nullptr)*/
+ResultScene::ResultScene():
+	mp_ui(nullptr)
 {
 	m_is_change_scene = false;
 
@@ -42,6 +42,7 @@ void ResultScene::InitStep()
 //更新ステップ関数
 void ResultScene::MainStep()
 {
+	//Enterキーが押されたら次のステップへ
 	if (Inputter::Instance()->GetKeyDown(Inputter::ReturnKey))
 	{
 		m_cur_step = SceneStep::EndStep;
@@ -55,6 +56,10 @@ void ResultScene::EndStep()
 	delete mp_ui;
 	mp_ui = nullptr;
 
+	//初期化ステップに変更
+	m_cur_step = SceneStep::InitStep;
+
+	//タイトルシーンへ変更
 	SceneController::Instance()->SetSceneId(SceneId::Title);
 
 	//シーン移行フラグtrue

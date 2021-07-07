@@ -3,7 +3,9 @@
 #include "../System/DirectInput.h"
 #include "../System/Texture/TextureManager.h"
 
-TitleScene::TitleScene()
+//コンストラクタ
+TitleScene::TitleScene():
+	mp_ui(nullptr)
 {
 	m_is_change_scene = false;
 	m_cur_step = SceneStep::InitStep;
@@ -24,7 +26,7 @@ void TitleScene::InitStep()
 //更新ステップ関数
 void TitleScene::MainStep()
 {
-
+	//Enterキーが押されたら次のステップへ
 	if (Inputter::Instance()->GetKeyDown(Inputter::ReturnKey))
 	{
 		m_cur_step = SceneStep::EndStep;
@@ -40,6 +42,7 @@ void TitleScene::EndStep()
 	//初期化ステップに変更
 	m_cur_step = SceneStep::InitStep;
 
+	//ゲームシーンへ変更
 	SceneController::Instance()->SetSceneId(SceneId::Game);
 	m_is_change_scene = true;
 }

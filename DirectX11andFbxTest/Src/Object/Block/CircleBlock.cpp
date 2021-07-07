@@ -16,8 +16,6 @@ CircleBlock::CircleBlock(Vector3 pos_, Vector3 scale_, float radius_, float heig
 
 	//ワールド座標
 	m_circleblock_info.world_matrix = Calculation::Matrix(m_circleblock_info.m_pos, m_circleblock_info.m_scale, m_circleblock_info.m_degree);
-
-	//FbxController::Instance()->LoadFbxMesh(m_circleblock_info.m_key, "Res/FBX/CircleBlock.fbx", VertexShaderType::StaticVertex);
 }
 
 //描画関数

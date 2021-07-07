@@ -8,12 +8,13 @@
 #include "ObjectBase.h"
 #include "Camera.h"
 
-constexpr float PlayerRoteTime = 0.2f; //球面線形補間に使う媒介変数
-constexpr float StopSpeed = 0.0f; //停止時の速度
+constexpr float PlayerRoteTime = 0.2f; //!球面線形補間に使う媒介変数
+constexpr float StopSpeed = 0.0f;      //!停止時の速度
 
 class Player :public ObjectBase
 {
 public:
+	//!プレイヤー情報
 	struct PlayerInfo :public ObjectInfo
 	{
 		//!初期化
@@ -51,7 +52,7 @@ public:
 	 virtual void Update()override;
 
 	 /**
-	 * @brief   描画関数
+	 * @brief  描画関数
 	 */
 	 virtual void Draw()override;
 
@@ -74,7 +75,7 @@ public:
 	 void Animation();
 
 	 /**
-     * @brief   影描関数
+     * @brief  影描関数
      */
 	 virtual void ShadowDraw()override;
 
@@ -86,7 +87,7 @@ public:
 	 const void GetPlayerInfo(PlayerInfo& copy_info_) { copy_info_ = player_info; }
 
 private:
-	Camera* mp_camera; //カメラ
+	Camera* mp_camera; 
 };
 
 #endif

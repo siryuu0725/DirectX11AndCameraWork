@@ -24,28 +24,13 @@ cbuffer ConstantBuffer
 	float4		MaterialSpecular;	//スペキュラー
 }
 
-Texture2D    Texture : register(t0[0]); // Textureをスロット0の0番目のテクスチャレジスタに設定
-Texture2D    ShaowTexture : register(t1[0]); // Textureをスロット0の0番目のテクスチャレジスタに設定
-SamplerState Sampler : register(s0[0]); // Samplerをスロット0の0番目のサンプラレジスタに設定
+Texture2D    Texture : register(t0[0]);      // Textureをスロット0の0番目のテクスチャレジスタに設定
+Texture2D    ShaowTexture : register(t1[0]); // ShadowTextureをスロット1の0番目のテクスチャレジスタに設定
+SamplerState Sampler : register(s0[0]);      // Samplerをスロット0の0番目のサンプラレジスタに設定
 
 float4 Diffuse(float ndl)
 {
-	/*
-		Diffuse = Kd * Id
-			Kd：マテリアル側のDiffuseColor
-			Id：ライト側のAmbientカラー
-
-			Kd = マテリアルDiffuseColor * 光と法線の内積(余弦)
-			光の色 * 光と法線の余弦 * 反射率
-			※マテリアルに反射率があるならそれも掛ける
-	*/
-	//return DiffuseLightColor * ndl;
-
 	// ハーフランバートによるDiffuse算出
-	/*
-		この計算はピクセルシェーダで行わずに、バーテックスシェーダで行っても良い
-		VertexShader.hlslにハーフランバート用の計算を書いてコメントしてます。
-	*/
 	float half_ndl = ndl * 0.5 + 0.5;
 	float squre_ndl = half_ndl * half_ndl;
 
@@ -55,16 +40,6 @@ float4 Diffuse(float ndl)
 
 float4 Phong(float4 world_pos, float normal_dot_light, float4 vertex_normal)
 {
-	/*
-		Phong = Is * Ks;
-			Is：光側のSpecularカラー
-			Ks：マテリアル側のSpecularカラー
-
-			Ks = マテリアルのSpecularカラー * pow((R・V), α)
-				R：反射ベクトル
-				V：視線ベクトル
-				α：光沢度
-	*/
 	float3 Normal = (float3)normalize(vertex_normal);
 	float3 LightDir = (float3)normalize(LightVector);
 	float3 ViewDir = (float3)normalize(world_pos - CameraPos);
@@ -134,7 +109,7 @@ float4 main(PS_IN input) : SV_Target
 			shadow_rate += 1.0f;
 		}
 
-		
+		//平均値
 		shadow_rate /= 4.0f;
 
 		//描画する影の濃さ(割合)
@@ -143,7 +118,7 @@ float4 main(PS_IN input) : SV_Target
 		//線形補間で影の濃さを調整する
 		tex_color.xyz = lerp(tex_color.xyz, shadow_color, shadow_rate);
 	}
-	// アンビエントカラー + ディフューズカラー + テクスチャカラー
+
 	return tex_color;
 
 }

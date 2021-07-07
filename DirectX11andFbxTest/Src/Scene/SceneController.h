@@ -6,7 +6,6 @@
 #ifndef SCENEMANAGER_H_
 #define SCENEMANAGER_H_
 #include"SceneBase.h"
-#include<vector>
 #include <string>
 
 //!シーンID

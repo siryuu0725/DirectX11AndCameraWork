@@ -35,11 +35,6 @@ void SceneController::Draw()
 	{
 		//描画情報送信関数
 		mp_scene->Draw();
-		//各シーンで更新もしくはロードステップ中のみ描画
-		/*if (mp_scene->NowStep() == SceneStep::MainStep)
-		{
-
-		}*/
 	}
 }
 

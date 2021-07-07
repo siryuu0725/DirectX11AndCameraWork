@@ -4,10 +4,17 @@
 #include <codecvt> 
 
 //コンストラクタ
-FbxMeshFile::FbxMeshFile():
-	m_InputLayout(nullptr)
+FbxMeshFile::FbxMeshFile() :
+	m_InputLayout(nullptr),
+	m_BoneNum(0),
+	m_StartFrame(0.0f),
+	m_Frame(0.0f)
 {
 	m_MeshList.clear();
+	m_Materials.clear();
+	m_Textures.clear();
+	m_MaterialLinks.clear();
+	m_Motion.clear();
 }
 
 //デストラクタ
@@ -123,7 +130,7 @@ bool FbxMeshFile::LoadFbxFail(const char* file_name)
 		LoadMaterial(fbx_scene->GetSrcObject<FbxSurfaceMaterial>(i));
 	}
 
-	std::map<int, std::string> non_skin_list;
+	std::unordered_map<int, std::string> non_skin_list;
 
 #pragma region ノード探査法
 	/*FbxNode* rootNode = fbx_scene->GetRootNode();
@@ -180,7 +187,7 @@ bool FbxMeshFile::IsMesh(FbxNode* node_)
 }
 
 //ノード探索関数
-void FbxMeshFile::ProbeNode(FbxNode* node_, std::map<int, std::string>& non_skin_list)
+void FbxMeshFile::ProbeNode(FbxNode* node_, std::unordered_map<int, std::string>& non_skin_list)
 {
 	if (node_ != nullptr)
 	{
@@ -346,7 +353,7 @@ void FbxMeshFile::Render(DirectX::XMMATRIX world_matrix_, DrawType draw_type_)
 }
 
 //メッシュデータ作成関数
-void FbxMeshFile::CreateMesh(FbxMesh* mesh, std::map<int, std::string>& non_skin_list)
+void FbxMeshFile::CreateMesh(FbxMesh* mesh, std::unordered_map<int, std::string>& non_skin_list)
 {
 	MeshData mesh_data;
 	mesh_data.m_ParentBoneId = -1;
@@ -882,7 +889,7 @@ bool FbxMeshFile::LoadMotion(std::string keyword_, const char* fileName_)
 	FbxLongLong start = take->mLocalTimeSpan.GetStart().Get();
 	FbxLongLong stop = take->mLocalTimeSpan.GetStop().Get();
 	FbxLongLong fps60 = FbxTime::GetOneFrameValue(FbxTime::eFrames60);
-	m_StartFrame = static_cast<int>(start / fps60);
+	m_StartFrame = static_cast<float>(start / fps60);
 	m_Motion[keyword_].FrameNum = static_cast<UINT>((stop - start) / fps60);
 
 	FbxNode* root = fbx_scene->GetRootNode();
@@ -1029,7 +1036,7 @@ void FbxMeshFile::LoadKeyFrame(std::string keyword_, int bone_, FbxNode* boneNod
 	Motion* motion = &m_Motion[keyword_];
 	motion->Key[bone_].resize(motion->FrameNum);
 
-	double time = static_cast<double>(m_StartFrame * (1.0 / 60.0));
+	float time = m_StartFrame * (1.0f / 60.0f);
 	FbxTime T;
 	for (UINT f = 0; f < motion->FrameNum; ++f)
 	{
@@ -1049,7 +1056,7 @@ void FbxMeshFile::LoadKeyFrame(std::string keyword_, int bone_, FbxNode* boneNod
 			(float)mat[8], (float)mat[9], (float)mat[10], (float)mat[11],
 			(float)mat[12], (float)mat[13], (float)mat[14], (float)mat[15]
 		);
-		time += 1.0 / 60.0;
+		time += 1.0f / 60.0f;
 	}
 
 }

@@ -96,7 +96,7 @@ private:
 	 
 	std::vector<ObjectBase::ObjectInfo> m_rectblock_copy;    //!矩形ブロック情報保存用
 	std::vector<ObjectBase::ObjectInfo> m_circleblock_copy;  //!円形ブロック情報保存用
-	ObjectBase::ObjectInfo m_camera_copy;  //!円形ブロック情報保存用
+	ObjectBase::ObjectInfo m_camera_copy;                    //!円形ブロック情報保存用
 
 	__int8 m_hit_circleblock_id;  //!衝突した円形ブロックのID保存用
 	__int8 m_hit_rectblock_id;	  //!衝突した矩形ブロックのID保存用

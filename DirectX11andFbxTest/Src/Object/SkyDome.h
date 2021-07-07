@@ -7,7 +7,6 @@
 #ifndef SKYDOME_H_
 #define SKYDOME_H_
 #include "ObjectBase.h"
-#include <DirectXTex.h>
 
 class SkyDome :public ObjectBase
 {
@@ -27,7 +26,7 @@ public:
 	virtual void Draw()override;
 
 private:
-	ObjectInfo skydome_info;
+	ObjectInfo skydome_info; //!空情報
 };
 
 #endif

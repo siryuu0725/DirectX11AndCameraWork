@@ -11,8 +11,6 @@ void Floor::Init()
 	floor_info.world_matrix = Calculation::Matrix(floor_info.m_pos, floor_info.m_scale, floor_info.m_degree);
 
 	floor_info.m_key = "Floor"; //描画用キー
-
-	//FbxController::Instance()->LoadFbxMesh(floor_info.m_key, "Res/FBX/SkyFloor.fbx", VertexShaderType::StaticVertex);
 }
 
 //描画関数

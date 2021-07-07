@@ -28,7 +28,7 @@ void Camera::Init()
 	m_camerainfo.m_rote_speed = 2.0f;                 //回転スピード
 	m_camerainfo.m_rote_angle = m_camerainfo.m_pos.y; //現在の回転角度
 
-	m_camerainfo.leap_vec = m_camerainfo.m_pos;       //線形補間ベクトル
+	m_camerainfo.m_leap_vec = m_camerainfo.m_pos;       //線形補間ベクトル
 
 	m_camerainfo.m_collision_pos = m_camerainfo.m_pos; //当たり判定用座標
 	m_camerainfo.m_intersection1 = Vector3(0.0f, 0.0f, 0.0f);
@@ -68,7 +68,7 @@ void Camera::Update()
 	RotEyePos();
 
 	//地面に埋まった状態の座標ではなく押し出した後の座標から当たり判定を取る
-	m_camerainfo.m_collision_pos = m_camerainfo.m_pos + m_camerainfo.m_intersection;
+	m_camerainfo.m_collision_pos = m_camerainfo.m_pos + m_camerainfo.m_floor_intersection;
 	m_camerainfo.m_direction = m_camerainfo.m_forward - m_camerainfo.m_pos;
 	//第三者に情報送信
 	ObjectCollision::Instance()->SetCameraInfo(m_camerainfo);
@@ -78,10 +78,10 @@ void Camera::Update()
 	HitCircleBlock();
 
 	//線形補間
-	Vector3 end = m_camerainfo.m_pos + m_camerainfo.m_intersection;
-	m_camerainfo.leap_vec = Calculation::Lerp(m_camerainfo.leap_vec, end, CameraRoteTime);
+	Vector3 end = m_camerainfo.m_pos + m_camerainfo.m_floor_intersection;
+	m_camerainfo.m_leap_vec = Calculation::Lerp(m_camerainfo.m_leap_vec, end, CameraRoteTime);
 
-	m_camerainfo.m_eye_vec = DirectX::XMVectorSet(m_camerainfo.leap_vec.x , m_camerainfo.leap_vec.y, m_camerainfo.leap_vec.z, 0.0f); //注視点
+	m_camerainfo.m_eye_vec = DirectX::XMVectorSet(m_camerainfo.m_leap_vec.x , m_camerainfo.m_leap_vec.y, m_camerainfo.m_leap_vec.z, 0.0f); //注視点
 	m_camerainfo.m_camera_up_vec = DirectX::XMVectorSet(m_camerainfo.m_camera_up.x, m_camerainfo.m_camera_up.y, m_camerainfo.m_camera_up.z, 0.0f); //上向きベクトル
 	m_camerainfo.m_forward_vec = DirectX::XMVectorSet(m_camerainfo.m_forward.x, m_camerainfo.m_forward.y, m_camerainfo.m_forward.z, 0.0f);    //X軸回転用
 
@@ -133,7 +133,7 @@ void Camera::HitRectBlock()
 	if (ObjectCollision::Instance()->HitRectBlock() == true)
 	{
 		ObjectInfo rectblock_info;
-		m_block->GetRectBlockInfo(rectblock_info, ObjectCollision::Instance()->GetRectBlockID());
+		mp_block->GetRectBlockInfo(rectblock_info, ObjectCollision::Instance()->GetRectBlockID());
 
 		Vector3 nor[6];  //各面の方向ベクトル
 		Vector3 vertex_pos[6]; //各面の中点座標
@@ -221,7 +221,7 @@ void Camera::HitRectBlock()
 			out.z = m_camerainfo.m_forward.z + (Vec.z * hiritu);
 
 			//最終的な移動量算出
-			m_camerainfo.m_intersection += out - m_camerainfo.m_collision_pos;
+			m_camerainfo.m_floor_intersection += out - m_camerainfo.m_collision_pos;
 		}
 	}
 }
@@ -232,7 +232,7 @@ void Camera::HitCircleBlock()
 	if (ObjectCollision::Instance()->HitCircleBlock() == true)
 	{
 		ObjectInfo circleblock_info;
-		m_block->GetCircleBlockInfo(circleblock_info, ObjectCollision::Instance()->GetCircleBlockID());
+		mp_block->GetCircleBlockInfo(circleblock_info, ObjectCollision::Instance()->GetCircleBlockID());
 
 		Vector3 cilinder_start = circleblock_info.m_pos;
 		cilinder_start.y += circleblock_info.m_height / 2;
@@ -284,12 +284,12 @@ void Camera::HitCircleBlock()
 					if (vec_length <= vec_length2)
 					{
 						//最終的な移動量算出
-						m_camerainfo.m_intersection += m_camerainfo.m_intersection1 - m_camerainfo.m_collision_pos;
+						m_camerainfo.m_floor_intersection += m_camerainfo.m_intersection1 - m_camerainfo.m_collision_pos;
 					}
 					else
 					{
 						//最終的な移動量算出
-						m_camerainfo.m_intersection += m_camerainfo.m_intersection2 - m_camerainfo.m_collision_pos;
+						m_camerainfo.m_floor_intersection += m_camerainfo.m_intersection2 - m_camerainfo.m_collision_pos;
 					}
 				}
 			}
@@ -300,7 +300,7 @@ void Camera::HitCircleBlock()
 //カメラ回転関数
 void Camera::RotEyePos()
 {
-	m_camerainfo.m_intersection = Vector3(0.0f, 0.0f, 0.0f);
+	m_camerainfo.m_floor_intersection = Vector3(0.0f, 0.0f, 0.0f);
 
 	//左回転
 	if (Inputter::Instance()->GetKey(Inputter::JKey))
@@ -386,5 +386,5 @@ void Camera::Difference()
 	out.z = m_camerainfo.m_forward.z + (Vec.z * hiritu);
 
 	//最終押し出す量
-	m_camerainfo.m_intersection = out - m_camerainfo.m_pos;
+	m_camerainfo.m_floor_intersection = out - m_camerainfo.m_pos;
 }

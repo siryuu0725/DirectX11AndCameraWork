@@ -38,6 +38,7 @@ void BlockController::Init()
 	 Vector3(29.0f, 29.0f, 29.0f),
 	 "rectblock"));
 
+	//第3者に情報を送信
 	SetCollisionInfo();
 }
 

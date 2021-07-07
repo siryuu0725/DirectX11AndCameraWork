@@ -10,12 +10,10 @@ RectBlock::RectBlock(Vector3 pos_, Vector3 scale_, Vector3 angle_, Vector3 size_
 	m_rectblock_info.m_scale = scale_;  //描画サイズ
 	m_rectblock_info.m_degree = angle_; //回転角度
 
-	m_rectblock_info.m_size = size_;   //立方体の幅
+	m_rectblock_info.m_size = size_;    //立方体の幅
 
 	//ワールド座標
 	m_rectblock_info.world_matrix = Calculation::Matrix(m_rectblock_info.m_pos, m_rectblock_info.m_scale, m_rectblock_info.m_degree);
-
-	//FbxController::Instance()->LoadFbxMesh(m_rectblock_info.m_key, "Res/FBX/RectBlock.fbx", VertexShaderType::StaticVertex);
 }
 
 //描画関数
