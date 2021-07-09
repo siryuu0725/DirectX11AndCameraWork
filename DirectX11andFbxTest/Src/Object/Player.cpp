@@ -57,6 +57,7 @@ void Player::Move()
 	//前移動
 	if (Inputter::Instance()->GetKey(Inputter::WKey))
 	{
+		//最終的に向く方向ベクトル
 		Vector3 m_top_vec = Vector3(player_info.m_camera_dir.x, 0.0f, player_info.m_camera_dir.z); //!左方向ベクトル
 		Calculation::ThreeNormalization(m_top_vec);
 
@@ -65,6 +66,7 @@ void Player::Move()
 	//後ろ移動
 	if (Inputter::Instance()->GetKey(Inputter::SKey))
 	{
+		//最終的に向く方向ベクトル
 		Vector3 m_under_vec = Vector3(-player_info.m_camera_dir.x, 0.0f, -player_info.m_camera_dir.z); //!左方向ベクトル
 		Calculation::ThreeNormalization(m_under_vec);
 
@@ -73,6 +75,7 @@ void Player::Move()
 	//左移動
 	if (Inputter::Instance()->GetKey(Inputter::AKey))
 	{
+		//最終的に向く方向ベクトル
 		Vector3 m_left_vec = Vector3(-player_info.m_camera_dir.z, 0.0f, player_info.m_camera_dir.x); //!左方向ベクトル
 		Calculation::ThreeNormalization(m_left_vec);
 
@@ -81,6 +84,7 @@ void Player::Move()
 	//右移動
 	if (Inputter::Instance()->GetKey(Inputter::DKey))
 	{
+		//最終的に向く方向ベクトル
 		Vector3 m_right_vec = Vector3(player_info.m_camera_dir.z, 0.0f, -player_info.m_camera_dir.x); //!左方向ベクトル
 		Calculation::ThreeNormalization(m_right_vec);
 

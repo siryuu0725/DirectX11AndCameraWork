@@ -136,6 +136,7 @@ bool DirectGraphics::CreateShadowView()
 	RECT rect;
 	GetClientRect(window_handle, &rect);
 
+	//RenderTargetView作成
 	D3D11_TEXTURE2D_DESC renderTextureDesc;
 	ZeroMemory(&renderTextureDesc, sizeof(renderTextureDesc));
 	renderTextureDesc.Width = (rect.right - rect.left) * 2;
@@ -165,6 +166,7 @@ bool DirectGraphics::CreateShadowView()
 		return false;
 	}
 
+	//ShaderResourceView作成
 	D3D11_SHADER_RESOURCE_VIEW_DESC resource_desc;
 	ZeroMemory(&resource_desc, sizeof(resource_desc));
 	resource_desc.Format = renderTextureDesc.Format;
@@ -176,6 +178,7 @@ bool DirectGraphics::CreateShadowView()
 		return false;
 	}
 
+	//DepthStencilView作成
 	renderTextureDesc.Format = DXGI_FORMAT_D32_FLOAT;
 	renderTextureDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 
@@ -183,7 +186,6 @@ bool DirectGraphics::CreateShadowView()
 	{
 		return false;
 	}
-
 	if (FAILED(m_Device->CreateDepthStencilView(m_ShadowDepthStencilTexture, nullptr, &m_ShadowDepthStencilView)))
 	{
 		return false;
