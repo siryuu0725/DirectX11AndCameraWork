@@ -76,6 +76,13 @@ void GameScene::MainStep()
 	{
 		m_cur_step = SceneStep::EndStep;
 	}
+
+	//ESCキーが押されたら次のステップへ(ゲーム終了フラグtrue)
+	if (Inputter::Instance()->GetKeyDown(Inputter::ESCKey))
+	{
+		m_cur_step = SceneStep::EndStep;
+		is_game_end = true;
+	}
 }
 
 //終了ステップ関数
@@ -86,9 +93,6 @@ void GameScene::EndStep()
 
 	//各オブジェクト解放
 	DeleteObject();
-
-	//当たり判定用情報リセット
-	ObjectCollision::Instance()->ResetObjectInfo();
 
 	//初期化ステップに変更
 	m_cur_step = SceneStep::InitStep;
@@ -185,12 +189,6 @@ void GameScene::DeleteObject()
 		delete obj[i];
 	}
 	
-	mp_camera = nullptr; //カメラ	
-	mp_block = nullptr; //ブロック	
-	mp_player = nullptr; //プレイヤー	
-	mp_sky_dome = nullptr;//背景	
-	mp_floor = nullptr; //ステージ床
-
 	FbxController::Instance()->ReleaseModel();
 }
 

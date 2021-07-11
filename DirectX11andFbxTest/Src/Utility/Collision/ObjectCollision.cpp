@@ -2,12 +2,6 @@
 
 ObjectCollision* ObjectCollision::mp_instance = nullptr;
 
-//コンストラクタ
-ObjectCollision::ObjectCollision() :
-	m_hit_circleblock_id(0), m_hit_rectblock_id(0)
-{
-}
-
 ObjectCollision* ObjectCollision::Instance()
 {
 	if (mp_instance == nullptr) { mp_instance = new ObjectCollision; }
@@ -62,17 +56,10 @@ bool ObjectCollision::HitCircleBlock()
 	return false;
 }
 
-//各オブジェクト情報リセット関数
-void ObjectCollision::ResetObjectInfo()
-{
-	m_rectblock_copy.clear();
-	m_circleblock_copy.clear();
-}
 
 //Instance解放関数(Debug用)
 void ObjectCollision::ReleaseInstance()
 {
 	delete mp_instance;
-	mp_instance = nullptr;
 }
 

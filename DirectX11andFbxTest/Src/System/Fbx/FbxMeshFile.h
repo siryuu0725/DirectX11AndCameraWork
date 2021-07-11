@@ -74,6 +74,11 @@ public:
 	* @details 指定されたモーションを動かす
 	*/
 	void Animate();
+
+	/**
+	* @brief 解放関数
+	*/
+	void Release();
 private:
 	struct MeshData
 	{

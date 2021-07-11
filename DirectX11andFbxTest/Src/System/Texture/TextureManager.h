@@ -37,6 +37,11 @@ public:
 	*/
 	void Release();
 
+	/**
+	*	@brief Instance解放関数(Debug用)
+	*	@details 手動でインスタンスを解放する
+	*/
+	void ReleaseInstance();
 private:
 	/**
 	* @brief テクスチャ読み込み関数

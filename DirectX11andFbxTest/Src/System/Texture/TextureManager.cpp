@@ -38,7 +38,10 @@ void TextureManager::Release()
 	{
 		delete tex.second;
 	}
-
-	m_texture.clear();
 }
 
+//Instance解放関数(Debug用)
+void TextureManager::ReleaseInstance()
+{
+	delete mp_instance;
+}

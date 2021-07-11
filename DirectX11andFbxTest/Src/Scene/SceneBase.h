@@ -60,15 +60,21 @@ public:
 　　*/
 	virtual void Update();
 
-	//!シーン移行フラグGetter
+	/**
+　　* @brief  シーン移行フラグGetter
+　　*/
 	const bool GetIsChangeScene()const {return m_is_change_scene; }
 
-	//!現在のシーンステップGetter
-	const SceneStep NowStep()const { return m_cur_step; }
+	/**
+　　* @brief  ゲーム修了フラグGetter
+　　*/
+	const bool GetIsGameEnd()const { return is_game_end; }
 
 protected:
-	SceneStep m_cur_step;  //!現在のシーンステップ
-	bool m_is_change_scene;      //!シーン移行フラグ
+	SceneStep m_cur_step;    //!現在のシーンステップ
+	bool m_is_change_scene;  //!シーン移行フラグ
+	bool is_game_end;        //!ゲーム修了フラグ
+
 };
 
 

@@ -24,6 +24,11 @@ void SceneController::Update()
 	//シーン切り替え判定
 	ChangeScene();
 
+	if (mp_scene->GetIsGameEnd() == true)
+	{
+		PostQuitMessage(0);
+	}
+
 	//各シーン更新
 	mp_scene->Update();
 }
@@ -69,13 +74,11 @@ SceneBase* (*SceneController::s_controller_array[static_cast<int>(SceneId::Max)]
 SceneController::~SceneController()
 {
 	delete mp_scene;
-	mp_scene = nullptr;
 }
 
 //Instance解放関数(Debug用)
 void SceneController::ReleaseInstance()
 {
 	delete mp_instance;
-	mp_instance = nullptr;
 }
 

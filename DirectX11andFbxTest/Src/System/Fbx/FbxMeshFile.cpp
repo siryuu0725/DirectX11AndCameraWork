@@ -159,6 +159,10 @@ bool FbxMeshFile::LoadFbxFail(const char* file_name)
 		m_MeshList[non_skin.first].m_ParentBoneId = FindBone(non_skin.second.c_str());
 	}
 
+	fbx_scene->Destroy();
+	fbx_importer->Destroy();
+	fbx_manager->Destroy();
+
 	return true;
 }
 
@@ -835,6 +839,7 @@ void FbxMeshFile::SetMaterialColor(DirectGraphics* graphics, ObjMaterial& materi
 //モーション読み込み関数
 bool FbxMeshFile::LoadMotion(std::string keyword_, const char* fileName_)
 {
+
 	// FbxManager作成
 	FbxManager* fbx_manager = fbxsdk::FbxManager::Create();
 	if (fbx_manager == nullptr)
@@ -861,6 +866,7 @@ bool FbxMeshFile::LoadMotion(std::string keyword_, const char* fileName_)
 
 	FbxIOSettings* ios = FbxIOSettings::Create(fbx_manager, IOSROOT);
 	fbx_manager->SetIOSettings(ios);
+	ios->Destroy();
 
 	// FBXファイルを開いて、初期化する
 	if (fbx_importer->Initialize(fileName_) == false) {
@@ -881,17 +887,22 @@ bool FbxMeshFile::LoadMotion(std::string keyword_, const char* fileName_)
 	// モーション情報取得
 	FbxArray<FbxString*> names;
 	fbx_scene->FillAnimStackNameArray(names);
-
 	if (names == nullptr) return false;
 
 	// モーションが存在するとき
 	FbxTakeInfo* take = fbx_scene->GetTakeInfo(names[0]->Buffer());
+
+	for (int i = 0; i < names.Size(); i++)
+	{
+		names[i]->Clear();
+		FbxFree(names[i]);
+	}
+	
 	FbxLongLong start = take->mLocalTimeSpan.GetStart().Get();
 	FbxLongLong stop = take->mLocalTimeSpan.GetStop().Get();
 	FbxLongLong fps60 = FbxTime::GetOneFrameValue(FbxTime::eFrames60);
 	m_StartFrame = static_cast<float>(start / fps60);
 	m_Motion[keyword_].FrameNum = static_cast<UINT>((stop - start) / fps60);
-
 	FbxNode* root = fbx_scene->GetRootNode();
 
 	for (unsigned __int16 b = 0; b < m_BoneNum; b++)
@@ -901,11 +912,16 @@ bool FbxMeshFile::LoadMotion(std::string keyword_, const char* fileName_)
 		if (bone == nullptr)
 		{
 			continue;
-		}
+		}	
 
 		// キーフレーム読み込み
 		LoadKeyFrame(keyword_, b, bone);
+
 	}
+	
+	fbx_scene->Destroy();
+	fbx_importer->Destroy();
+	fbx_manager->Destroy();
 
 	return true;
 }
@@ -1058,7 +1074,6 @@ void FbxMeshFile::LoadKeyFrame(std::string keyword_, int bone_, FbxNode* boneNod
 		);
 		time += 1.0f / 60.0f;
 	}
-
 }
 
 //モーション指定関数
@@ -1080,5 +1095,27 @@ void FbxMeshFile::Animate()
 	{
 		m_Frame = 2.0f;
 	}
+}
+
+void FbxMeshFile::Release()
+{
+	m_InputLayout->Release();
+
+	for (auto tex : m_Textures)
+	{
+		tex.second->Release();
+	}
+
+	for (auto material : m_MaterialLinks)
+	{
+		material.second->Release();
+	}
+
+	for (auto mesh : m_MeshList)
+	{
+		mesh.m_VertexBuffer->Release();
+		mesh.m_IndexBuffer->Release();
+	}
+	
 }
 

@@ -102,7 +102,6 @@ void ShaderManager::Release()
 		if (m_VertexShader[i] != nullptr)
 		{
 			delete m_VertexShader[i];
-			m_VertexShader[i] = nullptr;
 		}
 	}
 
@@ -111,7 +110,12 @@ void ShaderManager::Release()
 		if (m_PixelShader[i] != nullptr)
 		{
 			delete m_PixelShader[i];
-			m_PixelShader[i] = nullptr;
 		}
 	}
+}
+
+//Instance解放関数(Debug用)
+void ShaderManager::ReleaseInstance()
+{
+	delete mp_instance;
 }

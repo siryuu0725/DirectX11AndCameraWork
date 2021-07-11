@@ -20,9 +20,10 @@ void FbxController::LoadFbx()
 
 }
 
-
+//アニメーションファイル読み込み関数
 void FbxController::LoadAnimation()
 {
+
 	LoadAnimation("Player", "Run", "Res/FBX/unitychan_RUN00_F.FBX");
 	LoadAnimation("Player", "Stay", "Res/FBX/unitychan_WAIT00.FBX");
 
@@ -40,9 +41,11 @@ void FbxController::DrawFbx(std::string key_, DirectX::XMMATRIX world_matrix_, D
 //アニメーションファイル読み込み関数
 void FbxController::LoadAnimation(std::string key_, std::string anim_name_, const char* fail_name_)
 {
+
 	if (&m_MeshData[key_] == nullptr)return;
 
 	m_MeshData[key_]->LoadMotion(anim_name_, fail_name_);
+
 }
 
 //メッシュデータセット関数
@@ -75,15 +78,13 @@ void FbxController::ReleaseModel()
 {
 	for (auto mesh_data : m_MeshData)
 	{
+		mesh_data.second->Release();
 		delete mesh_data.second;
 	}
-
-	m_MeshData.clear();
 }
 
 //Instance解放関数(Debug用)
 void FbxController::ReleaseInstance()
 {
 	delete mp_instance;
-	mp_instance = nullptr;
 }

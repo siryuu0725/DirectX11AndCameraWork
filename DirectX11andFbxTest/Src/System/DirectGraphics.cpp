@@ -574,6 +574,12 @@ void DirectGraphics::Release()
 {
 	ShaderManager::Instance()->Release();
 
+	if (m_Device != nullptr)
+	{
+		m_Device->Release();
+		m_Device = nullptr;
+	}
+
 	if (m_Context != nullptr)
 	{
 		m_Context->ClearState();
@@ -582,10 +588,10 @@ void DirectGraphics::Release()
 		m_Context = nullptr;
 	}
 
-	if (m_DepthStencilView != nullptr)
+	if (m_SwapChain != nullptr)
 	{
-		m_DepthStencilView->Release();
-		m_DepthStencilView = nullptr;
+		m_SwapChain->Release();
+		m_SwapChain = nullptr;
 	}
 
 	if (m_RenderTargetView != nullptr)
@@ -594,10 +600,34 @@ void DirectGraphics::Release()
 		m_RenderTargetView = nullptr;
 	}
 
-	if (m_ShadowDepthStencilView != nullptr)
+	if (m_DepthStencilTexture != nullptr)
 	{
-		m_ShadowDepthStencilView->Release();
-		m_ShadowDepthStencilView = nullptr;
+		m_DepthStencilTexture->Release();
+		m_DepthStencilTexture = nullptr;
+	}
+
+	if (m_DepthStencilView != nullptr)
+	{
+		m_DepthStencilView->Release();
+		m_DepthStencilView = nullptr;
+	}
+
+	if (m_SamplerState != nullptr)
+	{
+		m_SamplerState->Release();
+		m_SamplerState = nullptr;
+	}
+
+	if (m_ConstantBuffer != nullptr)
+	{
+		m_ConstantBuffer->Release();
+		m_ConstantBuffer = nullptr;
+	}
+
+	if (m_TexConstantBuffer != nullptr)
+	{
+		m_TexConstantBuffer->Release();
+		m_TexConstantBuffer = nullptr;
 	}
 
 	if (m_ShadowRenderTargetView != nullptr)
@@ -606,21 +636,35 @@ void DirectGraphics::Release()
 		m_ShadowRenderTargetView = nullptr;
 	}
 
+	if (m_ShadowTexture != nullptr)
+	{
+		m_ShadowTexture->Release();
+		m_ShadowTexture = nullptr;
+	}
+
+	if (m_ShadowDepthStencilTexture != nullptr)
+	{
+		m_ShadowDepthStencilTexture->Release();
+		m_ShadowDepthStencilTexture = nullptr;
+	}
+
+	if (m_ShadowDepthStencilView != nullptr)
+	{
+		m_ShadowDepthStencilView->Release();
+		m_ShadowDepthStencilView = nullptr;
+	}
+
 	if (m_ShadowResourceView != nullptr)
 	{
 		m_ShadowResourceView->Release();
 		m_ShadowResourceView = nullptr;
 	}
+}
 
-	if (m_SwapChain != nullptr)
-	{
-		m_SwapChain->Release();
-		m_SwapChain = nullptr;
-	}
 
-	if (m_Device != nullptr)
-	{
-		m_Device->Release();
-		m_Device = nullptr;
-	}
+//Instance解放関数(Debug用)
+void DirectGraphics::ReleaseInstance()
+{
+	delete mp_instance;
+	mp_instance = nullptr;
 }

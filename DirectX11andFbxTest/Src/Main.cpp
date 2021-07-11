@@ -15,24 +15,28 @@
 
 #pragma comment(lib, "winmm.lib")
 
-constexpr __int16 ObjectNum = 5;   //!使用しているオブジェクトの数
-
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 
 int APIENTRY WinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
 	LPSTR     lpCmpLine,
 	INT       nCmdShow)
 {
+#ifdef _DEBUG
 
-	//Window作成
-	Window window;
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+#endif
 
 	// ウィンドウを作成
-	if (window.MakeWindow("FbxRender", 1920, 1080) == false)
+	if (Window::MakeWindow("FbxRender", 1920, 1080) == false)
 	{
 		return 0;
 	}
 
+	//描画情報初期化
 	if (DirectGraphics::Instance()->Init() == false)
 	{
 		return 0;
@@ -76,11 +80,6 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 			//描画
 			SceneController::Instance()->Draw();
 
-			if (Inputter::Instance()->GetKeyDown(Inputter::ESCKey))
-			{
-				PostQuitMessage(0);
-			}
-
 			while (current - before < 13)
 			{
 				Sleep(current - before);
@@ -96,12 +95,18 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	//DirectX11の解放関数
 	DirectGraphics::Instance()->Release();
-
 	//入力情報解放
 	Inputter::Instance()->EndInput();
-
 	//テクスチャ解放関数
 	TextureManager::Instance()->Release();
+
+#ifdef _DEBUG
+	TextureManager::Instance()->ReleaseInstance();
+	DirectGraphics::Instance()->ReleaseInstance();
+	ShaderManager::Instance()->ReleaseInstance();
+	Inputter::Instance()->ReleaseInstance();
+	SceneController::Instance()->ReleaseInstance();
+#endif
 
 	return 0;
 

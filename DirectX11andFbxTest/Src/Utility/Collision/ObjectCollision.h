@@ -17,7 +17,7 @@
 class ObjectCollision
 {
 public:
-	ObjectCollision();
+	ObjectCollision() :m_hit_circleblock_id(0), m_hit_rectblock_id(0) {}
 	~ObjectCollision() {}
 
 	static ObjectCollision* Instance();
@@ -77,13 +77,6 @@ public:
 	* @details 引数にオブジェクトの情報を渡す
 　　*/
 	const void GetCameraInfo(ObjectBase::ObjectInfo& copy_info_) { copy_info_ = m_camera_copy; }
-
-
-	/**
-　　* @brief 各オブジェクト情報リセット関数
-　　* @details 前回と違うステージを選んだ場合前のオブジェクト情報が残っているため使用する
-　　*/
-	void ResetObjectInfo();
 
 	/**
 	*	@brief Instance解放関数(Debug用)

@@ -44,7 +44,6 @@ public:
 	 */
 	void Draw();
 
-
 	/**
 	 * @brief   現在シーンSetter
 	 */
@@ -73,6 +72,7 @@ private:
 	SceneBase* mp_scene;
 
 	SceneId m_scene_id;
+
 };
 
 #endif // !SCENEMANAGER_H_

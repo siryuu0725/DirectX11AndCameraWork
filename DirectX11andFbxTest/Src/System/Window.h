@@ -35,7 +35,7 @@ public:
 	* @details ウィンドウを生成して成功したらtrue、失敗したらfalseを返す
 	* @return 生成の成否 成功(true)
 	*/
-	bool MakeWindow(const char* title, unsigned int width, unsigned int height);
+	static bool MakeWindow(const char* title, unsigned int width, unsigned int height);
 };
 
 

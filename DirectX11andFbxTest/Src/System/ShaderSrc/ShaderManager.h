@@ -69,6 +69,12 @@ public:
 	*/
 	void Release();
 
+	/**
+	*	@brief Instance解放関数(Debug用)
+	*	@details 手動でインスタンスを解放する
+	*/
+	void ReleaseInstance();
+
 	VertexShader* GetVertexShader(VertexShaderType type_)
 	{
 		return m_VertexShader[(__int8)type_];

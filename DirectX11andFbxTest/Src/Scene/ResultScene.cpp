@@ -47,6 +47,12 @@ void ResultScene::MainStep()
 	{
 		m_cur_step = SceneStep::EndStep;
 	}
+	//ESCキーが押されたら次のステップへ(ゲーム終了フラグtrue)
+	if (Inputter::Instance()->GetKeyDown(Inputter::ESCKey))
+	{
+		m_cur_step = SceneStep::EndStep;
+		is_game_end = true;
+	}
 }
 
 //終了ステップ関数
