@@ -102,6 +102,14 @@ public:
 	static float SecondCross(Vector3 vec_, Vector3 vec2_);
 
 	/**
+ 　　* @brief 回転Quaternion作成関数
+	 * @param[in] angle 回転角度
+	 * @param[in] axis 任意の軸ベクトル
+	 * @return 引数1と引数2より回転回転Quaternionを作成する
+ 　　*/
+	static Quaternion AngleAxis(float angle, Vector3 axis);
+
+	/**
 　　* @brief 範囲指定関数
 	* @param[out] value_  変更値
 	* @param[in] min_ 最少範囲

@@ -49,6 +49,17 @@ float Calculation::SecondCross(Vector3 vec_, Vector3 vec2_)
 	return (vec_.x * vec2_.z) - (vec2_.x * vec_.z);
 }
 
+Quaternion Calculation::AngleAxis(float angle, Vector3 axis)
+{
+	float halfRad = Radian(angle * 0.5f);
+	float sin_ = sin(halfRad);
+	float cos_ = cos(halfRad);
+
+	ThreeNormalization(axis);
+
+	return Quaternion(axis.x * sin_, axis.y * sin_, axis.z * sin_, cos_);
+}
+
 void Calculation::Clamp(float& value_, float min_, float max_)
 {
 	if (value_ < min_)

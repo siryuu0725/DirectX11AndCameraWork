@@ -70,6 +70,7 @@ void Camera::Update()
 	//地面に埋まった状態の座標ではなく押し出した後の座標から当たり判定を取る
 	m_camerainfo.m_collision_pos = m_camerainfo.m_pos + m_camerainfo.m_floor_intersection;
 	m_camerainfo.m_direction = m_camerainfo.m_forward - m_camerainfo.m_pos;
+
 	//第三者に情報送信
 	ObjectCollision::Instance()->SetCameraInfo(m_camerainfo);
 
@@ -335,8 +336,19 @@ void Camera::RotEyePos()
 
 		if (m_camerainfo.m_rote_angle <= MaxCameraRote_Y)
 		{
-			//座標回転
-			m_camerainfo.m_pos = Calculation::RodriguesRotation(m_camerainfo.m_pos, m_camerainfo.m_player_pos, m_camerainfo.m_zik_vec, Radian(m_camerainfo.m_yaw));
+            #pragma region 座標回転(Quaternionによる回転方法)
+			Quaternion a = Calculation::AngleAxis(-m_camerainfo.m_yaw, m_camerainfo.m_zik_vec);
+			//カメラ座標を一度原点基準に戻す
+			m_camerainfo.m_pos -= m_camerainfo.m_player_pos;
+			//回転
+			m_camerainfo.m_pos = a * m_camerainfo.m_pos;
+			//プレイヤーの移動地を加算
+			m_camerainfo.m_pos += m_camerainfo.m_player_pos;
+            #pragma endregion
+
+            #pragma region 座標回転(ロドリゲスの回転行列による回転方法)
+			//m_camerainfo.m_pos = Calculation::RodriguesRotation(m_camerainfo.m_pos, m_camerainfo.m_player_pos, m_camerainfo.m_zik_vec, Radian(m_camerainfo.m_yaw));
+            #pragma endregion
 		}
 		else
 		{
@@ -347,16 +359,30 @@ void Camera::RotEyePos()
 	else if (Inputter::Instance()->GetKey(Inputter::KKey))
 	{
 		//回転角度設定
-		m_camerainfo.m_yaw = -m_camerainfo.m_rote_speed;
+		m_camerainfo.m_yaw = m_camerainfo.m_rote_speed;
 		//現在の回転角度(上下)
-		m_camerainfo.m_rote_angle += m_camerainfo.m_yaw;
+		m_camerainfo.m_rote_angle -= m_camerainfo.m_yaw;
+
+		//m_camerainfo.m_zik_vec += m_camerainfo.m_player_pos;
 
 		Calculation::ThreeNormalization(m_camerainfo.m_zik_vec);
 
 		//座標回転
 		if (m_camerainfo.m_rote_angle >= -MaxCameraRote_Y)
 		{
-			m_camerainfo.m_pos = Calculation::RodriguesRotation(m_camerainfo.m_pos, m_camerainfo.m_player_pos, m_camerainfo.m_zik_vec, Radian(m_camerainfo.m_yaw));
+            #pragma region 座標回転(Quaternionによる回転方法)
+			Quaternion b = Calculation::AngleAxis(m_camerainfo.m_yaw, m_camerainfo.m_zik_vec);
+			//カメラ座標を一度原点基準に戻す
+			m_camerainfo.m_pos -= m_camerainfo.m_player_pos;
+			//回転
+			m_camerainfo.m_pos = b * m_camerainfo.m_pos;
+			//プレイヤーの移動地を加算
+			m_camerainfo.m_pos += m_camerainfo.m_player_pos;
+            #pragma endregion
+
+            #pragma region 座標回転(ロドリゲスの回転行列による回転方法)
+			//m_camerainfo.m_pos = Calculation::RodriguesRotation(m_camerainfo.m_pos, m_camerainfo.m_player_pos, m_camerainfo.m_zik_vec, Radian(-m_camerainfo.m_yaw));
+            #pragma endregion
 		}
 		else
 		{
