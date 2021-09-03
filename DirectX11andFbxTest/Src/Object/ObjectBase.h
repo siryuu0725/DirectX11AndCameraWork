@@ -10,6 +10,7 @@
 #include "../Utility/Utility.h"
 #include <vector>
 #include <string>
+#include<memory>
 
 /**
 *@class   オブジェクトベースクラス

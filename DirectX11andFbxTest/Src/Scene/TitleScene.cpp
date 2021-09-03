@@ -14,7 +14,8 @@ TitleScene::TitleScene():
 //初期化ステップ関数
 void TitleScene::InitStep()
 {
-	if (mp_ui == nullptr) { mp_ui = new TitleUI; }
+	if (mp_ui == nullptr) { mp_ui = std::make_unique<TitleUI>(); }
+
 
 	mp_ui->Init(); //UI初期化
 
@@ -42,9 +43,6 @@ void TitleScene::MainStep()
 //終了ステップ関数
 void TitleScene::EndStep()
 {
-	delete mp_ui;
-	mp_ui = nullptr;
-
 	//初期化ステップに変更
 	m_cur_step = SceneStep::InitStep;
 
@@ -70,9 +68,9 @@ void TitleScene::Draw()
 }
 
 //インスタンス返還関数
-SceneBase* TitleScene::Instance()
+std::unique_ptr<SceneBase> TitleScene::Instance()
 {
-	return static_cast<SceneBase*>(new TitleScene);
+	return static_cast<std::unique_ptr<SceneBase>>(std::make_unique<TitleScene>());
 }
 
 

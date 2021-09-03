@@ -1,42 +1,22 @@
 ﻿#include "BlockController.h"
 #include "../../Utility/Collision/ObjectCollision.h"
 
-//デストラクタ
-BlockController::~BlockController()
-{
-	//円形ブロック
-	for (__int8 i = 0; i < m_circleblocks.size(); i++)
-	{
-		delete m_circleblocks[i];
-		m_circleblocks[i] = nullptr;
-	}
-	
-	//矩形ブロック
-	for (__int8 i = 0; i < m_rectblocks.size(); i++)
-	{
-		delete m_rectblocks[i];
-		m_rectblocks[i] = nullptr;
-	}
-}
-
 //初期化関数
 void BlockController::Init()
 {
-	ObjectBase::ObjectInfo block_info;
-
 	//円形ブロック
-	m_circleblocks.push_back(new CircleBlock
+	m_circleblocks.push_back(std::make_unique<CircleBlock>
 	(Vector3(100.0f, 0.0f, -30.0f),
-	Vector3(5.0f, 100.0f, 5.0f),
-	17.0f, 50.0f, "circleblock"));
+		Vector3(5.0f, 100.0f, 5.0f),
+		17.0f, 50.0f, "circleblock"));
 
 	//矩形ブロック
-	m_rectblocks.push_back(new RectBlock
+	m_rectblocks.push_back(std::make_unique<RectBlock>
 	(Vector3(10.0f, 12.0f, -30.0f),
-	 Vector3(5.0f, 5.0f, 5.0f),
-	 Vector3(0.0f, 0.0f, 0.0f),
-	 Vector3(29.0f, 29.0f, 29.0f),
-	 "rectblock"));
+		Vector3(5.0f, 5.0f, 5.0f),
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(29.0f, 29.0f, 29.0f),
+		"rectblock"));
 
 	//第3者に情報を送信
 	SetCollisionInfo();

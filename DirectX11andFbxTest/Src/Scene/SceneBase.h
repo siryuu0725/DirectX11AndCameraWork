@@ -6,6 +6,8 @@
 #ifndef SCENEBASE_H_
 #define SCENEBASE_H_
 
+#include<memory>
+
 //!シーンステップ
 enum class SceneStep
 {

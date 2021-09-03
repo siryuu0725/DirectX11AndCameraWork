@@ -16,7 +16,7 @@ class BlockController :public ObjectBase
 {
 public:
 	BlockController() {}
-	~BlockController();
+	~BlockController() {}
 
 	/**
 	* @brief  初期化関数
@@ -58,8 +58,8 @@ public:
 	const void GetRectBlockInfo(RectBlock::ObjectInfo& copy_info_, int id_);
 
 private:
-	std::vector<CircleBlock*> m_circleblocks;  //!円形ブロック
-	std::vector<RectBlock*> m_rectblocks;	   //!矩形ブロック
+	std::vector<std::unique_ptr<CircleBlock>> m_circleblocks;  //!円形ブロック
+	std::vector<std::unique_ptr<RectBlock>> m_rectblocks;      //!矩形ブロック
 };
 
 

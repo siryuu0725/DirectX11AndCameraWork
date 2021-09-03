@@ -84,19 +84,14 @@ public:
  　　*/
 	void DrawObject();
 
-	/**
- 　　* @brief  オブジェクト解放関数
- 　　* @details 各オブジェクトの解放を行う
- 　　*/
-	void DeleteObject();
-
 #pragma endregion
 
 	/**
      * @brief  インスタンス返還関数
      * @details 管理クラスのポインタ配列に返す
      */
-	static SceneBase* Instance();
+	static std::unique_ptr<SceneBase> Instance();
+
 
 	/**
 	 * @brief  読み込み用スレッド関数
@@ -104,13 +99,13 @@ public:
 	 */
 	static DWORD WINAPI LoadResorse(LPVOID lpparm_);
 private:
-	Camera* mp_camera;          //!カメラオブジェクト
-	BlockController* mp_block;  //!ブロック管理オブジェクト
-	Player* mp_player;          //!プレイヤーオブジェクト
-	SkyDome* mp_sky_dome;       //!背景オブジェクト
-	Floor* mp_floor;            //!ステージ床オブジェクト
+	std::unique_ptr<Camera> mp_camera;          //!カメラオブジェクト
+	std::unique_ptr<BlockController> mp_block;  //!ブロック管理オブジェクト
+	std::unique_ptr<Player> mp_player;          //!プレイヤーオブジェクト
+	std::unique_ptr<SkyDome> mp_sky_dome;       //!背景オブジェクト
+	std::unique_ptr<Floor> mp_floor;            //!ステージ床オブジェクト
 
-	LoadUI* mp_ui; //!タイトル用UI
+	std::unique_ptr<LoadUI> mp_ui; 
 
 	HANDLE thread_h;
 	DWORD thread_id;

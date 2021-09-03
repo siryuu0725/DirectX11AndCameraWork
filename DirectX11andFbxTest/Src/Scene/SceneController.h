@@ -65,11 +65,12 @@ public:
 	 * @brief  各ゲーム管理クラスアドレス配列
 	 * @details 配列に指定したゲームを入れるとそのゲームの管理クラスのnewが返ってくる
 	 */
-	static SceneBase* (*s_controller_array[static_cast<int>(SceneId::Max)])();
+	static std::unique_ptr<SceneBase>(*s_controller_array[static_cast<int>(SceneId::Max)])();
 
 private:
 	static SceneController* mp_instance;
-	SceneBase* mp_scene;
+	std::unique_ptr<SceneBase> mp_scene;
+
 
 	SceneId m_scene_id;
 

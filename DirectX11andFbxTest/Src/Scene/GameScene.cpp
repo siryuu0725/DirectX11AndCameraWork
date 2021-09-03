@@ -3,6 +3,7 @@
 #include "../System/DirectInput.h"
 #include "../System/Texture/TextureManager.h"
 
+
 //コンストラクタ
 GameScene::GameScene() :
 	mp_camera(nullptr),
@@ -31,13 +32,14 @@ void GameScene::InitStep()
 		&thread_id);
 
 	//オブジェクトインスタンス化
-	if (mp_block == nullptr) { mp_block = new BlockController; }
-	if (mp_sky_dome == nullptr) { mp_sky_dome = new SkyDome; }
-	if (mp_floor == nullptr) { mp_floor = new Floor; }
-	if (mp_camera == nullptr) { mp_camera = new Camera(mp_block); }
-	if (mp_player == nullptr) { mp_player = new Player(mp_camera); }
+	if (mp_sky_dome == nullptr) { mp_sky_dome = std::make_unique<SkyDome>(); }
+	if (mp_block == nullptr) { mp_block = std::make_unique<BlockController>(); }
+	if (mp_floor == nullptr) { mp_floor = std::make_unique<Floor>(); }
+	if (mp_camera == nullptr) { mp_camera = std::make_unique<Camera>(mp_block.get()); }
+	if (mp_player == nullptr) { mp_player = std::make_unique<Player>(mp_camera.get()); }
 
-	if (mp_ui == nullptr) { mp_ui = new LoadUI; }
+	if (mp_ui == nullptr) { mp_ui = std::make_unique<LoadUI>();}
+
 
 	mp_ui->Init(); //UI初期化
 
@@ -67,7 +69,6 @@ void GameScene::MainStep()
 {
 	//オブジェクト更新
 	mp_player->Update();
-	mp_block->Update();
 	mp_camera->Update();
 
 	
@@ -88,11 +89,8 @@ void GameScene::MainStep()
 //終了ステップ関数
 void GameScene::EndStep()
 {
-	delete mp_ui;
-	mp_ui = nullptr;
 
-	//各オブジェクト解放
-	DeleteObject();
+	FbxController::Instance()->ReleaseModel();
 
 	//初期化ステップに変更
 	m_cur_step = SceneStep::InitStep;
@@ -138,7 +136,7 @@ void GameScene::InitObject()
 {
 	//各オブジェクトを配列でまとめる
 	ObjectBase* obj[ObjectNum] =
-	{ mp_block,mp_camera ,mp_player ,mp_floor,mp_sky_dome };
+	{ mp_block.get(),mp_camera.get() ,mp_player.get() ,mp_floor.get(),mp_sky_dome.get() };
 
 	for (int i = 0; i < ObjectNum; i++)
 	{
@@ -160,7 +158,7 @@ void GameScene::DrawObject()
 	DirectGraphics::Instance()->ShadowStartRendering();
 	DirectGraphics::Instance()->SetUpShadowRnderTaget();
 
-	mp_block->ShadowDraw();
+	//mp_block->ShadowDraw();
 	mp_player->ShadowDraw();
 
 	//メイン描画開始
@@ -177,25 +175,10 @@ void GameScene::DrawObject()
 	DirectGraphics::Instance()->FinishRendering();
 }
 
-//オブジェクト解放関数
-void GameScene::DeleteObject()
-{
-	//各オブジェクトを配列でまとめる
-	ObjectBase* obj[ObjectNum] =
-	{ mp_block,mp_camera ,mp_player ,mp_floor,mp_sky_dome };
-
-	for (int i = 0; i < ObjectNum; i++)
-	{
-		delete obj[i];
-	}
-	
-	FbxController::Instance()->ReleaseModel();
-}
-
 //インスタンス返還関数
-SceneBase* GameScene::Instance()
+std::unique_ptr<SceneBase> GameScene::Instance()
 {
-	return static_cast<SceneBase*>(new GameScene);
+	return static_cast<std::unique_ptr<SceneBase>>(std::make_unique<GameScene>());
 }
 
 DWORD WINAPI GameScene::LoadResorse(LPVOID lpparm)

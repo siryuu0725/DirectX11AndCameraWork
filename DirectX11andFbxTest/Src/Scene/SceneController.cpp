@@ -52,18 +52,19 @@ void SceneController::SetSceneId(SceneId sceneid_)
 //シーン切り替え判定関数
 void SceneController::ChangeScene()
 {
-	if (mp_scene == nullptr) { mp_scene = new TitleScene; }
+	//if (mp_scene == nullptr) { mp_scene = new TitleScene; }
+	if (mp_scene == nullptr) { mp_scene = std::make_unique<TitleScene>(); }
 
 	if (mp_scene->GetIsChangeScene() == true)
 	{
-		delete mp_scene;
+		mp_scene.reset();
 		//指定のゲームの管理クラスに切り替える
 		mp_scene = s_controller_array[static_cast<int>(m_scene_id)]();
 	}
 }
 
 //各ゲーム管理クラスアドレス配列
-SceneBase* (*SceneController::s_controller_array[static_cast<int>(SceneId::Max)])() =
+std::unique_ptr<SceneBase>(*SceneController::s_controller_array[static_cast<int>(SceneId::Max)])() =
 {
 	TitleScene::Instance,   //タイトル
 	GameScene::Instance,	  //ゲーム
@@ -73,7 +74,7 @@ SceneBase* (*SceneController::s_controller_array[static_cast<int>(SceneId::Max)]
 //デストラクタ
 SceneController::~SceneController()
 {
-	delete mp_scene;
+	//delete mp_scene;
 }
 
 //Instance解放関数(Debug用)

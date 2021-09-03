@@ -31,7 +31,8 @@ void ResultScene::Draw()
 //初期化ステップ関数
 void ResultScene::InitStep()
 {
-	if (mp_ui == nullptr) { mp_ui = new ResultUI; }
+	if (mp_ui == nullptr) { mp_ui = std::make_unique<ResultUI>(); }
+
 
 	mp_ui->Init(); //UI初期化
 
@@ -58,10 +59,6 @@ void ResultScene::MainStep()
 //終了ステップ関数
 void ResultScene::EndStep()
 {
-	//UI解放
-	delete mp_ui;
-	mp_ui = nullptr;
-
 	//初期化ステップに変更
 	m_cur_step = SceneStep::InitStep;
 
@@ -73,9 +70,9 @@ void ResultScene::EndStep()
 }
 
 //インスタンス返還関数
-SceneBase* ResultScene::Instance()
+std::unique_ptr<SceneBase> ResultScene::Instance()
 {
-	return static_cast<SceneBase*>(new ResultScene);
+	return static_cast<std::unique_ptr<SceneBase>>(std::make_unique<ResultScene>());
 }
 
 

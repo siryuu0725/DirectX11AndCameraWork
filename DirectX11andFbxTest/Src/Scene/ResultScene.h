@@ -51,10 +51,11 @@ public:
 	 * @brief  インスタンス返還関数
 	 * @details 管理クラスのポインタ配列に返す
 	 */
-	static SceneBase* Instance();
+	static std::unique_ptr<SceneBase> Instance();
+
 
 private:
-	ResultUI* mp_ui; //!リザルト画面用UI
+	std::unique_ptr<ResultUI> mp_ui;  //!リザルト画面用UI
 };
 
 #endif
