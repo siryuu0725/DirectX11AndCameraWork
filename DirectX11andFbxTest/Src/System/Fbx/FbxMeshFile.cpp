@@ -378,7 +378,7 @@ void FbxMeshFile::CreateMesh(FbxMesh* mesh, std::unordered_map<int, std::string>
 	LoadBones(mesh_data, mesh);
 
 	//メッシュデータ追加
-	m_MeshList.push_back(mesh_data);
+	m_MeshList.emplace_back(mesh_data);
 
 	int skin_num = mesh->GetDeformerCount(FbxDeformer::eSkin);
 	if (skin_num <= 0)
@@ -416,7 +416,7 @@ void FbxMeshFile::LoadVertices(MeshData& mesh_data, FbxMesh* mesh)
 		vertex.Position.z = (float)vertices[index][2];
 
 		// 追加
-		mesh_data.m_Vertices.push_back(vertex);
+		mesh_data.m_Vertices.emplace_back(vertex);
 	}
 }
 
@@ -429,9 +429,9 @@ void FbxMeshFile::LoadIndices(MeshData& mesh_data, FbxMesh* mesh)
 	// ポリゴンの数だけ連番として保存する
 	for (int i = 0; i < polygon_count; i++)
 	{
-		mesh_data.m_Indices.push_back(i * 3 + 2);
-		mesh_data.m_Indices.push_back(i * 3 + 1);
-		mesh_data.m_Indices.push_back(i * 3);
+		mesh_data.m_Indices.emplace_back(i * 3 + 2);
+		mesh_data.m_Indices.emplace_back(i * 3 + 1);
+		mesh_data.m_Indices.emplace_back(i * 3);
 	}
 }
 

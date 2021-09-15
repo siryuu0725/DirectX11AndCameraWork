@@ -173,7 +173,7 @@ void Camera::HitRectBlock()
 			//2つのベクトルの内積の積が0以下だった場合=面を貫通している
 			if (start_dot * end_dot <= 0.0f)
 			{
-				vertex_no.push_back(i);
+				vertex_no.emplace_back(i);
 			}
 		}
 

@@ -52,7 +52,6 @@ void SceneController::SetSceneId(SceneId sceneid_)
 //シーン切り替え判定関数
 void SceneController::ChangeScene()
 {
-	//if (mp_scene == nullptr) { mp_scene = new TitleScene; }
 	if (mp_scene == nullptr) { mp_scene = std::make_unique<TitleScene>(); }
 
 	if (mp_scene->GetIsChangeScene() == true)
@@ -70,12 +69,6 @@ std::unique_ptr<SceneBase>(*SceneController::s_controller_array[static_cast<int>
 	GameScene::Instance,	  //ゲーム
 	ResultScene::Instance  //リザルト
 };
-
-//デストラクタ
-SceneController::~SceneController()
-{
-	//delete mp_scene;
-}
 
 //Instance解放関数(Debug用)
 void SceneController::ReleaseInstance()

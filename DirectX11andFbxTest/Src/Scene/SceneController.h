@@ -24,7 +24,7 @@ class SceneController
 {
 private:
 	SceneController() :mp_scene(nullptr) {}
-	~SceneController();
+	~SceneController() {}
 public:
 
 	/**

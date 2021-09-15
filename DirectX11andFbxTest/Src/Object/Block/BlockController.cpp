@@ -5,13 +5,13 @@
 void BlockController::Init()
 {
 	//円形ブロック
-	m_circleblocks.push_back(std::make_unique<CircleBlock>
+	m_circleblocks.emplace_back(std::make_unique<CircleBlock>
 	(Vector3(100.0f, 0.0f, -30.0f),
 		Vector3(5.0f, 100.0f, 5.0f),
 		17.0f, 50.0f, "circleblock"));
 
 	//矩形ブロック
-	m_rectblocks.push_back(std::make_unique<RectBlock>
+	m_rectblocks.emplace_back(std::make_unique<RectBlock>
 	(Vector3(10.0f, 12.0f, -30.0f),
 		Vector3(5.0f, 5.0f, 5.0f),
 		Vector3(0.0f, 0.0f, 0.0f),
