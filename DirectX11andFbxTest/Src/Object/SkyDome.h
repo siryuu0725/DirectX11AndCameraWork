@@ -27,8 +27,6 @@ public:
 
 private:
 	ObjectInfo skydome_info; //!空情報
-	FbxController* fbx_insttance = FbxController::Instance();
-
 };
 
 #endif

@@ -56,10 +56,6 @@ public:
 
 private:
 	std::unique_ptr<ResultUI> mp_ui;  //!リザルト画面用UI
-
-	DirectGraphics* graphics_instance = DirectGraphics::Instance();
-	Inputter* input_instance = Inputter::Instance();
-	SceneController* scene_instance = SceneController::Instance();
 };
 
 #endif

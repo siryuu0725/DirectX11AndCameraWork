@@ -16,11 +16,10 @@ void TitleScene::InitStep()
 {
 	if (mp_ui == nullptr) { mp_ui = std::make_unique<TitleUI>(); }
 
+
 	mp_ui->Init(); //UI初期化
 
-	TextureManager* tex_instance = TextureManager::Instance();
-
-	tex_instance->Load();
+	TextureManager::Instance()->Load();
 
 	m_cur_step = SceneStep::MainStep;
 }
@@ -29,12 +28,12 @@ void TitleScene::InitStep()
 void TitleScene::MainStep()
 {
 	//Enterキーが押されたら次のステップへ
-	if (input_instance->GetKeyDown(Inputter::ReturnKey))
+	if (Inputter::Instance()->GetKeyDown(Inputter::ReturnKey))
 	{
 		m_cur_step = SceneStep::EndStep;
 	}
 	//ESCキーが押されたら次のステップへ(ゲーム終了フラグtrue)
-	if (input_instance->GetKeyDown(Inputter::ESCKey))
+	if (Inputter::Instance()->GetKeyDown(Inputter::ESCKey))
 	{
 		m_cur_step = SceneStep::EndStep;
 		is_game_end = true;
@@ -48,7 +47,7 @@ void TitleScene::EndStep()
 	m_cur_step = SceneStep::InitStep;
 
 	//ゲームシーンへ変更
-	scene_instance->SetSceneId(SceneId::Game);
+	SceneController::Instance()->SetSceneId(SceneId::Game);
 	m_is_change_scene = true;
 }
 
@@ -56,8 +55,8 @@ void TitleScene::EndStep()
 void TitleScene::Draw()
 {
 	//メイン描画開始
-	graphics_instance->StartRendering();
-	graphics_instance->SetUpRnderTaget();
+	DirectGraphics::Instance()->StartRendering();
+	DirectGraphics::Instance()->SetUpRnderTaget();
 
 	if (mp_ui != nullptr)
 	{
@@ -65,7 +64,7 @@ void TitleScene::Draw()
 	}
 
 	//描画終了
-	graphics_instance->FinishRendering();
+	DirectGraphics::Instance()->FinishRendering();
 }
 
 //インスタンス返還関数

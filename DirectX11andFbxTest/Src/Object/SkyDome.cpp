@@ -17,5 +17,5 @@ void SkyDome::Init()
 //描画関数
 void SkyDome::Draw()
 {
-	fbx_insttance->DrawFbx(skydome_info.m_key, skydome_info.world_matrix, DrawType::MainDraw);
+	FbxController::Instance()->DrawFbx(skydome_info.m_key, skydome_info.world_matrix, DrawType::MainDraw);
 }

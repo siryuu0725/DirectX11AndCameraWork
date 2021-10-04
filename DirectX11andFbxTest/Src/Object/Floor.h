@@ -32,8 +32,6 @@ public:
 
 private:
 	ObjectInfo floor_info; //!床情報
-	FbxController* fbx_insttance = FbxController::Instance();
-
 };
 
 #endif

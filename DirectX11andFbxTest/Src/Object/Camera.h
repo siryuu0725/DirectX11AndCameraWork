@@ -8,8 +8,6 @@
 #include "ObjectBase.h"
 #include "Block/BlockController.h"
 #include "../System/DirectGraphics.h"
-#include "../Utility/Collision/ObjectCollision.h"
-
 
 constexpr float CameraRoteTime = 0.2f;   //球面線形補間に使う媒介変数
 constexpr float MaxCameraRote_Y = 80.0f; //縦回転の限界値
@@ -148,8 +146,6 @@ public:
 
 private:
 	BlockController* mp_block;
-	ObjectCollision* collision_instance = ObjectCollision::Instance();
-
 };
 
 #endif

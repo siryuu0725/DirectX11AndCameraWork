@@ -1,5 +1,6 @@
 ﻿#include "CircleBlock.h"
 #include "../../System/DirectInput.h"
+#include "../../Utility/Collision/ObjectCollision.h"
 
 //コンストラクタ
 CircleBlock::CircleBlock(Vector3 pos_, Vector3 scale_, float radius_, float height_, std::string key_)
@@ -20,11 +21,11 @@ CircleBlock::CircleBlock(Vector3 pos_, Vector3 scale_, float radius_, float heig
 //描画関数
 void CircleBlock::Draw()
 {
-	fbx_insttance->DrawFbx(m_circleblock_info.m_key, m_circleblock_info.world_matrix, DrawType::MainDraw);
+	FbxController::Instance()->DrawFbx(m_circleblock_info.m_key, m_circleblock_info.world_matrix, DrawType::MainDraw);
 }
 
 //影描画関数
 void CircleBlock::ShadowDraw()
 {
-	fbx_insttance->DrawFbx(m_circleblock_info.m_key, m_circleblock_info.world_matrix, DrawType::ShadowDraw);
+	FbxController::Instance()->DrawFbx(m_circleblock_info.m_key, m_circleblock_info.world_matrix, DrawType::ShadowDraw);
 }

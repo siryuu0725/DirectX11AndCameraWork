@@ -16,11 +16,11 @@ void Floor::Init()
 //描画関数
 void Floor::Draw()
 {
-	fbx_insttance->DrawFbx(floor_info.m_key, floor_info.world_matrix, DrawType::MainDraw);
+	FbxController::Instance()->DrawFbx(floor_info.m_key, floor_info.world_matrix, DrawType::MainDraw);
 }
 
 //影描画関数
 void Floor::ShadowDraw()
 {
-	fbx_insttance->DrawFbx(floor_info.m_key, floor_info.world_matrix, DrawType::ShadowDraw);
+	FbxController::Instance()->DrawFbx(floor_info.m_key, floor_info.world_matrix, DrawType::ShadowDraw);
 }

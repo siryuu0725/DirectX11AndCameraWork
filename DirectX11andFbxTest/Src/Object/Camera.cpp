@@ -2,6 +2,7 @@
 #include "../System/DirectInput.h"
 #include "../System/Window.h"
 #include "../Utility/Calculation.h"
+#include "../Utility/Collision/ObjectCollision.h"
 
 //初期化関数
 void Camera::Init()
@@ -71,7 +72,7 @@ void Camera::Update()
 	m_camerainfo.m_direction = m_camerainfo.m_forward - m_camerainfo.m_pos;
 
 	//第三者に情報送信
-	collision_instance->SetCameraInfo(m_camerainfo);
+	ObjectCollision::Instance()->SetCameraInfo(m_camerainfo);
 
 	//当たり判定
 	HitRectBlock();
@@ -130,10 +131,10 @@ void Camera::Move()
 //矩形ブロック当たり判定関数
 void Camera::HitRectBlock()
 {
-	if (collision_instance->HitRectBlock() == true)
+	if (ObjectCollision::Instance()->HitRectBlock() == true)
 	{
 		ObjectInfo rectblock_info;
-		mp_block->GetRectBlockInfo(rectblock_info, collision_instance->GetRectBlockID());
+		mp_block->GetRectBlockInfo(rectblock_info, ObjectCollision::Instance()->GetRectBlockID());
 
 		Vector3 nor[6];  //各面の方向ベクトル
 		Vector3 vertex_pos[6]; //各面の中点座標
@@ -229,10 +230,10 @@ void Camera::HitRectBlock()
 //円形ブロック当たり判定関数
 void Camera::HitCircleBlock()
 {
-	if (collision_instance->HitCircleBlock() == true)
+	if (ObjectCollision::Instance()->HitCircleBlock() == true)
 	{
 		ObjectInfo circleblock_info;
-		mp_block->GetCircleBlockInfo(circleblock_info, collision_instance->GetCircleBlockID());
+		mp_block->GetCircleBlockInfo(circleblock_info, ObjectCollision::Instance()->GetCircleBlockID());
 
 		Vector3 cilinder_start = circleblock_info.m_pos;
 		cilinder_start.y += circleblock_info.m_height / 2;
@@ -300,13 +301,10 @@ void Camera::HitCircleBlock()
 //カメラ回転関数
 void Camera::RotEyePos()
 {
-	Inputter* input_instance = Inputter::Instance();
-
-
 	m_camerainfo.m_floor_intersection = Vector3(0.0f, 0.0f, 0.0f);
 
 	//左回転
-	if (input_instance->GetKey(Inputter::JKey))
+	if (Inputter::Instance()->GetKey(Inputter::JKey))
 	{
 		//回転角度設定
 		m_camerainfo.m_yaw = m_camerainfo.m_rote_speed;
@@ -317,7 +315,7 @@ void Camera::RotEyePos()
 		m_camerainfo.m_zik_vec = Calculation::Rotate(m_camerainfo.m_zik_vec, Vector3(0.0f, 0.0f, 0.0f), Radian(m_camerainfo.m_yaw));
 	}
 	//左回転
-	else if (input_instance->GetKey(Inputter::LKey))
+	else if (Inputter::Instance()->GetKey(Inputter::LKey))
 	{
 		//回転角度設定
 		m_camerainfo.m_yaw = -m_camerainfo.m_rote_speed;
@@ -327,7 +325,7 @@ void Camera::RotEyePos()
 		m_camerainfo.m_zik_vec = Calculation::Rotate(m_camerainfo.m_zik_vec, Vector3(0.0f, 0.0f, 0.0f), Radian(m_camerainfo.m_yaw));
 	}
 	//上回転
-	else if (input_instance->GetKey(Inputter::IKey))
+	else if (Inputter::Instance()->GetKey(Inputter::IKey))
 	{
 		//回転角度設定
 		m_camerainfo.m_yaw = m_camerainfo.m_rote_speed;
@@ -358,7 +356,7 @@ void Camera::RotEyePos()
 		}
 	}
 	//下回転
-	else if (input_instance->GetKey(Inputter::KKey))
+	else if (Inputter::Instance()->GetKey(Inputter::KKey))
 	{
 		//回転角度設定
 		m_camerainfo.m_yaw = m_camerainfo.m_rote_speed;

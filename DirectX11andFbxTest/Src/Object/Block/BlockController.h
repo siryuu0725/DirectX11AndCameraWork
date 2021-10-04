@@ -7,8 +7,6 @@
 #define BLOCKCONTROLLER_H_
 #include "CircleBlock.h"
 #include "RectBlock.h"
-#include "../../Utility/Collision/ObjectCollision.h"
-
 #include <vector>
 
 /**
@@ -62,8 +60,6 @@ public:
 private:
 	std::vector<std::unique_ptr<CircleBlock>> m_circleblocks;  //!円形ブロック
 	std::vector<std::unique_ptr<RectBlock>> m_rectblocks;      //!矩形ブロック
-
-	ObjectCollision* collision_instance = ObjectCollision::Instance();
 };
 
 

@@ -36,18 +36,17 @@ public:
 	*/
 	virtual void ShadowDraw()override;
 
-	/**
-　 * @brief  オブジェクト情報Getter
-   * @param[out] copy_info_ 保存用オブジェクト構造体
-   * @details 引数にオブジェクトの情報を渡す
-　 */
-	const void GetRectBlockInfo(ObjectInfo& copy_info_) { copy_info_ = m_rectblock_info; }
-
 private:
 	//!矩形型ブロック情報(頂点情報)
 	ObjectInfo m_rectblock_info;
-	FbxController* fbx_insttance = FbxController::Instance();
 
+public:
+    /**
+ 　 * @brief  オブジェクト情報Getter
+    * @param[out] copy_info_ 保存用オブジェクト構造体
+	* @details 引数にオブジェクトの情報を渡す
+ 　 */
+	const void GetRectBlockInfo(ObjectInfo& copy_info_) { copy_info_ = m_rectblock_info; }
 };
 
 #endif

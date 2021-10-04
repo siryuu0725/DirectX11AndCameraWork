@@ -15,14 +15,12 @@ void LoadUI::Init()
 //描画情報送信関数
 void LoadUI::Draw()
 {
-	TextureManager* tex_instance = TextureManager::Instance();
-
-	tex_instance->Draw("NowLoading",
+	TextureManager::Instance()->Draw("NowLoading",
 		m_ui_info.m_pos[(__int8)LoadUICategory::NowLoad],
 		m_ui_info.m_scale[(__int8)LoadUICategory::NowLoad],
 		m_ui_info.m_rot[(__int8)LoadUICategory::NowLoad]);
 
-	tex_instance->Draw("LoadingIcon",
+	TextureManager::Instance()->Draw("LoadingIcon",
 		m_ui_info.m_pos[(__int8)LoadUICategory::RotTex],
 		m_ui_info.m_scale[(__int8)LoadUICategory::RotTex],
 		m_ui_info.m_rot[(__int8)LoadUICategory::RotTex]);
