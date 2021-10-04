@@ -19,11 +19,11 @@ RectBlock::RectBlock(Vector3 pos_, Vector3 scale_, Vector3 angle_, Vector3 size_
 //描画関数
 void RectBlock::Draw()
 {
-	FbxController::Instance()->DrawFbx(m_rectblock_info.m_key, m_rectblock_info.world_matrix, DrawType::MainDraw);
+	fbx_insttance->DrawFbx(m_rectblock_info.m_key, m_rectblock_info.world_matrix, DrawType::MainDraw);
 }
 
 //影描画関数
 void RectBlock::ShadowDraw()
 {
-	FbxController::Instance()->DrawFbx(m_rectblock_info.m_key, m_rectblock_info.world_matrix, DrawType::ShadowDraw);
+	fbx_insttance->DrawFbx(m_rectblock_info.m_key, m_rectblock_info.world_matrix, DrawType::ShadowDraw);
 }

@@ -62,7 +62,7 @@ void BlockController::SetCollisionInfo()
 
 		m_circleblocks[i]->GetCircleBlockInfo(circleblock_info);
 
-		ObjectCollision::Instance()->SetCircleBlockInfo(circleblock_info);
+		collision_instance->SetCircleBlockInfo(circleblock_info);
 	}
 
 	//矩形ブロック
@@ -72,7 +72,7 @@ void BlockController::SetCollisionInfo()
 
 		m_rectblocks[i]->GetRectBlockInfo(rectblock_info);
 
-		ObjectCollision::Instance()->SetRectBlockInfo(rectblock_info);
+		collision_instance->SetRectBlockInfo(rectblock_info);
 	}
 }
 

@@ -11,7 +11,9 @@ void TitleUI::Init()
 //描画情報送信関数
 void TitleUI::Draw()
 {
-	TextureManager::Instance()->Draw("TitleBG", 
+	TextureManager* tex_instance = TextureManager::Instance();
+
+	tex_instance->Draw("TitleBG",
 		m_ui_info.m_pos[(__int8)TitleUICategory::BG],
 		m_ui_info.m_scale[(__int8)TitleUICategory::BG],
 		m_ui_info.m_rot[(__int8)TitleUICategory::BG]);

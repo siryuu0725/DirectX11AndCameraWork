@@ -43,6 +43,7 @@ public:
 
 private:
 	ObjectInfo m_circleblock_info;  //!円型ブロック情報
+	FbxController* fbx_insttance = FbxController::Instance();
 };
 
 #endif

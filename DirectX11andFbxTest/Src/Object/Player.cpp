@@ -30,19 +30,21 @@ void Player::Update()
 //描画関数
 void Player::Draw()
 {
-	FbxController::Instance()->DrawFbx(player_info.m_key, player_info.world_matrix, DrawType::MainDraw);
+	fbx_insttance->DrawFbx(player_info.m_key, player_info.world_matrix, DrawType::MainDraw);
 }
 
 //影描関数
 void Player::ShadowDraw()
 {
-	FbxController::Instance()->DrawFbx(player_info.m_key, player_info.world_matrix, DrawType::ShadowDraw);
+	fbx_insttance->DrawFbx(player_info.m_key, player_info.world_matrix, DrawType::ShadowDraw);
 }
 
 
 //移動関数
 void Player::Move()
 {
+	Inputter* input_instance = Inputter::Instance();
+
 	//更新前座標保存
 	player_info.m_old_pos = player_info.m_pos;
 
@@ -55,7 +57,7 @@ void Player::Move()
 	player_info.m_camera_dir = camera_info.m_direction;
 
 	//前移動
-	if (Inputter::Instance()->GetKey(Inputter::WKey))
+	if (input_instance->GetKey(Inputter::WKey))
 	{
 		//最終的に向く方向ベクトル
 		Vector3 m_top_vec = Vector3(player_info.m_camera_dir.x, 0.0f, player_info.m_camera_dir.z); //!左方向ベクトル
@@ -64,7 +66,7 @@ void Player::Move()
 		RoteDirection(m_top_vec);
 	}
 	//後ろ移動
-	if (Inputter::Instance()->GetKey(Inputter::SKey))
+	if (input_instance->GetKey(Inputter::SKey))
 	{
 		//最終的に向く方向ベクトル
 		Vector3 m_under_vec = Vector3(-player_info.m_camera_dir.x, 0.0f, -player_info.m_camera_dir.z); //!左方向ベクトル
@@ -73,7 +75,7 @@ void Player::Move()
 		RoteDirection(m_under_vec);
 	}
 	//左移動
-	if (Inputter::Instance()->GetKey(Inputter::AKey))
+	if (input_instance->GetKey(Inputter::AKey))
 	{
 		//最終的に向く方向ベクトル
 		Vector3 m_left_vec = Vector3(-player_info.m_camera_dir.z, 0.0f, player_info.m_camera_dir.x); //!左方向ベクトル
@@ -82,7 +84,7 @@ void Player::Move()
 		RoteDirection(m_left_vec);
 	}
 	//右移動
-	if (Inputter::Instance()->GetKey(Inputter::DKey))
+	if (input_instance->GetKey(Inputter::DKey))
 	{
 		//最終的に向く方向ベクトル
 		Vector3 m_right_vec = Vector3(player_info.m_camera_dir.z, 0.0f, -player_info.m_camera_dir.x); //!左方向ベクトル
@@ -95,11 +97,11 @@ void Player::Move()
 	if (player_info.m_speed > StopSpeed)
 	{
 		//動かしたいAnimationのキー設定
-		FbxController::Instance()->SetAnimationName(player_info.m_key, "Run");
+		fbx_insttance->SetAnimationName(player_info.m_key, "Run");
 	}
 	else
 	{
-		FbxController::Instance()->SetAnimationName(player_info.m_key, "Stay");
+		fbx_insttance->SetAnimationName(player_info.m_key, "Stay");
 	}
 
 	Calculation::ThreeNormalization(player_info.m_direction);
@@ -132,7 +134,7 @@ void Player::RoteDirection(Vector3 m_end_vec_)
 //アニメーション関数
 void Player::Animation()
 {
-	FbxController::Instance()->PlayAnimation(player_info.m_key);
+	fbx_insttance->PlayAnimation(player_info.m_key);
 }
 
 

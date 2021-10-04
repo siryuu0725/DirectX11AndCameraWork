@@ -16,8 +16,8 @@ ResultScene::ResultScene():
 void ResultScene::Draw()
 {
 	//メイン描画開始
-	DirectGraphics::Instance()->StartRendering();
-	DirectGraphics::Instance()->SetUpRnderTaget();
+	graphics_instance->StartRendering();
+	graphics_instance->SetUpRnderTaget();
 
 	if (mp_ui != nullptr)
 	{
@@ -25,7 +25,7 @@ void ResultScene::Draw()
 	}
 
 	//描画終了
-	DirectGraphics::Instance()->FinishRendering();
+	graphics_instance->FinishRendering();
 }
 
 //初期化ステップ関数
@@ -44,12 +44,12 @@ void ResultScene::InitStep()
 void ResultScene::MainStep()
 {
 	//Enterキーが押されたら次のステップへ
-	if (Inputter::Instance()->GetKeyDown(Inputter::ReturnKey))
+	if (input_instance->GetKeyDown(Inputter::ReturnKey))
 	{
 		m_cur_step = SceneStep::EndStep;
 	}
 	//ESCキーが押されたら次のステップへ(ゲーム終了フラグtrue)
-	if (Inputter::Instance()->GetKeyDown(Inputter::ESCKey))
+	if (input_instance->GetKeyDown(Inputter::ESCKey))
 	{
 		m_cur_step = SceneStep::EndStep;
 		is_game_end = true;
@@ -63,7 +63,7 @@ void ResultScene::EndStep()
 	m_cur_step = SceneStep::InitStep;
 
 	//タイトルシーンへ変更
-	SceneController::Instance()->SetSceneId(SceneId::Title);
+	scene_instance->SetSceneId(SceneId::Title);
 
 	//シーン移行フラグtrue
 	m_is_change_scene = true;

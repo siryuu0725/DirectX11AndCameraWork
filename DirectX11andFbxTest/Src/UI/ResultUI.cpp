@@ -11,7 +11,9 @@ void ResultUI::Init()
 //描画情報送信関数
 void ResultUI::Draw()
 {
-	TextureManager::Instance()->Draw("EndBG",
+	TextureManager* tex_instance = TextureManager::Instance();
+
+	tex_instance->Draw("EndBG",
 		m_ui_info.m_pos[(__int8)ResultUICategory::BG],
 		m_ui_info.m_scale[(__int8)ResultUICategory::BG],
 		m_ui_info.m_rot[(__int8)ResultUICategory::BG]);

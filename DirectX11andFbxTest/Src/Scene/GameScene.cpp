@@ -70,16 +70,15 @@ void GameScene::MainStep()
 	//オブジェクト更新
 	mp_player->Update();
 	mp_camera->Update();
-
 	
 	//Enterキーが押されたら次のステップへ
-	if (Inputter::Instance()->GetKeyDown(Inputter::ReturnKey))
+	if (input_instance->GetKeyDown(Inputter::ReturnKey))
 	{
 		m_cur_step = SceneStep::EndStep;
 	}
 
 	//ESCキーが押されたら次のステップへ(ゲーム終了フラグtrue)
-	if (Inputter::Instance()->GetKeyDown(Inputter::ESCKey))
+	if (input_instance->GetKeyDown(Inputter::ESCKey))
 	{
 		m_cur_step = SceneStep::EndStep;
 		is_game_end = true;
@@ -90,19 +89,19 @@ void GameScene::MainStep()
 void GameScene::EndStep()
 {
 
-	FbxController::Instance()->ReleaseModel();
+	fbx_instance->ReleaseModel();
 
 	//初期化ステップに変更
 	m_cur_step = SceneStep::InitStep;
 
 	//リザルトシーンへ変更
-	SceneController::Instance()->SetSceneId(SceneId::Result);
+	scene_instance->SetSceneId(SceneId::Result);
 
 	m_is_change_scene = true;
 
 #ifdef _DEBUG
-	ObjectCollision::Instance()->ReleaseInstance();
-	FbxController::Instance()->ReleaseInstance();
+	collision_instance->ReleaseInstance();
+	fbx_instance->ReleaseInstance();
 #endif
 }
 
@@ -113,8 +112,8 @@ void GameScene::Draw()
 	if (WaitForSingleObject(thread_h, 0) != WAIT_OBJECT_0)
 	{
 		//メイン描画開始
-		DirectGraphics::Instance()->StartRendering();
-		DirectGraphics::Instance()->SetUpRnderTaget();
+		graphics_instance->StartRendering();
+		graphics_instance->SetUpRnderTaget();
 
 		if (mp_ui != nullptr)
 		{
@@ -122,7 +121,7 @@ void GameScene::Draw()
 		}
 
 		//描画終了
-		DirectGraphics::Instance()->FinishRendering();
+		graphics_instance->FinishRendering();
 		return;
 	}
 
@@ -155,15 +154,15 @@ void GameScene::UpdateObject()
 void GameScene::DrawObject()
 {
 	//影描画開始
-	DirectGraphics::Instance()->ShadowStartRendering();
-	DirectGraphics::Instance()->SetUpShadowRnderTaget();
+	graphics_instance->ShadowStartRendering();
+	graphics_instance->SetUpShadowRnderTaget();
 
 	//mp_block->ShadowDraw();
 	mp_player->ShadowDraw();
 
 	//メイン描画開始
-	DirectGraphics::Instance()->StartRendering();
-	DirectGraphics::Instance()->SetUpRnderTaget();
+	graphics_instance->StartRendering();
+	graphics_instance->SetUpRnderTaget();
 
 	mp_floor->Draw();
 	mp_sky_dome->Draw();
@@ -172,7 +171,7 @@ void GameScene::DrawObject()
 	mp_player->Draw();
 
 	//描画終了
-	DirectGraphics::Instance()->FinishRendering();
+	graphics_instance->FinishRendering();
 }
 
 //インスタンス返還関数

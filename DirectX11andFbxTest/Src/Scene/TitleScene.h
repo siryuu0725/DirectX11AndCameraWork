@@ -56,6 +56,10 @@ public:
 	
 private:
 	std::unique_ptr<TitleUI> mp_ui;
+
+	DirectGraphics* graphics_instance = DirectGraphics::Instance();
+	Inputter* input_instance = Inputter::Instance();
+	SceneController* scene_instance = SceneController::Instance();
 };
 
 #endif

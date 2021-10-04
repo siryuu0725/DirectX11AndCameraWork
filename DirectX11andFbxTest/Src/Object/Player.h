@@ -88,6 +88,8 @@ public:
 
 private:
 	Camera* mp_camera; 
+	FbxController* fbx_insttance = FbxController::Instance();
+
 };
 
 #endif

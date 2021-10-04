@@ -109,6 +109,13 @@ private:
 
 	HANDLE thread_h;
 	DWORD thread_id;
+
+	DirectGraphics* graphics_instance = DirectGraphics::Instance();
+	Inputter* input_instance = Inputter::Instance();
+	FbxController* fbx_instance = FbxController::Instance();
+	SceneController* scene_instance = SceneController::Instance();
+	ObjectCollision* collision_instance = ObjectCollision::Instance();
+
 };
 
 #endif
